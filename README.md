@@ -37,27 +37,27 @@ Usage
 You don't ever need to include the original `fs` module again:
 
 ```js
-var fs = require('fs') // this is no longer necessary
+const fs = require('fs') // this is no longer necessary
 ```
 
 you can now do this:
 
 ```js
-var fs = require('fs-extra')
+const fs = require('fs-extra')
 ```
 
 or if you prefer to make it clear that you're using `fs-extra` and not `fs`, you may want
 to name your `fs` variable `fse` like so:
 
 ```js
-var fse = require('fs-extra')
+const fse = require('fs-extra')
 ```
 
 you can also keep both, but it's redundant:
 
 ```js
-var fs = require('fs')
-var fse = require('fs-extra')
+const fs = require('fs')
+const fse = require('fs-extra')
 ```
 
 Sync vs Async
@@ -69,7 +69,7 @@ Sync methods on the other hand will throw if an error occurs.
 Example:
 
 ```js
-var fs = require('fs-extra')
+const fs = require('fs-extra')
 
 fs.copy('/tmp/myfile', '/tmp/mynewfile', function (err) {
   if (err) return console.error(err)
@@ -136,7 +136,7 @@ Sync: `copySync()`
 Example:
 
 ```js
-var fs = require('fs-extra')
+const fs = require('fs-extra')
 
 fs.copy('/tmp/myfile', '/tmp/mynewfile', function (err) {
   if (err) return console.error(err)
@@ -161,7 +161,7 @@ Sync: `emptyDirSync()`, `emptydirSync()`
 Example:
 
 ```js
-var fs = require('fs-extra')
+const fs = require('fs-extra')
 
 // assume this directory has a lot of files and folders
 fs.emptyDir('/tmp/some/dir', function (err) {
@@ -182,9 +182,9 @@ Sync: `createFileSync()`,`ensureFileSync()`
 Example:
 
 ```js
-var fs = require('fs-extra')
+const fs = require('fs-extra')
 
-var file = '/tmp/this/path/does/not/exist/file.txt'
+const file = '/tmp/this/path/does/not/exist/file.txt'
 fs.ensureFile(file, function (err) {
   console.log(err) // => null
   // file has now been created, including the directory it is to be placed in
@@ -202,9 +202,9 @@ Sync: `ensureDirSync()`
 Example:
 
 ```js
-var fs = require('fs-extra')
+const fs = require('fs-extra')
 
-var dir = '/tmp/this/path/does/not/exist'
+const dir = '/tmp/this/path/does/not/exist'
 fs.ensureDir(dir, function (err) {
   console.log(err) // => null
   // dir has now been created, including the directory it is to be placed in
@@ -222,10 +222,10 @@ Sync: `ensureLinkSync()`
 Example:
 
 ```js
-var fs = require('fs-extra')
+const fs = require('fs-extra')
 
-var srcpath = '/tmp/file.txt'
-var dstpath = '/tmp/this/path/does/not/exist/file.txt'
+const srcpath = '/tmp/file.txt'
+const dstpath = '/tmp/this/path/does/not/exist/file.txt'
 fs.ensureLink(srcpath, dstpath, function (err) {
   console.log(err) // => null
   // link has now been created, including the directory it is to be placed in
@@ -243,10 +243,10 @@ Sync: `ensureSymlinkSync()`
 Example:
 
 ```js
-var fs = require('fs-extra')
+const fs = require('fs-extra')
 
-var srcpath = '/tmp/file.txt'
-var dstpath = '/tmp/this/path/does/not/exist/file.txt'
+const srcpath = '/tmp/file.txt'
+const dstpath = '/tmp/this/path/does/not/exist/file.txt'
 fs.ensureSymlink(srcpath, dstpath, function (err) {
   console.log(err) // => null
   // symlink has now been created, including the directory it is to be placed in
@@ -266,7 +266,7 @@ Sync: `mkdirsSync()` / `mkdirpSync()`
 Examples:
 
 ```js
-var fs = require('fs-extra')
+const fs = require('fs-extra')
 
 fs.mkdirs('/tmp/some/long/path/that/prob/doesnt/exist', function (err) {
   if (err) return console.error(err)
@@ -288,7 +288,7 @@ Options:
 Example:
 
 ```js
-var fs = require('fs-extra')
+const fs = require('fs-extra')
 
 fs.move('/tmp/somefile', '/tmp/does/not/exist/yet/somefile', function (err) {
   if (err) return console.error(err)
@@ -307,8 +307,8 @@ Sync: `outputFileSync()`
 Example:
 
 ```js
-var fs = require('fs-extra')
-var file = '/tmp/this/path/does/not/exist/file.txt'
+const fs = require('fs-extra')
+const file = '/tmp/this/path/does/not/exist/file.txt'
 
 fs.outputFile(file, 'hello!', function (err) {
   console.log(err) // => null
@@ -334,8 +334,8 @@ Sync: `outputJsonSync()`, `outputJSONSync()`
 Example:
 
 ```js
-var fs = require('fs-extra')
-var file = '/tmp/this/path/does/not/exist/file.txt'
+const fs = require('fs-extra')
+const file = '/tmp/this/path/does/not/exist/file.txt'
 
 fs.outputJson(file, {name: 'JP'}, function (err) {
   console.log(err) // => null
@@ -361,7 +361,7 @@ Sync: `readJsonSync()`, `readJSONSync()`
 Example:
 
 ```js
-var fs = require('fs-extra')
+const fs = require('fs-extra')
 
 fs.readJson('./package.json', function (err, packageObj) {
   console.log(packageObj.version) // => 0.1.3
@@ -371,12 +371,12 @@ fs.readJson('./package.json', function (err, packageObj) {
 `readJsonSync()` can take a `throws` option set to `false` and it won't throw if the JSON is invalid. Example:
 
 ```js
-var fs = require('fs-extra')
-var file = path.join('/tmp/some-invalid.json')
-var data = '{not valid JSON'
+const fs = require('fs-extra')
+const file = path.join('/tmp/some-invalid.json')
+const data = '{not valid JSON'
 fs.writeFileSync(file, data)
 
-var obj = fs.readJsonSync(file, {throws: false})
+const obj = fs.readJsonSync(file, {throws: false})
 console.log(obj) // => null
 ```
 
@@ -391,7 +391,7 @@ Sync: `removeSync()`
 Examples:
 
 ```js
-var fs = require('fs-extra')
+const fs = require('fs-extra')
 
 fs.remove('/tmp/myfile', function (err) {
   if (err) return console.error(err)
@@ -416,8 +416,8 @@ returns an object with two properties: `path` and `stats`. `path` is the full pa
 Streams 1 (push) example:
 
 ```js
-var fs = require('fs-extra')
-var items = [] // files, directories, symlinks, etc
+const fs = require('fs-extra')
+const items = [] // files, directories, symlinks, etc
 fs.walk(TEST_DIR)
   .on('data', function (item) {
     items.push(item.path)
@@ -430,11 +430,11 @@ fs.walk(TEST_DIR)
 Streams 2 & 3 (pull) example:
 
 ```js
-var items = [] // files, directories, symlinks, etc
-var fs = require('fs-extra')
+const items = [] // files, directories, symlinks, etc
+const fs = require('fs-extra')
 fs.walk(TEST_DIR)
   .on('readable', function () {
-    var item
+    const item
     while ((item = this.read())) {
       items.push(item.path)
     }
@@ -462,7 +462,7 @@ Sync: `writeJsonSync()`, `writeJSONSync()`
 Example:
 
 ```js
-var fs = require('fs-extra')
+const fs = require('fs-extra')
 fs.writeJson('./package.json', {name: 'fs-extra'}, function (err) {
   console.log(err)
 })
@@ -478,8 +478,8 @@ Use [Bluebird](https://github.com/petkaantonov/bluebird). See https://github.com
 explicitly listed as supported.
 
 ```js
-var Promise = require('bluebird')
-var fs = Promise.promisifyAll(require('fs-extra'))
+const Promise = require('bluebird')
+const fs = Promise.promisifyAll(require('fs-extra'))
 ```
 
 Or you can use the package [`fs-extra-promise`](https://github.com/overlookmotel/fs-extra-promise) that marries the two together.
