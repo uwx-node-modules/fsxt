@@ -1,0 +1,2 @@
+copy the .jshintrc file to your $HOME or %USERPROFILE% on Windows, then install fixmyjs and run clean
+delete the file afterwards so you don't accidentally hang JSHint processes in the future
