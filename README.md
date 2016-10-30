@@ -684,7 +684,7 @@ Reads a `dir` contents, creates [vinyl](https://www.npmjs.com/package/vinyl) fil
 
 * `<dir>` **{String|Buffer}**: buffer or string folder/directory to read    
 * `[options]` **{Object}**: options are [extend-shallow](https://www.npmjs.com/package/extend-shallow)ed with `this.options`    
-* `returns` **{Stream}**: Transform Stream, [through2][]  
+* `returns` **{Stream}**: Transform Stream, [through2](https://www.npmjs.com/package/through2)  
 
 **Example**
 
