@@ -118,7 +118,7 @@ Methods
 **NOTE:** You can still use the native Node.js methods. They are copied over to `fs-extra`.
 
 
-### copy()
+## copy()
 
 **copy(src, dest, [options], callback)**
 
@@ -150,7 +150,7 @@ fs.copy('/tmp/mydir', '/tmp/mynewdir', function (err) {
 ```
 
 
-### emptyDir(dir, [callback])
+## emptyDir(dir, [callback])
 
 Ensures that a directory is empty. Deletes directory contents if the directory is not empty. If the directory does not exist, it is created. The directory itself is not deleted.
 
@@ -170,7 +170,7 @@ fs.emptyDir('/tmp/some/dir', function (err) {
 ```
 
 
-### ensureFile(file, callback)
+## ensureFile(file, callback)
 
 Ensures that the file exists. If the file that is requested to be created is in directories that do not exist, these directories are created. If the file already exists, it is **NOT MODIFIED**.
 
@@ -192,7 +192,7 @@ fs.ensureFile(file, function (err) {
 ```
 
 
-### ensureDir(dir, callback)
+## ensureDir(dir, callback)
 
 Ensures that the directory exists. If the directory structure does not exist, it is created.
 
@@ -212,7 +212,7 @@ fs.ensureDir(dir, function (err) {
 ```
 
 
-### ensureLink(srcpath, dstpath, callback)
+## ensureLink(srcpath, dstpath, callback)
 
 Ensures that the link exists. If the directory structure does not exist, it is created.
 
@@ -233,7 +233,7 @@ fs.ensureLink(srcpath, dstpath, function (err) {
 ```
 
 
-### ensureSymlink(srcpath, dstpath, [type], callback)
+## ensureSymlink(srcpath, dstpath, [type], callback)
 
 Ensures that the symlink exists. If the directory structure does not exist, it is created.
 
@@ -254,7 +254,7 @@ fs.ensureSymlink(srcpath, dstpath, function (err) {
 ```
 
 
-### mkdirs(dir, callback)
+## mkdirs(dir, callback)
 
 Creates a directory. If the parent hierarchy doesn't exist, it's created. Like `mkdir -p`.
 
@@ -277,7 +277,7 @@ fs.mkdirsSync('/tmp/another/path')
 ```
 
 
-### move(src, dest, [options], callback)
+## move(src, dest, [options], callback)
 
 Moves a file or directory, even across devices.
 
@@ -297,7 +297,7 @@ fs.move('/tmp/somefile', '/tmp/does/not/exist/yet/somefile', function (err) {
 ```
 
 
-### outputFile(file, data, [options], callback)
+## outputFile(file, data, [options], callback)
 
 Almost the same as `writeFile` (i.e. it [overwrites](http://pages.citebite.com/v2o5n8l2f5reb)), except that if the parent directory does not exist, it's created. `options` are what you'd pass to [`fs.writeFile()`](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback).
 
@@ -321,7 +321,7 @@ fs.outputFile(file, 'hello!', function (err) {
 
 
 
-### outputJson(file, data, [options], callback)
+## outputJson(file, data, [options], callback)
 
 Almost the same as `writeJson`, except that if the directory does not exist, it's created.
 `options` are what you'd pass to [`jsonFile.writeFile()`](https://github.com/jprichardson/node-jsonfile#writefilefilename-options-callback).
@@ -348,7 +348,7 @@ fs.outputJson(file, {name: 'JP'}, function (err) {
 
 
 
-### readJson(file, [options], callback)
+## readJson(file, [options], callback)
 
 Reads a JSON file and then parses it into an object. `options` are the same
 that you'd pass to [`jsonFile.readFile`](https://github.com/jprichardson/node-jsonfile#readfilefilename-options-callback).
@@ -381,7 +381,7 @@ console.log(obj) // => null
 ```
 
 
-### remove(dir, callback)
+## remove(dir, callback)
 
 Removes a file or directory. The directory can have contents. Like `rm -rf`.
 
@@ -402,7 +402,7 @@ fs.remove('/tmp/myfile', function (err) {
 fs.removeSync('/home/jprichardson') //I just deleted my entire HOME directory.
 ```
 
-### walk()
+## walk()
 
 **walk(dir, [streamOptions])**
 
@@ -450,7 +450,7 @@ recommend this resource as a good starting point: https://strongloop.com/strongb
 **See [`klaw` documentation](https://github.com/jprichardson/node-klaw) for more detailed usage.**
 
 
-### writeJson(file, object, [options], callback)
+## writeJson(file, object, [options], callback)
 
 Writes an object to a JSON file. `options` are the same that
 you'd pass to [`jsonFile.writeFile()`](https://github.com/jprichardson/node-jsonfile#writefilefilename-options-callback).
@@ -468,7 +468,7 @@ fs.writeJson('./package.json', {name: 'fs-extra'}, function (err) {
 })
 ```
 
-### exists(file, callback)
+## exists(file, callback)
 
 Non-deprecated check if a file exists. Calls `callback` with `true`, `false` or an error.
 
@@ -485,19 +485,19 @@ fs.exists('./package.json', function (res) {
 })
 ```
 
-### resolve(path, child)
+## resolve(path, child)
 
 Resolve a child file of a folder.
 
-### forEachChildSync(path, function(file)[, options])
+## forEachChildSync(path, function(file)[, options])
 
 Iterate through every child of a folder, synchronously.
 
-### forEachChild(function(error, file)[, options], callback)
+## forEachChild(function(error, file)[, options], callback)
 
 Iterate through every child of a folder, asynchronously.
 
-### vacuum(directory, options, callback)
+## vacuum(directory, options, callback)
 
 Remove the empty branches of a directory tree, optionally up to (but not including) a specified base directory. Optionally nukes the leaf directory.
 
@@ -509,7 +509,7 @@ Remove the empty branches of a directory tree, optionally up to (but not includi
 * `callback` {Function} Function to call once vacuuming is complete.
   * `error` {Error} What went wrong along the way, if anything.
 
-#### Usage
+### Usage
 
 ```javascript
 var logger = require("npmlog");
@@ -529,7 +529,7 @@ vacuum("/path/to/my/tree/root/out/to/my/files", function (error) {
 });
 ```
 
-### dive(directory[, options], action[, complete]);
+## dive(directory[, options], action[, complete]);
 
 Recursively walk (_“dive”_) a directory tree.
 
@@ -559,7 +559,7 @@ Recursively walk (_“dive”_) a directory tree.
 *   `complete [optional]` may define a second callback, that is called, when all
     files have been processed. It takes no arguments.
 
-#### Usage
+### Usage
 
 Default:
 
@@ -595,26 +595,26 @@ dive(process.cwd(), { directories: true, files: false }, function(err, dir) {
 });
 ```
 
-### diveSync(path, action)
+## diveSync(path, action)
 
 The synchronous version of `dive`. Improved version of the `diveSync` module.
 
-### createReaddirStream(dir[, options])
+## createReaddirStream(dir[, options])
 
-Streaming `fs.readdir`, extensible with smart plugins. No recursion and no globs by default - [use][] plugins. Does not stat and doesn't read the filepaths - use plugins. It just push [vinyl][] files to stream. Follows signature and semantics of `fs.createReadStream` method.
+Streaming `fs.readdir`, extensible with smart plugins. No recursion and no globs by default - [use](https://www.npmjs.com/package/use) plugins. Does not stat and doesn't read the filepaths - use plugins. It just push [vinyl](https://www.npmjs.com/package/vinyl) files to stream. Follows signature and semantics of `fs.createReadStream` method.
 
-#### Usage
-> For more use-cases see the [tests](./test.js)
+### Usage
+For more use-cases see the [tests](./test.js)
 
 ```js
 const readdir = require('create-readdir-stream')
 ```
 
 
-#### API
+### API
 
-##### [CreateReaddirStream](index.js#L32)
-> Initialize `CreateReaddirStream` with default `options`.
+#### [CreateReaddirStream](https://github.com/tunnckoCore/create-readdir-stream/blob/master/index.js#L32)
+Initialize `CreateReaddirStream` with default `options`.
 
 **Params**
 
@@ -632,8 +632,8 @@ console.log(inst.createReaddirStream) // => 'function'
 const Readdir = require('create-readdir-stream').CreateReaddirStream
 ```
 
-##### [.use](index.js#L118)
-> Smart plugins support using [use][]. It just calls that `fn` immediately and if it returns function again it is called (**only when** `.createReaddirStream` is called) with `file` argument ([vinyl][] file) for each item in the returned array by `fs.readdir`.
+#### [.use](https://github.com/tunnckoCore/create-readdir-stream/blob/master/index.js#L118)
+Smart plugins support using [use](https://www.npmjs.com/package/use). It just calls that `fn` immediately and if it returns function again it is called (**only when** `.createReaddirStream` is called) with `file` argument ([vinyl](https://www.npmjs.com/package/vinyl) file) for each item in the returned array by `fs.readdir`.
 
 **Params**
 
@@ -677,13 +677,13 @@ readdir
   }))
 ```
 
-##### [.createReaddirStream](index.js#L144)
-> Reads a `dir` contents, creates [vinyl][] file from each filepath, after that push them to stream.
+#### [.createReaddirStream](https://github.com/tunnckoCore/create-readdir-stream/blob/master/index.js#L144)
+Reads a `dir` contents, creates [vinyl](https://www.npmjs.com/package/vinyl) file from each filepath, after that push them to stream.
 
 **Params**
 
 * `<dir>` **{String|Buffer}**: buffer or string folder/directory to read    
-* `[options]` **{Object}**: options are [extend-shallow][]ed with `this.options`    
+* `[options]` **{Object}**: options are [extend-shallow](https://www.npmjs.com/package/extend-shallow)ed with `this.options`    
 * `returns` **{Stream}**: Transform Stream, [through2][]  
 
 **Example**
@@ -701,26 +701,26 @@ fs2.createReaddirStream('./')
   }))
 ```
 
-### readXML(path, function(err, parsedObject))
+## readXML(path, function(err, parsedObject))
 
 Read a file containing XML to an object.
 
-### readXMLSync(path)
+## readXMLSync(path)
 
 Read a file containing XML to an object. Returns the object.
 
-### readLinesSync(path[, encoding])
+## readLinesSync(path[, encoding])
 
 Read a file into a string array of its lines. Default encoding is UTF-8.
 
-### readSync(path[, encoding])
+## readSync(path[, encoding])
 
 Shorter version of `fs.readFileSync` where the default encoding is UTF-8.
 
 Third Party
 -----------
 
-### Promises
+## Promises
 
 Use [Bluebird](https://github.com/petkaantonov/bluebird). See https://github.com/petkaantonov/bluebird/blob/master/API.md#promisification. `fs-extra` is
 explicitly listed as supported.
@@ -733,17 +733,17 @@ const fs = Promise.promisifyAll(require('fs-extra'))
 Or you can use the package [`fs-extra-promise`](https://github.com/overlookmotel/fs-extra-promise) that marries the two together.
 
 
-### TypeScript
+## TypeScript
 
 If you like TypeScript, you can use `fs-extra` with it: https://github.com/borisyankov/DefinitelyTyped/tree/master/fs-extra
 
 
-### File / Directory Watching
+## File / Directory Watching
 
 If you want to watch for changes to files or directories, then you should use [chokidar](https://github.com/paulmillr/chokidar).
 
 
-### Misc.
+## Misc.
 
 - [mfs](https://github.com/cadorn/mfs) - Monitor your fs-extra calls.
 
@@ -767,7 +767,7 @@ What's needed?
 
 Note: If you make any big changes, **you should definitely file an issue for discussion first.**
 
-### Running the Test Suite
+## Running the Test Suite
 
 fs-extra contains hundreds of tests.
 
@@ -776,7 +776,7 @@ fs-extra contains hundreds of tests.
 - `npm test`: runs both the linter and the tests
 
 
-### Windows
+## Windows
 
 If you run the tests on the Windows and receive a lot of symbolic link `EPERM` permission errors, it's
 because on Windows you need elevated privilege to create symbolic links. You can add this to your Windows's
