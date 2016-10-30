@@ -113,6 +113,18 @@ Methods
 - [walk](#walk)
 - [writeJson](#writejsonfile-object-options-callback)
 - [writeJsonSync](#writejsonfile-object-options-callback)
+- [exists](#existsfile-callback)
+- [resolve](#resolvepath-child)
+- [forEachChildSync](#foreachchildsyncpath-functionfile-options)
+- [forEachChild](#foreachchildfunctionerror-file-options-callback)
+- [vacuum](#vacuumdirectory-options-callback)
+- [dive](#divedirectory-options-action-complete)
+- [diveSync](#divesyncpath-action)
+- [createReaddirStream](#createreaddirstreamdir-options)
+- [readXML](#readxmlpath-functionerr-parsedobject)
+- [readXMLSync](#readxmlsyncpath)
+- [readLinesSync](#readlinessyncpath-encoding)
+- [readSync](#readsyncpath-encoding)
 
 
 **NOTE:** You can still use the native Node.js methods. They are copied over to `fs-extra`.
@@ -595,7 +607,7 @@ dive(process.cwd(), { directories: true, files: false }, function(err, dir) {
 });
 ```
 
-## diveSync(path, action)
+## diveSync(path, options)
 
 The synchronous version of `dive`. Improved version of the `diveSync` module.
 
