@@ -19,8 +19,6 @@ const output = require('./lib/output');
 const remove = require('./lib/remove');
 const walk = require('./lib/walk');
 
-module.exports = {};
-
 exports.access = fs.access;
 exports.accessSync = fs.accessSync;
 exports.chmod = fs.chmod;
