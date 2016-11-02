@@ -90,6 +90,7 @@ Methods
 - [readXML | readXMLSync](#readxmlpath-functionerr-parsedobject)
 - [readLinesSync](#readlinessyncpath-encoding)
 - [readSync](#readsyncpath-encoding)
+- [isDirectory | isDirectorySync](#)
 
 Built-in Node.js `fs` methods:
 
@@ -770,6 +771,12 @@ Read a file into a string array of its lines. Default encoding is UTF-8.
 ## readSync(path[, encoding])
 
 Shorter version of `fs.readFileSync` where the default encoding is UTF-8.
+
+## isDirectory(path, callback)
+
+Check if the file at a path is a directory.
+
+Sync: `isDirectorySync()`
 
 ## fs.access(path[, mode], callback)
 <!-- YAML

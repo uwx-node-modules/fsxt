@@ -242,6 +242,19 @@ exports.readSync = function(path, encoding = 'utf8') {
   return fs.readFileSync(path, encoding);
 };
 
+// check if file path is directory, from https://github.com/overlookmotel/fs-extra-promise
+exports.isDirectory = function(path, callback) {
+  fs.stat(path, function(err, stats) {
+    if (err) return callback(err);
+
+    callback(null, stats.isDirectory());
+  });
+};
+
+// sync check if file path is directory
+exports.isDirectorySync = function(path) {
+  return fs.statSync(path).isDirectory();
+};
 
 // maintain backwards compatibility for awhile
 const jsonfile = {};
