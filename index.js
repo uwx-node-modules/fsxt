@@ -93,6 +93,7 @@ exports.write = fs.write;
 exports.writeFile = fs.writeFile;
 exports.writeFileSync = fs.writeFileSync;
 exports.writeSync = fs.writeSync;
+exports.constants = fs.constants;
 
 exports.copy = copy.copy;
 exports.copySync = copySync.copySync;
