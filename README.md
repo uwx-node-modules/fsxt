@@ -1,5 +1,5 @@
 fs-extra+
-=================
+=========
 
 Improved fork of `fs-extra` with extra [sic] features (and semicolons!)
 
@@ -41,9 +41,9 @@ const fse = require('fs-extra');
 
 Sync vs Async
 -------------
-Most methods are async by default (they take a callback with an `Error` as first argument).
+Most methods are asynchronous by default (they take a callback with an `Error` or `null` as first argument, and some form of data as the second).
 
-Sync methods on the other hand will throw if an error occurs.
+Synchronous methods on the other hand will throw if an error occurs, and return the second parameter of what would be in the async callback.
 
 Example:
 
@@ -63,10 +63,9 @@ try {
 }
 ```
 
-
 Methods
 -------
-- [copy| copySync](#copy)
+- [copy | copySync](#copy)
 - [emptyDir | emptyDirSync](#emptydirdir-callback)
 - [ensureFile | ensureFileSync](#ensurefilefile-callback)
 - [ensureDir | ensureDirSync](#ensuredirdir-callback)
@@ -91,9 +90,7 @@ Methods
 - [readLinesSync](#readlinessyncpath-encoding)
 - [readSync](#readsyncpath-encoding)
 
-
 **NOTE:** You can still use the native Node.js methods. They are copied over to `fs-extra`.
-
 
 ## copy()
 
