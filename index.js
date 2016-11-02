@@ -1,5 +1,6 @@
 'use strict';
 /* globals module, exports, require */
+/* exported module, exports, require */
 const fs = require('fs');
 
 const vacuum = require("fs-vacuum");
@@ -28,10 +29,10 @@ exports.chownSync = fs.chownSync;
 exports.createReadStream = fs.createReadStream;
 exports.createWriteStream = fs.createWriteStream;
 exports.existsSync = fs.existsSync;
-exports.lchmod = fs.lchmod;
-exports.lchmodSync = fs.lchmodSync;
-exports.lchown = fs.lchown;
-exports.lchownSync = fs.lchownSync;
+exports.lchmod = fs.lchmod         || (() => { throw new Error('lchmod is unsupported on this OS.'); });
+exports.lchmodSync = fs.lchmodSync || (() => { throw new Error('lchmodSync is unsupported on this OS.'); });
+exports.lchown = fs.lchown         || (() => { throw new Error('lchown is unsupported on this OS.'); });
+exports.lchownSync = fs.lchownSync || (() => { throw new Error('lchownSync is unsupported on this OS.'); });
 exports.lstat = fs.lstat;
 exports.lstatSync = fs.lstatSync;
 exports.mkdir = fs.mkdir;
@@ -63,21 +64,27 @@ exports.copy = copy.copy;
 exports.copySync = copySync.copySync;
 exports.emptyDir = empty.emptyDir;
 exports.emptyDirSync = empty.emptyDirSync;
+
+exports.createFile = ensure.createFile;
+exports.createFileSync = ensure.createFileSync;
 exports.ensureFile = ensure.ensureFile;
 exports.ensureFileSync = ensure.ensureFileSync;
-exports.ensureDir = ensure.ensureDir;
-exports.ensureDirSync = ensure.ensureDirSync;
+exports.createLink = ensure.createLink;
+exports.createLinkSync = ensure.createLinkSync;
 exports.ensureLink = ensure.ensureLink;
 exports.ensureLinkSync = ensure.ensureLinkSync;
+exports.createSymlink = ensure.createSymlink;
+exports.createSymlinkSync = ensure.createSymlinkSync;
 exports.ensureSymlink = ensure.ensureSymlink;
 exports.ensureSymlinkSync = ensure.ensureSymlinkSync;
+
 exports.mkdirs = mkdirs.mkdirs;
 exports.mkdirsSync = mkdirs.mkdirsSync;
 exports.move = move.move;
 exports.outputFile = output.outputFile;
 exports.outputFileSync = output.outputFileSync;
-exports.outputJson = output.outputJson;
-exports.outputJsonSync = output.outputJsonSync;
+exports.outputJson = json.outputJson;
+exports.outputJsonSync = json.outputJsonSync;
 exports.readJson = json.readJson;
 exports.readJsonSync = json.readJsonSync;
 exports.writeJson = json.writeJson;
@@ -151,7 +158,7 @@ exports.diveSync = function(path, opt) {
     if (err) throw err;
     files.push(file);
   }
-  diveSync(path, opt || action, opt ? action : undefined);
+  diveSync(path, opt || action, !opt ? action : undefined);
   return files;
 };
 
