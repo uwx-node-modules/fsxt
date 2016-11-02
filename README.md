@@ -91,6 +91,8 @@ Methods
 - [readLinesSync](#readlinessyncpath-encoding)
 - [readSync](#readsyncpath-encoding)
 
+Built-in Node.js `fs` methods:
+
 - [access(path[, mode], callback)](#fsaccesspath-mode-callback)
 - [accessSync(path[, mode])](#fsaccesssyncpath-mode)
 - [appendFile(file, data[, options], callback)](#fsappendfilefile-data-options-callback)
