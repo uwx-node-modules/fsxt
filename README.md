@@ -90,7 +90,7 @@ Methods
 - [readXML | readXMLSync](#readxmlpath-functionerr-parsedobject)
 - [readLinesSync](#readlinessyncpath-encoding)
 - [readSync](#readsyncpath-encoding)
-- [isDirectory | isDirectorySync](#)
+- [isDirectory | isDirectorySync](#isdirectorypath-callback)
 
 Built-in Node.js `fs` methods:
 
