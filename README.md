@@ -650,9 +650,34 @@ dive(process.cwd(), { directories: true, files: false }, function(err, dir) {
 });
 ```
 
-## diveSync(path, options)
+## diveSync(path[, options])
 
 The synchronous version of `dive`. Improved version of the `diveSync` module.
+
+Returns an array of file paths.
+
+Example:
+
+``` javascript
+const files = fs.diveSync(process.cwd());
+
+for (let i in files) {
+
+}
+
+for (let file of files) {
+  
+}
+
+files.forEach(function(file, i) {
+
+});
+
+for (let i = 0; i < files.length; i++) {
+
+}
+
+```
 
 ## createReaddirStream(dir[, options])
 
