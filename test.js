@@ -2,6 +2,12 @@
 /* globals module, exports, require, process */
 /* exported module, exports, require, process */
 
+var os = require('os');
+var path = require('path');
+var Mocha = require('mocha');
+var assign = require('./lib/util/assign');
+var klaw = require('klaw');
+
 (() => {
   const arr = [];
   const r = require('./index.js');
@@ -29,7 +35,7 @@ var mochaOpts = assign({
 
 var mocha = new Mocha(mochaOpts);
 
-fs.walk('./lib').on('readable', function () {
+klaw('./lib').on('readable', function () {
   var item;
   while ((item = this.read())) {
     if (!item.stats.isFile()) return;
