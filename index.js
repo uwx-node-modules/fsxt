@@ -18,7 +18,7 @@ const mkdirs = require('./lib/mkdirs');
 const move = require('./lib/move');
 const output = require('./lib/output');
 const remove = require('./lib/remove');
-const walk = require('./lib/walk');
+//const walk = require('./lib/walk');
 
 exports.access = fs.access;
 exports.accessSync = fs.accessSync;
@@ -126,7 +126,7 @@ exports.writeJson = json.writeJson;
 exports.writeJsonSync = json.writeJsonSync;
 exports.remove = remove.remove;
 exports.removeSync = remove.removeSync;
-exports.walk = walk.walk;
+//exports.walk = walk.walk;
 
 // async fs exists
 exports.exists = function(path, callback) {

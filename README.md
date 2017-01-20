@@ -78,7 +78,7 @@ Methods
 - [outputJson | outputJsonSync](#outputjsonfile-data-options-callback)
 - [readJson | readJsonSync](#readjsonfile-options-callback)
 - [remove | removeSync](#removedir-callback)
-- [walk](#walk)
+- ~~[walk](#walk)~~
 - [writeJson | writeJsonSync](#writejsonfile-object-options-callback)
 - [exists](#existsfile-callback)
 - [resolve](#resolvepath-child)
@@ -458,51 +458,7 @@ fs.removeSync('/home/jprichardson') //I just deleted my entire HOME directory.
 
 ## walk()
 
-**walk(dir, [streamOptions])**
-
-The function `walk()` from the module [`klaw`](https://github.com/jprichardson/node-klaw).
-
-Returns a [Readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable) that iterates
-through every file and directory starting with `dir` as the root. Every `read()` or `data` event
-returns an object with two properties: `path` and `stats`. `path` is the full path of the file and
-`stats` is an instance of [fs.Stats](https://nodejs.org/api/fs.html#fs_class_fs_stats).
-
-Streams 1 (push) example:
-
-```js
-const fs = require('fs-extra')
-const items = [] // files, directories, symlinks, etc
-fs.walk(TEST_DIR)
-  .on('data', function (item) {
-    items.push(item.path)
-  })
-  .on('end', function () {
-    console.dir(items) // => [ ... array of files]
-  })
-```
-
-Streams 2 & 3 (pull) example:
-
-```js
-const items = [] // files, directories, symlinks, etc
-const fs = require('fs-extra')
-fs.walk(TEST_DIR)
-  .on('readable', function () {
-    const item
-    while ((item = this.read())) {
-      items.push(item.path)
-    }
-  })
-  .on('end', function () {
-    console.dir(items) // => [ ... array of files]
-  })
-```
-
-If you're not sure of the differences on Node.js streams 1, 2, 3 then I'd
-recommend this resource as a good starting point: https://strongloop.com/strongblog/whats-new-io-js-beta-streams3/.
-
-**See [`klaw` documentation](https://github.com/jprichardson/node-klaw) for more detailed usage.**
-
+`walk()`'s been removed! Ain't that some shit. Use `dive()` and `diveSync()` instead.
 
 ## writeJson(file, object, [options], callback)
 
