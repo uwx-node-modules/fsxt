@@ -40,5 +40,5 @@ on_success:
  - cmd: For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set mydate=%%c-%%a-%%b)
  - cmd: For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set mytime=%%a%%b)
  - cmd: addall.bat md
- - git commit -m "Built markdown at %mydate%_%mytime% [skip ci]"
+ - cmd: try.bat git commit -m "Built markdown at %mydate%_%mytime% [skip ci]"
  - git push origin master
