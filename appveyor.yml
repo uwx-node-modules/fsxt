@@ -1,8 +1,8 @@
 # Test against this version of Node.js
 environment:
-  - nodejs_version: "6"
-  - access_token:
-      secure: wShbQfYcfaf2ZgU8dFgLTVJglCyGiK9/BHWcEbVZ4sU8SqxokPc4pFfl1ZY4qtlO
+  nodejs_version: "6"
+  access_token:
+    secure: wShbQfYcfaf2ZgU8dFgLTVJglCyGiK9/BHWcEbVZ4sU8SqxokPc4pFfl1ZY4qtlO
 
 
 # only build master (currently this is the only way to avoid the build failing on other branches)
