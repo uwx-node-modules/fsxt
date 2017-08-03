@@ -28,3 +28,11 @@ you can also keep both, but it's redundant:
 const fs = require('fs');
 const fse = require('fs-extra');
 ```
+
+#### Useful Resources
+- [About ](#about-fsread--fswrite)[fs.read()](#fsread)[ & ](#about-fsread--fswrite)[fs.write()](#fswrite)
+- [FS Constants](#fs-constants)
+- [File Access Constants](#file-access-constants)
+- [File Open Constants](#file-open-constants)
+- [File Type Constants](#file-type-constants)
+- [File Mode Constants](#file-mode-constants)
