@@ -1,19 +1,24 @@
- <!-- BEGIN heading --> fs-extra+
+ <!-- BEGIN heading -->
+fs-extra+
 =========
 
 Improved fork of `fs-extra` with extra [sic] features (and semicolons!)  
 `fs-extra+` provides support for node.js 4 and above (possibly), but you should probably use 8.
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-google-brightgreen.svg)](https://google.github.io/styleguide/jsguide.html)
-![Used by practically no-one](https://img.shields.io/badge/downloads-basically_none-brightgreen.svg) <!-- ENDIN heading --> 
+![Used by practically no-one](https://img.shields.io/badge/downloads-basically_none-brightgreen.svg)
+<!-- ENDIN heading --> 
 
- <!-- BEGIN installation --> Installation
+ <!-- BEGIN installation -->
+Installation
 ------------
 
     npm install --save rafa1231518/node-fs-extra
- <!-- ENDIN installation --> 
 
- <!-- BEGIN usage --> Usage
+<!-- ENDIN installation --> 
+
+ <!-- BEGIN usage -->
+Usage
 -----
 
 `fs-extra+` is a drop in replacement for native [`fs`](http://nodejs.org/docs/latest/api/fs.html). All methods in [`fs`](http://nodejs.org/docs/latest/api/fs.html) are unmodified and attached to `fs-extra+`.
@@ -42,9 +47,11 @@ you can also keep both, but it's redundant:
 ```js
 const fs = require('fs');
 const fse = require('fs-extra');
-``` <!-- ENDIN usage --> 
+```
+<!-- ENDIN usage --> 
 
- <!-- BEGIN syncinfo --> Sync vs Async
+ <!-- BEGIN syncinfo -->
+Sync vs Async
 -------------
 Most methods are asynchronous by default (they take a callback with an `Error` or `null` as first argument, and some form of data as the second).
 All async methods will return a Promise if the callback isn't passed.
@@ -67,7 +74,8 @@ try {
 } catch (err) {
   console.error(err);
 }
-``` <!-- ENDIN syncinfo --> 
+```
+<!-- ENDIN syncinfo --> 
 
 Methods
 -------
@@ -182,7 +190,8 @@ Built-in Node.js `fs` methods:
 
 **NOTE:** You can still use the native Node.js methods. They are copied over to `fs-extra`.
 
- <!-- BEGIN fsextra --> ## copySync(src, dest, [options])
+ <!-- BEGIN fsextra -->
+## copySync(src, dest, [options])
 
 Copy a file or directory. The directory can have contents. Like `cp -r`.
 
@@ -981,9 +990,11 @@ fs.writeJson('./package.json', {name: 'fs-extra'})
 ---
 
 **See also:** [`outputJson()`](outputJson.md)
- <!-- ENDIN fsextra --> 
 
- <!-- BEGIN nodejsfs --> ## fs.access(path[, mode], callback)
+<!-- ENDIN fsextra --> 
+
+ <!-- BEGIN nodejsfs -->
+## fs.access(path[, mode], callback)
 <!-- YAML
 added: v0.11.15
 changes:
@@ -3444,9 +3455,11 @@ The following constants are meant for use with the [`fs.Stats`][] object's
 [inode]: https://en.wikipedia.org/wiki/Inode
 [Naming Files, Paths, and Namespaces]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa365247(v=vs.85).aspx
 [MSDN-Using-Streams]: https://msdn.microsoft.com/en-us/library/windows/desktop/bb540537.aspx
- <!-- ENDIN nodejsfs --> 
 
- <!-- BEGIN ending --> Third Party
+<!-- ENDIN nodejsfs --> 
+
+ <!-- BEGIN ending -->
+Third Party
 -----------
 
 ## File / Directory Watching
@@ -3506,4 +3519,5 @@ Parts of the documentation have been completely stolen from [create-readdir-stre
 
 `fs-extra` and `fs-extra+` are not endorsed by or affiliated with Joyent or the Node.js Foundation.
 `fs-extra+` is not endorsed by or affiliated with JP Richardson, but who the fuck would want that, anyway?
- <!-- ENDIN ending --> 
+
+<!-- ENDIN ending --> 

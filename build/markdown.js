@@ -29,14 +29,14 @@ async function cum(readme) {
     doc = doc.replace(/^(#+)/gm, '#$1');
     docs.push(doc);
   });
-  return readme.replace(/ ?<!-- BEGIN fsextra -->[\s\S]*?<!-- ENDIN fsextra --> ?/, ' <!-- BEGIN fsextra --> ' + docs.join('\n') + ' <!-- ENDIN fsextra --> ');
+  return readme.replace(/ ?<!-- BEGIN fsextra -->[\s\S]*?<!-- ENDIN fsextra --> ?/, ' <!-- BEGIN fsextra -->\n' + docs.join('\n') + '\n<!-- ENDIN fsextra --> ');
 }
 
 async function cum2(readme) {
   const nodeDocs = await fs.readFile('./docs/fs.md', 'utf8');
-  return readme.replace(/ ?<!-- BEGIN nodejsfs -->[\s\S]*?<!-- ENDIN nodejsfs --> ?/, ' <!-- BEGIN nodejsfs --> ' + nodeDocs + ' <!-- ENDIN nodejsfs --> ');
+  return readme.replace(/ ?<!-- BEGIN nodejsfs -->[\s\S]*?<!-- ENDIN nodejsfs --> ?/, ' <!-- BEGIN nodejsfs -->\n' + nodeDocs + '\n<!-- ENDIN nodejsfs --> ');
 }
 
 async function cum3(fname, readme) {
-  return readme.replace(new RegExp(' ?<!-- BEGIN ' + fname + ' -->[\\s\\S]*?<!-- ENDIN ' + fname + ' --> ?'), ' <!-- BEGIN ' + fname + ' --> ' + (await fs.readFile('./docs/' + fname + '.md')) + ' <!-- ENDIN ' + fname + ' --> ');
+  return readme.replace(new RegExp(' ?<!-- BEGIN ' + fname + ' -->[\\s\\S]*?<!-- ENDIN ' + fname + ' --> ?'), ' <!-- BEGIN ' + fname + ' -->\n' + (await fs.readFile('./docs/' + fname + '.md')) + '\n<!-- ENDIN ' + fname + ' --> ');
 }
