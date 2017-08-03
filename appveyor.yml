@@ -1,9 +1,11 @@
 # Test against this version of Node.js
 environment:
-  matrix:
-    # node.js
-    - nodejs_version: "4"
-    - nodejs_version: "6"
+  - nodejs_version: "6"
+
+# only build master (currently this is the only way to avoid the build failing on other branches)
+branches:
+  only:
+    - master
 
 # Install scripts. (runs after repo cloning)
 install:
@@ -19,7 +21,21 @@ test_script:
   - node --version
   - npm --version
   # run tests
-  - npm test
+  - cmd: test.bat
 
-# Don't actually build.
-build: off
+build_script:
+  - cmd: update.bat
+
+before_build:
+ - git checkout master
+
+on_success:
+ - git config --global credential.helper store
+ - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+ - git config --global user.email "bbbbbbenes@outlook.com.br"
+ - git config --global user.name "Appveyor Automated Build"
+ - cmd: For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set mydate=%%c-%%a-%%b)
+ - cmd: For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set mytime=%%a%%b)
+ - cmd: addall.bat md
+ - git commit -m "Built markdown at %mydate%_%mytime% [skip ci]"
+ - git push origin master
