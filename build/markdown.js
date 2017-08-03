@@ -16,6 +16,7 @@ const fs = require('../');
     'usage',
     'node-fs-nav',
     'nav',
+    'fs-extra-plus',
   ]) {
     readme = await cum3(e, readme);
   }
