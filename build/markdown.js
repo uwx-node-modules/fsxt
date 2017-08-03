@@ -14,6 +14,8 @@ const fs = require('../');
     'installation',
     'syncinfo',
     'usage',
+    'node-fs-nav',
+    'nav',
   ]) {
     readme = await cum3(e, readme);
   }
