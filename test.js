@@ -1,51 +1,31 @@
-'use strict';
-/* globals module, exports, require, process */
-/* exported module, exports, require, process */
+'use strict'
 
-var os = require('os');
-var path = require('path');
-var Mocha = require('mocha');
-var assign = require('./lib/util/assign');
-var klaw = require('klaw');
+const os = require('os')
+const path = require('path')
+const klaw = require('klaw')
+const Mocha = require('mocha')
+const assign = require('./lib/util/assign')
 
-(() => {
-  const arr = [];
-  const r = require('./index.js');
-  for (let key in r) {
-    if (r[key] === undefined) {
-      arr.push(key + ' is not defined!!');
-    }
-  }
-  if (arr.length > 0) throw arr.join(', ');
-})();
+const argv = require('minimist')(process.argv.slice(2))
 
-var os = require('os');
-var path = require('path');
-var Mocha = require('mocha');
-var assign = require('./lib/util/assign');
-var fs = require('./');
-
-var argv = require('minimist')(process.argv.slice(2));
-
-var mochaOpts = assign({
+const mochaOpts = assign({
   ui: 'bdd',
   reporter: 'dot',
   timeout: 30000
-}, argv);
+}, argv)
 
-var mocha = new Mocha(mochaOpts);
+const mocha = new Mocha(mochaOpts)
+const testExt = '.test.js'
 
 klaw('./lib').on('readable', function () {
-  var item;
+  let item
   while ((item = this.read())) {
-    if (!item.stats.isFile()) return;
-    if (item.path.lastIndexOf('.test.js') !== (item.path.length - '.test.js'.length)) return;
-    mocha.addFile(item.path);
+    if (!item.stats.isFile()) return
+    if (item.path.lastIndexOf(testExt) !== (item.path.length - testExt.length)) return
+    mocha.addFile(item.path)
   }
-}).on('end', function () {
-  mocha.run(function (failures) {
-    require('./').remove(path.join(os.tmpdir(), 'fs-extra'), function () {
-      process.exit(failures);
-    });
-  });
-});
+}).on('end', () => {
+  mocha.run(failures => {
+    require('./').remove(path.join(os.tmpdir(), 'fs-extra'), () => process.exit(failures))
+  })
+})
