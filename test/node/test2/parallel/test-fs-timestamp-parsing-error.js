@@ -5,11 +5,11 @@ const assert = require('assert');
 
 [Infinity, -Infinity, NaN].forEach((input) => {
   assert.throws(() => fs._toUnixTimestamp(input),
-                new RegExp(`^Error: Cannot parse time: ${input}$`));
+    new RegExp(`^Error: Cannot parse time: ${input}$`));
 });
 
 assert.throws(() => fs._toUnixTimestamp({}),
-              /^Error: Cannot parse time: \[object Object\]$/);
+  /^Error: Cannot parse time: \[object Object\]$/);
 
 const okInputs = [1, -1, '1', '-1', Date.now()];
 okInputs.forEach((input) => {

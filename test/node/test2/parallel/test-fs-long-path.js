@@ -21,8 +21,9 @@
 
 'use strict';
 const common = require('../common');
-if (!common.isWindows)
+if (!common.isWindows) {
   common.skip('this test is Windows-specific.');
+}
 
 const fs = require('../../../../');
 const path = require('path');
@@ -37,7 +38,7 @@ common.refreshTmpDir();
 
 console.log({
   filenameLength: fileName.length,
-  fullPathLength: fullPath.length
+  fullPathLength: fullPath.length,
 });
 
 fs.writeFile(fullPath, 'ok', common.mustCall(function(err) {

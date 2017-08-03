@@ -5,7 +5,7 @@ const common = require('../common');
 
 const fs = require('../../../../');
 const assert = require('assert');
-const { join } = require('path');
+const {join} = require('path');
 
 class WatchTestCase {
   constructor(shouldInclude, dirName, fileName, field) {
@@ -14,8 +14,12 @@ class WatchTestCase {
     this.field = field;
     this.shouldSkip = !shouldInclude;
   }
-  get dirPath() { return join(common.tmpDir, this.dirName); }
-  get filePath() { return join(this.dirPath, this.fileName); }
+  get dirPath() {
+    return join(common.tmpDir, this.dirName);
+  }
+  get filePath() {
+    return join(this.dirPath, this.fileName);
+  }
 }
 
 const cases = [
@@ -32,7 +36,7 @@ const cases = [
     'watch2',
     'bar',
     'dirPath'
-  )
+  ),
 ];
 
 common.refreshTmpDir();
@@ -58,10 +62,11 @@ for (const testCase of cases) {
       clearInterval(interval);
       interval = null;
     }
-    if (common.isOSX)
+    if (common.isOSX) {
       assert.strictEqual(['rename', 'change'].includes(eventType), true);
-    else
+    } else {
       assert.strictEqual(eventType, 'change');
+    }
     assert.strictEqual(argFilename, testCase.fileName);
 
     // end of test case

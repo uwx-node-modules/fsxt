@@ -15,26 +15,26 @@ const types = {
   PTR: 12,
   MX: 15,
   TXT: 16,
-  ANY: 255
+  ANY: 255,
 };
 
 const classes = {
-  IN: 1
+  IN: 1,
 };
 
 function readDomainFromPacket(buffer, offset) {
   assert.ok(offset < buffer.length);
   const length = buffer[offset];
   if (length === 0) {
-    return { nread: 1, domain: '' };
+    return {nread: 1, domain: ''};
   } else if ((length & 0xC0) === 0) {
     offset += 1;
     const chunk = buffer.toString('ascii', offset, offset + length);
     // Read the rest of the domain.
-    const { nread, domain } = readDomainFromPacket(buffer, offset + length);
+    const {nread, domain} = readDomainFromPacket(buffer, offset + length);
     return {
       nread: 1 + length + nread,
-      domain: domain ? `${chunk}.${domain}` : chunk
+      domain: domain ? `${chunk}.${domain}` : chunk,
     };
   } else {
     // Pointer to another part of the packet.
@@ -43,7 +43,7 @@ function readDomainFromPacket(buffer, offset) {
     const pointeeOffset = buffer.readUInt16BE(offset) &~ 0xC000;
     return {
       nread: 2,
-      domain: readDomainFromPacket(buffer, pointeeOffset)
+      domain: readDomainFromPacket(buffer, pointeeOffset),
     };
   }
 }
@@ -60,14 +60,14 @@ function parseDNSPacket(buffer) {
     ['questions', buffer.readUInt16BE(4)],
     ['answers', buffer.readUInt16BE(6)],
     ['authorityAnswers', buffer.readUInt16BE(8)],
-    ['additionalRecords', buffer.readUInt16BE(10)]
+    ['additionalRecords', buffer.readUInt16BE(10)],
   ];
 
   let offset = 12;
-  for (const [ sectionName, count ] of counts) {
+  for (const [sectionName, count] of counts) {
     parsed[sectionName] = [];
     for (let i = 0; i < count; ++i) {
-      const { nread, domain } = readDomainFromPacket(buffer, offset);
+      const {nread, domain} = readDomainFromPacket(buffer, offset);
       offset += nread;
 
       const type = buffer.readUInt16BE(offset);
@@ -79,8 +79,9 @@ function parseDNSPacket(buffer) {
       offset += 4;
 
       for (const name in types) {
-        if (types[name] === type)
+        if (types[name] === type) {
           rr.type = name;
+        }
       }
 
       if (sectionName !== 'questions') {
@@ -97,7 +98,7 @@ function parseDNSPacket(buffer) {
           case types.AAAA:
             assert.strictEqual(dataLength, 16);
             rr.address = buffer.toString('hex', offset, offset + 16)
-                               .replace(/(.{4}(?!$))/g, '$1:');
+              .replace(/(.{4}(?!$))/g, '$1:');
             break;
           case types.TXT:
           {
@@ -106,8 +107,8 @@ function parseDNSPacket(buffer) {
             while (position < offset + dataLength) {
               const txtLength = buffer[offset];
               rr.entries.push(buffer.toString('utf8',
-                                              position + 1,
-                                              position + 1 + txtLength));
+                position + 1,
+                position + 1 + txtLength));
               position += 1 + txtLength;
             }
             assert.strictEqual(position, offset + dataLength);
@@ -117,7 +118,7 @@ function parseDNSPacket(buffer) {
           {
             rr.priority = buffer.readInt16BE(buffer, offset);
             offset += 2;
-            const { nread, domain } = readDomainFromPacket(buffer, offset);
+            const {nread, domain} = readDomainFromPacket(buffer, offset);
             rr.exchange = domain;
             assert.strictEqual(nread, dataLength);
             break;
@@ -126,7 +127,7 @@ function parseDNSPacket(buffer) {
           case types.CNAME:
           case types.PTR:
           {
-            const { nread, domain } = readDomainFromPacket(buffer, offset);
+            const {nread, domain} = readDomainFromPacket(buffer, offset);
             rr.value = domain;
             assert.strictEqual(nread, dataLength);
             break;
@@ -185,7 +186,7 @@ function writeDomainName(domain) {
     assert(label.length < 64);
     return Buffer.concat([
       Buffer.from([label.length]),
-      Buffer.from(label, 'ascii')
+      Buffer.from(label, 'ascii'),
     ]);
   }).concat([Buffer.alloc(1)]));
 }
@@ -208,20 +209,20 @@ function writeDNSPacket(parsed) {
     buffers.push(writeDomainName(q.domain));
     buffers.push(new Uint16Array([
       types[q.type],
-      q.cls === undefined ? classes.IN : q.cls
+      q.cls === undefined ? classes.IN : q.cls,
     ]));
   }
 
   for (const rr of [].concat(parsed.answers,
-                             parsed.authorityAnswers,
-                             parsed.additionalRecords)) {
+    parsed.authorityAnswers,
+    parsed.additionalRecords)) {
     if (!rr) continue;
 
     assert(types[rr.type]);
     buffers.push(writeDomainName(rr.domain));
     buffers.push(new Uint16Array([
       types[rr.type],
-      rr.cls === undefined ? classes.IN : rr.cls
+      rr.cls === undefined ? classes.IN : rr.cls,
     ]));
     buffers.push(new Int32Array([rr.ttl]));
 
@@ -266,7 +267,7 @@ function writeDNSPacket(parsed) {
         rdLengthBuf[0] = mname.length + rname.length + 20;
         buffers.push(mname, rname);
         buffers.push(new Uint32Array([
-          rr.serial, rr.refresh, rr.retry, rr.expire, rr.minttl
+          rr.serial, rr.refresh, rr.retry, rr.expire, rr.minttl,
         ]));
         break;
       }
@@ -277,8 +278,8 @@ function writeDNSPacket(parsed) {
 
   return Buffer.concat(buffers.map((typedArray) => {
     const buf = Buffer.from(typedArray.buffer,
-                            typedArray.byteOffset,
-                            typedArray.byteLength);
+      typedArray.byteOffset,
+      typedArray.byteLength);
     if (os.endianness() === 'LE') {
       if (typedArray.BYTES_PER_ELEMENT === 2) buf.swap16();
       if (typedArray.BYTES_PER_ELEMENT === 4) buf.swap32();
@@ -287,4 +288,4 @@ function writeDNSPacket(parsed) {
   }));
 }
 
-module.exports = { types, classes, writeDNSPacket, parseDNSPacket };
+module.exports = {types, classes, writeDNSPacket, parseDNSPacket};

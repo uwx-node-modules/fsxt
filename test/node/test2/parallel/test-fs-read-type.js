@@ -10,10 +10,10 @@ const expected = 'xyz\n';
 // Error must be thrown with string
 assert.throws(() => {
   fs.read(fd,
-          expected.length,
-          0,
-          'utf-8',
-          common.mustNotCall());
+    expected.length,
+    0,
+    'utf-8',
+    common.mustNotCall());
 }, /^TypeError: Second argument needs to be a buffer$/);
 
 assert.throws(() => {

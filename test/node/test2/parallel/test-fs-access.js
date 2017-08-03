@@ -104,7 +104,9 @@ assert.doesNotThrow(() => {
 });
 
 assert.throws(
-  () => { fs.accessSync(doesNotExist); },
+  () => {
+    fs.accessSync(doesNotExist);
+  },
   (err) => {
     assert.strictEqual(err.code, 'ENOENT');
     assert.strictEqual(err.path, doesNotExist);

@@ -3,7 +3,7 @@ const common = require('../common');
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-const { promisify } = require('util');
+const {promisify} = require('util');
 
 common.crashOnUnhandledRejection();
 

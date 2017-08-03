@@ -15,12 +15,12 @@ const emptyTxt = path.join(common.fixturesDir, 'empty.txt');
 
 fs.open = function() {
   openCount++;
-  return _fsopen.apply(null, arguments);
+  return _fsopen(...arguments);
 };
 
 fs.close = function() {
   openCount--;
-  return _fsclose.apply(null, arguments);
+  return _fsclose(...arguments);
 };
 
 function testLeak(endFn, callback) {

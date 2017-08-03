@@ -31,15 +31,15 @@ const expected = Buffer.from('xyz\n');
 
 function test(bufferAsync, bufferSync, expected) {
   fs.read(fd,
-          bufferAsync,
-          0,
-          expected.length,
-          0,
-          common.mustCall((err, bytesRead) => {
-            assert.ifError(err);
-            assert.strictEqual(bytesRead, expected.length);
-            assert.deepStrictEqual(bufferAsync, expected);
-          }));
+    bufferAsync,
+    0,
+    expected.length,
+    0,
+    common.mustCall((err, bytesRead) => {
+      assert.ifError(err);
+      assert.strictEqual(bytesRead, expected.length);
+      assert.deepStrictEqual(bufferAsync, expected);
+    }));
 
   const r = fs.readSync(fd, bufferSync, 0, expected.length, 0);
   assert.deepStrictEqual(bufferSync, expected);
@@ -47,9 +47,9 @@ function test(bufferAsync, bufferSync, expected) {
 }
 
 test(Buffer.allocUnsafe(expected.length),
-     Buffer.allocUnsafe(expected.length),
-     expected);
+  Buffer.allocUnsafe(expected.length),
+  expected);
 
 test(new Uint8Array(expected.length),
-     new Uint8Array(expected.length),
-     Uint8Array.from(expected));
+  new Uint8Array(expected.length),
+  Uint8Array.from(expected));

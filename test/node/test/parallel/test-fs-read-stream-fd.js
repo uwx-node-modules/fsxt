@@ -32,7 +32,7 @@ common.refreshTmpDir();
 fs.writeFileSync(file, input);
 
 const fd = fs.openSync(file, 'r');
-const stream = fs.createReadStream(null, { fd: fd, encoding: 'utf8' });
+const stream = fs.createReadStream(null, {fd: fd, encoding: 'utf8'});
 
 stream.on('data', (data) => {
   output += data;

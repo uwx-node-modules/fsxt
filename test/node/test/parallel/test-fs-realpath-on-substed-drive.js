@@ -1,8 +1,9 @@
 'use strict';
 
 const common = require('../common');
-if (!common.isWindows)
+if (!common.isWindows) {
   common.skip('Test for Windows only');
+}
 
 const assert = require('assert');
 const fs = require('fs');
@@ -17,11 +18,13 @@ let i;
 for (i = 0; i < driveLetters.length; ++i) {
   drive = `${driveLetters[i]}:`;
   result = spawnSync('subst', [drive, common.fixturesDir]);
-  if (result.status === 0)
+  if (result.status === 0) {
     break;
+  }
 }
-if (i === driveLetters.length)
+if (i === driveLetters.length) {
   common.skip('Cannot create subst drive');
+}
 
 // schedule cleanup (and check if all callbacks where called)
 process.on('exit', function() {

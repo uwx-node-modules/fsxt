@@ -35,12 +35,12 @@ function check(async, sync) {
 
   if (sync) {
     assert.throws(() => {
-      sync.apply(null, argsSync);
+      sync(...argsSync);
     }, expected);
   }
 
   if (async) {
-    async.apply(null, argsAsync);
+    async(...argsAsync);
   }
 }
 

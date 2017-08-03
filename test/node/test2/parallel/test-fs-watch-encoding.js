@@ -16,8 +16,9 @@ const common = require('../common');
 // The testcase makes use of folder watching, and causes
 // hang. This behavior is documented. Skip this for AIX.
 
-if (common.isAIX)
+if (common.isAIX) {
   common.skip('folder watch capability is limited in AIX.');
+}
 
 const fs = require('../../../../');
 const path = require('path');
@@ -43,10 +44,11 @@ function unregisterWatcher(watcher) {
 
 const watcher1 = fs.watch(
   common.tmpDir,
-  { encoding: 'hex' },
+  {encoding: 'hex'},
   (event, filename) => {
-    if (['e696b0e5bbbae69687e5a4b9e4bbb62e747874', null].includes(filename))
+    if (['e696b0e5bbbae69687e5a4b9e4bbb62e747874', null].includes(filename)) {
       done(watcher1);
+    }
   }
 );
 registerWatcher(watcher1);
@@ -54,20 +56,22 @@ registerWatcher(watcher1);
 const watcher2 = fs.watch(
   common.tmpDir,
   (event, filename) => {
-    if ([fn, null].includes(filename))
+    if ([fn, null].includes(filename)) {
       done(watcher2);
+    }
   }
 );
 registerWatcher(watcher2);
 
 const watcher3 = fs.watch(
   common.tmpDir,
-  { encoding: 'buffer' },
+  {encoding: 'buffer'},
   (event, filename) => {
-    if (filename instanceof Buffer && filename.toString('utf8') === fn)
+    if (filename instanceof Buffer && filename.toString('utf8') === fn) {
       done(watcher3);
-    else if (filename === null)
+    } else if (filename === null) {
       done(watcher3);
+    }
   }
 );
 registerWatcher(watcher3);

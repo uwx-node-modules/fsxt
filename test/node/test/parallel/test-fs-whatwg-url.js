@@ -8,10 +8,12 @@ const os = require('os');
 const URL = require('url').URL;
 
 function pathToFileURL(p) {
-  if (!path.isAbsolute(p))
+  if (!path.isAbsolute(p)) {
     throw new Error('Path must be absolute');
-  if (common.isWindows && p.startsWith('\\\\'))
+  }
+  if (common.isWindows && p.startsWith('\\\\')) {
     p = p.slice(2);
+  }
   return new URL(`file://${p}`);
 }
 
@@ -31,14 +33,14 @@ const httpUrl = new URL('http://example.org');
 fs.readFile(httpUrl, common.expectsError({
   code: 'ERR_INVALID_URL_SCHEME',
   type: TypeError,
-  message: 'The URL must be of scheme file'
+  message: 'The URL must be of scheme file',
 }));
 
 // pct-encoded characters in the path will be decoded and checked
 fs.readFile(new URL('file:///c:/tmp/%00test'), common.mustCall((err) => {
   assert(err);
   assert.strictEqual(err.message,
-                     'Path must be a string without null bytes');
+    'Path must be a string without null bytes');
 }));
 
 if (common.isWindows) {
@@ -47,7 +49,7 @@ if (common.isWindows) {
     fs.readFile(new URL(`file:///c:/tmp/${i}`), common.expectsError({
       code: 'ERR_INVALID_FILE_URL_PATH',
       type: TypeError,
-      message: 'File URL path must not include encoded \\ or / characters'
+      message: 'File URL path must not include encoded \\ or / characters',
     }));
   });
 } else {
@@ -56,13 +58,13 @@ if (common.isWindows) {
     fs.readFile(new URL(`file:///c:/tmp/${i}`), common.expectsError({
       code: 'ERR_INVALID_FILE_URL_PATH',
       type: TypeError,
-      message: 'File URL path must not include encoded / characters'
+      message: 'File URL path must not include encoded / characters',
     }));
   });
 
   fs.readFile(new URL('file://hostname/a/b/c'), common.expectsError({
     code: 'ERR_INVALID_FILE_URL_HOST',
     type: TypeError,
-    message: `File URL host must be "localhost" or empty on ${os.platform()}`
+    message: `File URL host must be "localhost" or empty on ${os.platform()}`,
   }));
 }

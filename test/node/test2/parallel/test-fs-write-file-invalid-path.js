@@ -5,8 +5,9 @@ const assert = require('assert');
 const fs = require('../../../../');
 const path = require('path');
 
-if (!common.isWindows)
+if (!common.isWindows) {
   common.skip('This test is for Windows only.');
+}
 
 common.refreshTmpDir();
 
@@ -33,7 +34,7 @@ fs.writeFileSync(pathname, DATA_VALUE);
 
 let content = '';
 const fileDataStream = fs.createReadStream(pathname, {
-  encoding: 'utf8'
+  encoding: 'utf8',
 });
 
 fileDataStream.on('data', (data) => {

@@ -56,7 +56,7 @@ fs.appendFileSync(filename2, data);
 const fileData2 = fs.readFileSync(filename2);
 
 assert.strictEqual(Buffer.byteLength(data) + currentFileData.length,
-                   fileData2.length);
+  fileData2.length);
 
 // test that appendFileSync accepts buffers
 const filename3 = join(common.tmpDir, 'append-sync3.txt');
@@ -71,9 +71,9 @@ assert.strictEqual(buf.length + currentFileData.length, fileData3.length);
 
 // test that appendFile accepts numbers.
 const filename4 = join(common.tmpDir, 'append-sync4.txt');
-fs.writeFileSync(filename4, currentFileData, { mode: m });
+fs.writeFileSync(filename4, currentFileData, {mode: m});
 
-fs.appendFileSync(filename4, num, { mode: m });
+fs.appendFileSync(filename4, num, {mode: m});
 
 // windows permissions aren't unix
 if (!common.isWindows) {
@@ -84,7 +84,7 @@ if (!common.isWindows) {
 const fileData4 = fs.readFileSync(filename4);
 
 assert.strictEqual(Buffer.byteLength(String(num)) + currentFileData.length,
-                   fileData4.length);
+  fileData4.length);
 
 // test that appendFile accepts file descriptors
 const filename5 = join(common.tmpDir, 'append-sync5.txt');
@@ -97,9 +97,9 @@ fs.closeSync(filename5fd);
 const fileData5 = fs.readFileSync(filename5);
 
 assert.strictEqual(Buffer.byteLength(data) + currentFileData.length,
-                   fileData5.length);
+  fileData5.length);
 
-//exit logic for cleanup
+// exit logic for cleanup
 
 process.on('exit', function() {
   fs.unlinkSync(filename);

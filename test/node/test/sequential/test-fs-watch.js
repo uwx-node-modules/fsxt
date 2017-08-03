@@ -109,13 +109,12 @@ common.refreshTmpDir();
     const fd = fs.openSync(filepath, 'w');
     fs.closeSync(fd);
   });
-
 }
 
 // https://github.com/joyent/node/issues/2293 - non-persistent watcher should
 // not block the event loop
 {
-  fs.watch(__filename, { persistent: false }, common.mustNotCall());
+  fs.watch(__filename, {persistent: false}, common.mustNotCall());
 }
 
 // whitebox test to ensure that wrapped FSEvent is safe
@@ -125,16 +124,16 @@ common.refreshTmpDir();
   assert.throws(function() {
     const w = fs.watch(__filename, common.mustNotCall());
     oldhandle = w._handle;
-    w._handle = { close: w._handle.close };
+    w._handle = {close: w._handle.close};
     w.close();
   }, /^TypeError: Illegal invocation$/);
   oldhandle.close(); // clean up
 
   assert.throws(function() {
-    const w = fs.watchFile(__filename, { persistent: false },
-                           common.mustNotCall());
+    const w = fs.watchFile(__filename, {persistent: false},
+      common.mustNotCall());
     oldhandle = w._handle;
-    w._handle = { stop: w._handle.stop };
+    w._handle = {stop: w._handle.stop};
     w.stop();
   }, /^TypeError: Illegal invocation$/);
   oldhandle.stop(); // clean up

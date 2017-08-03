@@ -21,8 +21,9 @@
 
 'use strict';
 const common = require('../common');
-if (!common.canCreateSymLink())
+if (!common.canCreateSymLink()) {
   common.skip('insufficient privileges');
+}
 
 const assert = require('assert');
 const path = require('path');

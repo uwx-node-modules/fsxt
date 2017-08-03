@@ -28,10 +28,9 @@ const fs = require('../../../../');
 const emptyFile = path.join(common.fixturesDir, 'empty.txt');
 
 fs.open(emptyFile, 'r', common.mustCall((error, fd) => {
-
   assert.ifError(error);
 
-  const read = fs.createReadStream(emptyFile, { fd });
+  const read = fs.createReadStream(emptyFile, {fd});
 
   read.once('data', common.mustNotCall('data event should not emit'));
 
@@ -39,10 +38,9 @@ fs.open(emptyFile, 'r', common.mustCall((error, fd) => {
 }));
 
 fs.open(emptyFile, 'r', common.mustCall((error, fd) => {
-
   assert.ifError(error);
 
-  const read = fs.createReadStream(emptyFile, { fd });
+  const read = fs.createReadStream(emptyFile, {fd});
 
   read.pause();
 

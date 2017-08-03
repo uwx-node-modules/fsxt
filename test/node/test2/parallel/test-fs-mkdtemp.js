@@ -14,7 +14,7 @@ assert(common.fileExists(tmpFolder));
 
 const utf8 = fs.mkdtempSync(path.join(common.tmpDir, '\u0222abc.'));
 assert.strictEqual(Buffer.byteLength(path.basename(utf8)),
-                   Buffer.byteLength('\u0222abc.XXXXXX'));
+  Buffer.byteLength('\u0222abc.XXXXXX'));
 assert(common.fileExists(utf8));
 
 function handler(err, folder) {

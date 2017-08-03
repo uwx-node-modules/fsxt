@@ -5,7 +5,7 @@ const fs = require('../../../../');
 const cbTypeError = /^TypeError: "callback" argument must be a function$/;
 const callbackThrowValues = [null, true, false, 0, 1, 'foo', /foo/, [], {}];
 
-const { sep } = require('path');
+const {sep} = require('path');
 const warn = 'Calling an asynchronous function without callback is deprecated.';
 
 common.refreshTmpDir();

@@ -35,7 +35,7 @@ const O_SYNC = fs.constants.O_SYNC || 0;
 const O_TRUNC = fs.constants.O_TRUNC || 0;
 const O_WRONLY = fs.constants.O_WRONLY || 0;
 
-const { stringToFlags } = require('internal/fs');
+const {stringToFlags} = require('internal/fs');
 
 assert.strictEqual(stringToFlags('r'), O_RDONLY);
 assert.strictEqual(stringToFlags('r+'), O_RDWR);
@@ -60,21 +60,21 @@ assert.strictEqual(stringToFlags('xa+'), O_APPEND | O_CREAT | O_RDWR | O_EXCL);
   .forEach(function(flags) {
     common.expectsError(
       () => stringToFlags(flags),
-      { code: 'ERR_INVALID_OPT_VALUE', type: TypeError }
+      {code: 'ERR_INVALID_OPT_VALUE', type: TypeError}
     );
   });
 
 common.expectsError(
   () => stringToFlags({}),
-  { code: 'ERR_INVALID_OPT_VALUE', type: TypeError }
+  {code: 'ERR_INVALID_OPT_VALUE', type: TypeError}
 );
 
 common.expectsError(
   () => stringToFlags(true),
-  { code: 'ERR_INVALID_OPT_VALUE', type: TypeError }
+  {code: 'ERR_INVALID_OPT_VALUE', type: TypeError}
 );
 
 common.expectsError(
   () => stringToFlags(null),
-  { code: 'ERR_INVALID_OPT_VALUE', type: TypeError }
+  {code: 'ERR_INVALID_OPT_VALUE', type: TypeError}
 );

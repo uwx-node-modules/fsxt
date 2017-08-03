@@ -83,14 +83,14 @@ fs.stat(__filename, common.mustCall(function(err, s) {
     'dev', 'mode', 'nlink', 'uid',
     'gid', 'rdev', 'ino', 'size',
     'atime', 'mtime', 'ctime', 'birthtime',
-    'atimeMs', 'mtimeMs', 'ctimeMs', 'birthtimeMs'
+    'atimeMs', 'mtimeMs', 'ctimeMs', 'birthtimeMs',
   ];
   if (!common.isWindows) {
     keys.push('blocks', 'blksize');
   }
   const numberFields = [
     'dev', 'mode', 'nlink', 'uid', 'gid', 'rdev', 'ino', 'size',
-    'atimeMs', 'mtimeMs', 'ctimeMs', 'birthtimeMs'
+    'atimeMs', 'mtimeMs', 'ctimeMs', 'birthtimeMs',
   ];
   const dateFields = ['atime', 'mtime', 'ctime', 'birthtime'];
   keys.forEach(function(k) {

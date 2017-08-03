@@ -65,7 +65,7 @@ fs.writeFile(filename2, buf, common.mustCall(function(e) {
 const filename3 = join(common.tmpDir, 'test3.txt');
 
 const m = 0o600;
-fs.writeFile(filename3, n, { mode: m }, common.mustCall(function(e) {
+fs.writeFile(filename3, n, {mode: m}, common.mustCall(function(e) {
   assert.ifError(e);
 
   // windows permissions aren't unix

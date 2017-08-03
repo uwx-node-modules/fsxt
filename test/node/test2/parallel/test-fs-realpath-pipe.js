@@ -2,12 +2,13 @@
 
 const common = require('../common');
 
-if (common.isWindows || common.isAIX)
+if (common.isWindows || common.isAIX) {
   common.skip(`No /dev/stdin on ${process.platform}.`);
+}
 
 const assert = require('assert');
 
-const { spawnSync } = require('child_process');
+const {spawnSync} = require('child_process');
 
 for (const code of [
   `require('../../../../').realpath('/dev/stdin', (err, resolvedPath) => {
@@ -24,9 +25,9 @@ for (const code of [
     }
   } catch (e) {
     process.exit(1);
-  }`
+  }`,
 ]) {
   assert.strictEqual(spawnSync(process.execPath, ['-e', code], {
-    stdio: 'pipe'
+    stdio: 'pipe',
   }).status, 2);
 }

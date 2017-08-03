@@ -15,8 +15,9 @@ class Countdown {
 
   dec() {
     assert(this[kLimit] > 0, 'Countdown expired');
-    if (--this[kLimit] === 0)
+    if (--this[kLimit] === 0) {
       this[kCallback]();
+    }
   }
 
   get remaining() {

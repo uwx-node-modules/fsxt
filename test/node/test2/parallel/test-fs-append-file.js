@@ -68,7 +68,7 @@ fs.appendFile(filename2, s, function(e) {
     assert.ifError(e);
     ncallbacks++;
     assert.strictEqual(Buffer.byteLength(s) + currentFileData.length,
-                       buffer.length);
+      buffer.length);
   });
 });
 
@@ -95,7 +95,7 @@ const filename4 = join(common.tmpDir, 'append4.txt');
 fs.writeFileSync(filename4, currentFileData);
 
 const m = 0o600;
-fs.appendFile(filename4, n, { mode: m }, function(e) {
+fs.appendFile(filename4, n, {mode: m}, function(e) {
   assert.ifError(e);
 
   ncallbacks++;
@@ -110,7 +110,7 @@ fs.appendFile(filename4, n, { mode: m }, function(e) {
     assert.ifError(e);
     ncallbacks++;
     assert.strictEqual(Buffer.byteLength(String(n)) + currentFileData.length,
-                       buffer.length);
+      buffer.length);
   });
 });
 
@@ -138,7 +138,7 @@ fs.open(filename5, 'a+', function(e, fd) {
 
         ncallbacks++;
         assert.strictEqual(Buffer.byteLength(s) + currentFileData.length,
-                           buffer.length);
+          buffer.length);
       });
     });
   });

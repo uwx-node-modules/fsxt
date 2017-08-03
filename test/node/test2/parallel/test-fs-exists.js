@@ -23,7 +23,7 @@
 const common = require('../common');
 const assert = require('assert');
 const fs = require('../../../../');
-const { URL } = require('url');
+const {URL} = require('url');
 const f = __filename;
 
 fs.exists(f, common.mustCall(function(y) {

@@ -25,7 +25,7 @@ const path = require('path');
 const fs = require('fs');
 const assert = require('assert');
 const os = require('os');
-const { exec, execSync, spawn, spawnSync } = require('child_process');
+const {exec, execSync, spawn, spawnSync} = require('child_process');
 const stream = require('stream');
 const util = require('util');
 const Timer = process.binding('timer_wrap').Timer;
@@ -68,8 +68,9 @@ if (process.env.NODE_TEST_WITH_ASYNC_HOOKS) {
 
   process.on('exit', () => {
     // itterate through handles to make sure nothing crashes
-    for (const k in initHandles)
+    for (const k in initHandles) {
       util.inspect(initHandles[k]);
+    }
   });
 
   const _addIdToDestroyList = async_wrap.addIdToDestroyList;
@@ -108,22 +109,27 @@ function rimrafSync(p) {
   try {
     st = fs.lstatSync(p);
   } catch (e) {
-    if (e.code === 'ENOENT')
+    if (e.code === 'ENOENT') {
       return;
+    }
   }
 
   try {
-    if (st && st.isDirectory())
+    if (st && st.isDirectory()) {
       rmdirSync(p, null);
-    else
+    } else {
       fs.unlinkSync(p);
+    }
   } catch (e) {
-    if (e.code === 'ENOENT')
+    if (e.code === 'ENOENT') {
       return;
-    if (e.code === 'EPERM')
+    }
+    if (e.code === 'EPERM') {
       return rmdirSync(p, e);
-    if (e.code !== 'EISDIR')
+    }
+    if (e.code !== 'EISDIR') {
       throw e;
+    }
     rmdirSync(p, e);
   }
 }
@@ -132,8 +138,9 @@ function rmdirSync(p, originalEr) {
   try {
     fs.rmdirSync(p);
   } catch (e) {
-    if (e.code === 'ENOTDIR')
+    if (e.code === 'ENOTDIR') {
       throw originalEr;
+    }
     if (e.code === 'ENOTEMPTY' || e.code === 'EEXIST' || e.code === 'EPERM') {
       const enc = exports.isLinux ? 'buffer' : 'utf8';
       fs.readdirSync(p, enc).forEach((f) => {
@@ -192,7 +199,7 @@ Object.defineProperty(exports, 'inFreeBSDJail', {
       inFreeBSDJail = false;
     }
     return inFreeBSDJail;
-  }
+  },
 });
 
 Object.defineProperty(exports, 'localhostIPv4', {
@@ -215,11 +222,11 @@ Object.defineProperty(exports, 'localhostIPv4', {
     if (localhostIPv4 === null) localhostIPv4 = '127.0.0.1';
 
     return localhostIPv4;
-  }
+  },
 });
 
 // opensslCli defined lazily to reduce overhead of spawnSync
-Object.defineProperty(exports, 'opensslCli', { get: function() {
+Object.defineProperty(exports, 'opensslCli', {get: function() {
   if (opensslCli !== null) return opensslCli;
 
   if (process.config.variables.node_shared_openssl) {
@@ -238,18 +245,18 @@ Object.defineProperty(exports, 'opensslCli', { get: function() {
     opensslCli = false;
   }
   return opensslCli;
-}, enumerable: true });
+}, enumerable: true});
 
 Object.defineProperty(exports, 'hasCrypto', {
   get: function() {
     return Boolean(process.versions.openssl);
-  }
+  },
 });
 
 Object.defineProperty(exports, 'hasFipsCrypto', {
   get: function() {
     return exports.hasCrypto && require('crypto').fips;
-  }
+  },
 });
 
 {
@@ -319,25 +326,31 @@ exports.spawnSyncPwd = function(options) {
 };
 
 exports.platformTimeout = function(ms) {
-  if (process.config.target_defaults.default_configuration === 'Debug')
+  if (process.config.target_defaults.default_configuration === 'Debug') {
     ms = 2 * ms;
+  }
 
-  if (global.__coverage__)
+  if (global.__coverage__) {
     ms = 4 * ms;
+  }
 
-  if (exports.isAIX)
-    return 2 * ms; // default localhost speed is slower on AIX
+  if (exports.isAIX) {
+    return 2 * ms;
+  } // default localhost speed is slower on AIX
 
-  if (process.arch !== 'arm')
+  if (process.arch !== 'arm') {
     return ms;
+  }
 
   const armv = process.config.variables.arm_version;
 
-  if (armv === '6')
-    return 7 * ms;  // ARMv6
+  if (armv === '6') {
+    return 7 * ms;
+  } // ARMv6
 
-  if (armv === '7')
-    return 2 * ms;  // ARMv7
+  if (armv === '7') {
+    return 2 * ms;
+  } // ARMv7
 
   return ms; // ARMv8+
 };
@@ -353,7 +366,7 @@ let knownGlobals = [
   process,
   setImmediate,
   setInterval,
-  setTimeout
+  setTimeout,
 ];
 
 if (global.gc) {
@@ -462,9 +475,9 @@ function runCallChecks(exitCode) {
 
   failed.forEach(function(context) {
     console.log('Mismatched %s function calls. Expected %s, actual %d.',
-                context.name,
-                context.messageSegment,
-                context.actual);
+      context.name,
+      context.messageSegment,
+      context.actual);
     console.log(context.stack.split('\n').slice(2).join('\n'));
   });
 
@@ -487,14 +500,15 @@ function _mustCallInner(fn, criteria = 1, field) {
     fn = noop;
   }
 
-  if (typeof criteria !== 'number')
+  if (typeof criteria !== 'number') {
     throw new TypeError(`Invalid ${field} value: ${criteria}`);
+  }
 
   const context = {
     [field]: criteria,
     actual: 0,
     stack: (new Error()).stack,
-    name: fn.name || '<anonymous>'
+    name: fn.name || '<anonymous>',
   };
 
   // add the exit listener only once to avoid listener leak warnings
@@ -534,13 +548,13 @@ exports.canCreateSymLink = function() {
     // If unix tools are in the path, they can shadow the one we want,
     // so use the full path while executing whoami
     const whoamiPath = path.join(process.env['SystemRoot'],
-                                 'System32', 'whoami.exe');
+      'System32', 'whoami.exe');
 
     let err = false;
     let output = '';
 
     try {
-      output = execSync(`${whoamiPath} /priv`, { timout: 1000 });
+      output = execSync(`${whoamiPath} /priv`, {timout: 1000});
     } catch (e) {
       err = true;
     } finally {
@@ -605,8 +619,9 @@ exports.nodeProcessAborted = function nodeProcessAborted(exitCode, signal) {
   // which corresponds to exit code 3221225477 (0xC0000005)
   // (ii) raise(SIGABRT) or abort(), which lands up in CRT library calls
   // which corresponds to exit code 3.
-  if (exports.isWindows)
+  if (exports.isWindows) {
     expectedExitCodes = [3221225477, 3];
+  }
 
   // When using --abort-on-uncaught-exception, V8 will use
   // base::OS::Abort to terminate the process.
@@ -641,7 +656,7 @@ function expectWarning(name, expectedMessages) {
   return exports.mustCall((warning) => {
     assert.strictEqual(warning.name, name);
     assert.ok(expectedMessages.includes(warning.message),
-              `unexpected error message: "${warning.message}"`);
+      `unexpected error message: "${warning.message}"`);
     // Remove a warning message after it is seen so that we guarantee that we
     // get each message only once.
     expectedMessages.splice(expectedMessages.indexOf(warning.message), 1);
@@ -681,13 +696,13 @@ exports.expectWarning = function(nameOrMap, expected) {
 Object.defineProperty(exports, 'hasIntl', {
   get: function() {
     return process.binding('config').hasIntl;
-  }
+  },
 });
 
 Object.defineProperty(exports, 'hasSmallICU', {
   get: function() {
     return process.binding('config').hasSmallICU;
-  }
+  },
 });
 
 // Useful for testing expected internal/error objects
@@ -705,7 +720,7 @@ exports.expectsError = function expectsError(fn, settings, exact) {
         throw new TypeError('`settings.type` must inherit from `Error`');
       }
       assert(error instanceof type,
-             `${error.name} is not instance of ${type.name}`);
+        `${error.name} is not instance of ${type.name}`);
     }
     if ('message' in settings) {
       const message = settings.message;
@@ -713,7 +728,7 @@ exports.expectsError = function expectsError(fn, settings, exact) {
         assert.strictEqual(error.message, message);
       } else {
         assert(message.test(error.message),
-               `${error.message} does not match ${message}`);
+          `${error.message} does not match ${message}`);
       }
     }
     if ('name' in settings) {
@@ -725,7 +740,7 @@ exports.expectsError = function expectsError(fn, settings, exact) {
           const actual = error[key];
           const expected = settings[key];
           assert.strictEqual(actual, expected,
-                             `${key}: expected ${expected}, not ${actual}`);
+            `${key}: expected ${expected}, not ${actual}`);
         }
       });
     }
@@ -754,15 +769,15 @@ const arrayBufferViews = [
   Uint32Array,
   Float32Array,
   Float64Array,
-  DataView
+  DataView,
 ];
 
 exports.getArrayBufferViews = function getArrayBufferViews(buf) {
-  const { buffer, byteOffset, byteLength } = buf;
+  const {buffer, byteOffset, byteLength} = buf;
 
   const out = [];
   for (const type of arrayBufferViews) {
-    const { BYTES_PER_ELEMENT = 1 } = type;
+    const {BYTES_PER_ELEMENT = 1} = type;
     if (byteLength % BYTES_PER_ELEMENT === 0) {
       out.push(new type(buffer, byteOffset, byteLength / BYTES_PER_ELEMENT));
     }
@@ -773,7 +788,9 @@ exports.getArrayBufferViews = function getArrayBufferViews(buf) {
 // Crash the process on unhandled rejections.
 exports.crashOnUnhandledRejection = function() {
   process.on('unhandledRejection',
-             (err) => process.nextTick(() => { throw err; }));
+    (err) => process.nextTick(() => {
+      throw err;
+    }));
 };
 
 exports.getTTYfd = function getTTYfd() {
