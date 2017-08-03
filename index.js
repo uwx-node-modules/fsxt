@@ -3,9 +3,9 @@
 /* exported module, exports, require */
 const fs = require('fs');
 
-const vacuum = require("fs-vacuum");
-const diveSync = require("diveSync");
-const dive = require("dive");
+const vacuum = require('fs-vacuum');
+const diveSync = require('diveSync');
+const dive = require('dive');
 const crs = require('create-readdir-stream');
 const xml2js = require('xml2js');
 
@@ -18,7 +18,7 @@ const mkdirs = require('./lib/mkdirs');
 const move = require('./lib/move');
 const output = require('./lib/output');
 const remove = require('./lib/remove');
-//const walk = require('./lib/walk');
+// const walk = require('./lib/walk');
 
 exports.access = fs.access;
 exports.accessSync = fs.accessSync;
@@ -48,10 +48,18 @@ exports.ftruncate = fs.ftruncate;
 exports.ftruncateSync = fs.ftruncateSync;
 exports.futimes = fs.futimes;
 exports.futimesSync = fs.futimesSync;
-exports.lchmod = fs.lchmod         || (() => { throw new Error('lchmod is unsupported on this OS.'); });
-exports.lchmodSync = fs.lchmodSync || (() => { throw new Error('lchmodSync is unsupported on this OS.'); });
-exports.lchown = fs.lchown         || (() => { throw new Error('lchown is unsupported on this OS.'); });
-exports.lchownSync = fs.lchownSync || (() => { throw new Error('lchownSync is unsupported on this OS.'); });
+exports.lchmod = fs.lchmod || (() => {
+  throw new Error('lchmod is unsupported on this OS.');
+});
+exports.lchmodSync = fs.lchmodSync || (() => {
+  throw new Error('lchmodSync is unsupported on this OS.');
+});
+exports.lchown = fs.lchown || (() => {
+  throw new Error('lchown is unsupported on this OS.');
+});
+exports.lchownSync = fs.lchownSync || (() => {
+  throw new Error('lchownSync is unsupported on this OS.');
+});
 exports.link = fs.link;
 exports.linkSync = fs.linkSync;
 exports.lstat = fs.lstat;
@@ -126,7 +134,7 @@ exports.writeJson = json.writeJson;
 exports.writeJsonSync = json.writeJsonSync;
 exports.remove = remove.remove;
 exports.removeSync = remove.removeSync;
-//exports.walk = walk.walk;
+// exports.walk = walk.walk;
 
 // async fs exists
 exports.exists = function(path, callback) {
@@ -206,7 +214,7 @@ exports.readXML = function(path, callback) {
     if (err) {
       callback(err);
     } else {
-      xml2js.parseString(data, { async: true }, callback); 
+      xml2js.parseString(data, {async: true}, callback);
     }
   });
 };
@@ -217,7 +225,7 @@ exports.readXMLSync = function(path) {
   let err = null;
   let data;
 
-  xml2js.parseString(fdata, { async: false }, (aerr, adata) => {
+  xml2js.parseString(fdata, {async: false}, (aerr, adata) => {
     err = aerr;
     data = adata;
   });
@@ -259,12 +267,12 @@ exports.isDirectorySync = function(path) {
 // maintain backwards compatibility for awhile
 const jsonfile = {};
 Object.defineProperty(jsonfile, 'spaces', {
-  get: function () {
+  get: function() {
     return fs.spaces; // found in ./json
   },
-  set: function (val) {
+  set: function(val) {
     fs.spaces = val;
-  }
+  },
 });
 
 exports.jsonfile = jsonfile; // so users of fs-extra can modify jsonFile.spaces

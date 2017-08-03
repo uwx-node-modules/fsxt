@@ -2,11 +2,11 @@
 /* globals module, exports, require, process */
 /* exported module, exports, require, process */
 
-var os = require('os');
-var path = require('path');
-var Mocha = require('mocha');
-var assign = require('./lib/util/assign');
-var klaw = require('klaw');
+let os = require('os');
+let path = require('path');
+let Mocha = require('mocha');
+let assign = require('./lib/util/assign');
+let klaw = require('klaw');
 
 (() => {
   const arr = [];
