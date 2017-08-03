@@ -1,2 +1,1 @@
-eslint .
-exit 0
+eslint . || exit 0
