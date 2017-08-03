@@ -1,0 +1,2 @@
+eslint .
+exit 0
