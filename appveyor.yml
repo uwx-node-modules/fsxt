@@ -1,6 +1,6 @@
 # Test against this version of Node.js
 environment:
-  nodejs_version: "6"
+  nodejs_version: "8"
   access_token:
     secure: wShbQfYcfaf2ZgU8dFgLTVJglCyGiK9/BHWcEbVZ4sU8SqxokPc4pFfl1ZY4qtlO
 
