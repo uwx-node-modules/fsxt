@@ -1,51 +1,16 @@
-fs-extra+
-=========
+<!-- BEGIN heading -->
+<!-- ENDIN heading -->
 
-Improved fork of `fs-extra` with extra [sic] features (and semicolons!)  
-`fs-extra+` provides support for node.js 4 and above (possibly), but you should probably use 8.
+<!-- BEGIN installation -->
+<!-- ENDIN installation -->
 
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-google-brightgreen.svg)](https://google.github.io/styleguide/jsguide.html)
-![Used by practically no-one](https://img.shields.io/badge/downloads-basically_none-brightgreen.svg)
-
-Installation
-------------
-
-    npm install --save rafa1231518/node-fs-extra
-
-Usage
------
-
-`fs-extra+` is a drop in replacement for native [`fs`](http://nodejs.org/docs/latest/api/fs.html). All methods in [`fs`](http://nodejs.org/docs/latest/api/fs.html) are unmodified and attached to `fs-extra+`.
-
-You don't ever need to include the original [`fs`](http://nodejs.org/docs/latest/api/fs.html) module again:
-
-```js
-const fs = require('fs'); // this is no longer necessary
-```
-
-you can now do this:
-
-```js
-const fs = require('fs-extra');
-```
-
-or if you prefer to make it clear that you're using `fs-extra` and not [`fs`](http://nodejs.org/docs/latest/api/fs.html), you may want
-to name your [`fs`](http://nodejs.org/docs/latest/api/fs.html) variable `fse` like so:
-
-```js
-const fse = require('fs-extra');
-```
-
-you can also keep both, but it's redundant:
-
-```js
-const fs = require('fs');
-const fse = require('fs-extra');
-```
+<!-- BEGIN usage -->
+<!-- ENDIN usage -->
 
 Sync vs Async
 -------------
 Most methods are asynchronous by default (they take a callback with an `Error` or `null` as first argument, and some form of data as the second).
+All async methods will return a Promise if the callback isn't passed.
 
 Synchronous methods on the other hand will throw if an error occurs, and return the second parameter of what would be in the async callback.
 
@@ -3444,131 +3409,5 @@ The following constants are meant for use with the [`fs.Stats`][] object's
 [MSDN-Using-Streams]: https://msdn.microsoft.com/en-us/library/windows/desktop/bb540537.aspx
 <!-- ENDIN nodejsfs -->
 
-Third Party
------------
-
-## File / Directory Watching
-
-If you want to watch for changes to files or directories, then you should use [chokidar](https://github.com/paulmillr/chokidar).
-
-
-## Misc.
-
-- [mfs](https://github.com/cadorn/mfs) - Monitor your fs-extra calls.
-
-
-
-Hacking on fs-extra
--------------------
-
-Wanna hack on `fs-extra`? Great! Your help is needed! [fs-extra is one of the most depended upon Node.js packages](http://nodei.co/npm/fs-extra.png?downloads=true&downloadRank=true&stars=true). This project
-uses [JavaScript Standard Style](https://github.com/feross/standard) - if the name or style choices bother you,
-you're gonna have to get over it :) If `standard` is good enough for `npm`, it's good enough for `fs-extra`.
-
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
-
-What's needed?
-- First, take a look at existing issues. Those are probably going to be where the priority lies.
-- More tests for edge cases. Specifically on different platforms. There can never be enough tests.
-- Improve test coverage. See coveralls output for more info.
-- After the directory walker is integrated, any function that needs to traverse directories like
-`copy`, `remove`, or `mkdirs` should be built on top of it.
-
-Note: If you make any big changes, **you should definitely file an issue for discussion first.**
-
-## Running the Test Suite
-
-fs-extra contains hundreds of tests.
-
-- `npm run lint`: runs the linter ([standard](http://standardjs.com/))
-- `npm run unit`: runs the unit tests
-- `npm test`: runs both the linter and the tests
-
-
-## Windows
-
-If you run the tests on the Windows and receive a lot of symbolic link `EPERM` permission errors, it's
-because on Windows you need elevated privilege to create symbolic links. You can add this to your Windows's
-account by following the instructions here: http://superuser.com/questions/104845/permission-to-make-symbolic-links-in-windows-7
-However, I didn't have much luck doing this.
-
-Since I develop on Mac OS X, I use VMWare Fusion for Windows testing. I create a shared folder that I map to a drive on Windows.
-I open the `Node.js command prompt` and run as `Administrator`. I then map the network drive running the following command:
-
-    net use z: "\\vmware-host\Shared Folders"
-
-I can then navigate to my `fs-extra` directory and run the tests.
-
-
-Naming
-------
-
-eh just go with whatever feels good
-
-Credit
-------
-
-`fs-extra` wouldn't be possible without using the modules from the following authors:
-
-- [Isaac Shlueter](https://github.com/isaacs)
-- [Charlie McConnel](https://github.com/avianflu)
-- [James Halliday](https://github.com/substack)
-- [Andrew Kelley](https://github.com/andrewrk)
-
-
-
-
-License
--------
-
-Licensed under MIT
-
-`fs-extra` is copyright (c) 2011-2016 [JP Richardson](https://github.com/jprichardson)
-
-`fs-extra+` is copyright © 2016 [chrishansen69/rafa1231518](https://github.com/rafa1231518), some rights reserved.
-
-Partial documentation is from [create-readdir-stream](https://github.com/tunnckoCore/create-readdir-stream/), [diveSync](https://github.com/pvorb/node-diveSync), [dive](https://github.com/pvorb/node-dive) and the Node.js `fs` module.
-
-`fs-extra+` is not endorsed by or affiliated with Joyent or the Node.js Foundation.
-
-[1]: http://nodejs.org/docs/latest/api/fs.html
-[jsonfile]: https://github.com/jprichardson/node-jsonfile
-
-[`Buffer.byteLength`]: https://nodejs.org/api/buffer.html#buffer_class_method_buffer_bytelength_string_encoding
-[`Buffer`]: https://nodejs.org/api/buffer.html#buffer_buffer
-[Caveats]: https://nodejs.org/api/fs.html#fs_caveats
-[`fs.access()`]: https://nodejs.org/api/fs.html#fs_fs_access_path_mode_callback
-[`fs.appendFile()`]: https://nodejs.org/api/fs.html#fs_fs_appendfile_file_data_options_callback
-[`fs.exists()`]: https://nodejs.org/api/fs.html#fs_fs_exists_path_callback
-[`fs.fstat()`]: https://nodejs.org/api/fs.html#fs_fs_fstat_fd_callback
-[`fs.FSWatcher`]: https://nodejs.org/api/fs.html#fs_class_fs_fswatcher
-[`fs.futimes()`]: https://nodejs.org/api/fs.html#fs_fs_futimes_fd_atime_mtime_callback
-[`fs.lstat()`]: https://nodejs.org/api/fs.html#fs_fs_lstat_path_callback
-[`fs.mkdtemp()`]: https://nodejs.org/api/fs.html#fs_fs_mkdtemp_prefix_options_callback
-[`fs.open()`]: https://nodejs.org/api/fs.html#fs_fs_open_path_flags_mode_callback
-[`fs.read()`]: https://nodejs.org/api/fs.html#fs_fs_read_fd_buffer_offset_length_position_callback
-[`fs.readFile`]: https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback
-[`fs.stat()`]: https://nodejs.org/api/fs.html#fs_fs_stat_path_callback
-[`fs.Stats`]: https://nodejs.org/api/fs.html#fs_class_fs_stats
-[`fs.utimes()`]: https://nodejs.org/api/fs.html#fs_fs_futimes_fd_atime_mtime_callback
-[`fs.watch()`]: https://nodejs.org/api/fs.html#fs_fs_watch_filename_options_listener
-[`fs.write()`]: https://nodejs.org/api/fs.html#fs_fs_write_fd_buffer_offset_length_position_callback
-[`fs.writeFile()`]: https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback
-[`net.Socket`]: https://nodejs.org/api/net.html#net_class_net_socket
-[`ReadStream`]: https://nodejs.org/api/fs.html#fs_class_fs_readstream
-[`stat()`]: https://nodejs.org/api/fs.html#fs_fs_stat_path_callback
-[`util.inspect(stats)`]: https://nodejs.org/api/util.html#util_util_inspect_object_options
-[`WriteStream`]: https://nodejs.org/api/fs.html#fs_class_fs_writestream
-[MDN-Date-getTime]: https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/getTime
-[MDN-Date]: https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date
-[Readable Stream]: https://nodejs.org/api/stream.html#stream_class_stream_readable
-[Writable Stream]: https://nodejs.org/api/stream.html#stream_class_stream_writable
-[inode]: https://en.wikipedia.org/wiki/Inode
-[FS Constants]: https://nodejs.org/api/fs.html#fs_fs_constants
-[`inotify`]: http://man7.org/linux/man-pages/man7/inotify.7.html
-[`kqueue`]: https://www.freebsd.org/cgi/man.cgi?kqueue
-[`FSEvents`]: https://developer.apple.com/library/mac/documentation/Darwin/Conceptual/FSEvents_ProgGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40005289-CH1-SW1
-[`event ports`]: http://illumos.org/man/port_create
-[`ReadDirectoryChangesW`]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa365465%28v=vs.85%29.aspx
-[`AHAFS`]: https://www.ibm.com/developerworks/aix/library/au-aix_event_infrastructure/
-[Common System Errors]: https://nodejs.org/api/errors.html#errors_common_system_errors
+<!-- BEGIN ending -->
+<!-- ENDIN ending -->
