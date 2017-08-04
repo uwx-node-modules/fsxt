@@ -174,8 +174,6 @@ Methods
 - [writeSync(fd, buffer[, offset[, length[, position]]])](#fswritesyncfd-buffer-offset-length-position) | [writeSync(fd, string[, position[, encoding]])](#fswritesyncfd-string-position-encoding)
 <!-- ENDIN node-fs-nav --> 
 
-**NOTE:** You can still use the native Node.js methods. They are copied over to `fs-extra`.
-
  <!-- BEGIN fsextra -->
 ## copySync(src, dest, [options])
 
