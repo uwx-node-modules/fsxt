@@ -24,7 +24,7 @@ Improved fork of `fs-extra` with extra [sic] features (and semicolons!)
 Installation
 ------------
 
-    npm install --save rafa1231518/node-fs-extra
+    npm install --save uwx/node-fs-extra
 
 <!-- ENDIN installation --> 
 
