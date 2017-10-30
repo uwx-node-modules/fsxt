@@ -47,17 +47,17 @@ const fs = require('fsxt');
 ```
 
 or if you prefer to make it clear that you're using `fsxt` and not [`fs`](http://nodejs.org/docs/latest/api/fs.html), you may want
-to name your [`fs`](http://nodejs.org/docs/latest/api/fs.html) variable `fse` like so:
+to name your [`fs`](http://nodejs.org/docs/latest/api/fs.html) variable `fsxt` like so:
 
 ```js
-const fse = require('fsxt');
+const fsxt = require('fsxt');
 ```
 
 you can also keep both, but it's redundant:
 
 ```js
 const fs = require('fs');
-const fse = require('fsxt');
+const fsxt = require('fsxt');
 ```
 
 #### Useful Resources
