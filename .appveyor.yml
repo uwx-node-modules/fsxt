@@ -2,8 +2,7 @@
 environment:
   nodejs_version: "8"
   access_token:
-    secure: wShbQfYcfaf2ZgU8dFgLTVJglCyGiK9/BHWcEbVZ4sU8SqxokPc4pFfl1ZY4qtlO
-
+    secure: kTEF8PHouC2w53A8Rsu7y3Q+4EZkKqDpb323KkbeCI185nE3qwpvufwSmC3uhu9A
 
 # only build master (currently this is the only way to avoid the build failing on other branches)
 branches:
