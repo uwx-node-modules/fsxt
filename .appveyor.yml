@@ -43,7 +43,7 @@ on_success:
  - cmd: try.bat git commit -m "Built markdown at %mydate%_%mytime% [skip ci]"
  # commit fixed semicolons
  - cmd: try.bat node build/semi.js
- - cmd: addall.bat md
+ - cmd: addall.bat js
  - cmd: try.bat git commit -m "Fixed semicolons at %mydate%_%mytime% [skip ci]"
  # push
  - git push origin master
