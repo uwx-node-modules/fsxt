@@ -8,18 +8,18 @@ If you want to watch for changes to files or directories, then you should use [c
 
 ## Misc.
 
-- [mfs](https://github.com/cadorn/mfs) - Monitor your fs-extra calls.
+- [mfs](https://github.com/cadorn/mfs) - Monitor your fsxt calls.
 
-Hacking on fs-extra+
+Hacking on fsxt
 -------------------
 
-Do you want to hack on fs-extra+? Well, that's pretty stupid. Still, you can go ahead and send a PR.
+Do you want to hack on fsxt? Well, that's pretty dumb. Still, you can go ahead and send a PR.
 
-fs-extra+ uses the [Google Style](https://google.github.io/styleguide/jsguide.html). It's good-looking and safe JavaScript as God (Brendan Eich) intended.
+fsxt uses the [Google Style](https://google.github.io/styleguide/jsguide.html). It's good-looking and safe JavaScript as God (Brendan Eich) intended.
 
 ## Running the Test Suite
 
-fs-extra contains hundreds of tests that don't work.
+fsxt contains hundreds of tests that don't work.
 
 - `npm run lint`: runs eslint
 - `npm run unit`: runs the unit tests
@@ -37,7 +37,7 @@ I open the `Node.js command prompt` and run as `Administrator`. I then map the n
 
     net use z: "\\vmware-host\Shared Folders"
 
-I can then navigate to my `fs-extra` directory and run the tests.
+I can then navigate to my `fsxt` directory and run the tests.
 
 Naming
 ------
@@ -51,10 +51,10 @@ Licensed under MIT
 
 `fs-extra` is copyright (c) 2011-2017 [JP Richardson](https://github.com/jprichardson)
 
-`fs-extra+` is copyright © 2016-2017 [chrishansen69/rafa1231518](https://github.com/rafa1231518), some rights reserved.
+`fsxt` is copyright © 2016-2017 [chrishansen69/rafa1231518](https://github.com/rafa1231518), some rights reserved.
 
 Parts of the documentation have been completely stolen from [create-readdir-stream](https://github.com/tunnckoCore/create-readdir-stream/),
 [diveSync](https://github.com/pvorb/node-diveSync), [dive](https://github.com/pvorb/node-dive) and the Node.js `fs` module.
 
-`fs-extra` and `fs-extra+` are not endorsed by or affiliated with Joyent or the Node.js Foundation.
-`fs-extra+` is not endorsed by or affiliated with JP Richardson, but who the fuck would want that, anyway?
+`fs-extra` and `fsxt` are not endorsed by or affiliated with Joyent or the Node.js Foundation.
+`fsxt` is not endorsed by or affiliated with JP Richardson, but who would want that, anyway?

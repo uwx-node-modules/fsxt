@@ -8,7 +8,7 @@ Synchronous methods on the other hand will throw if an error occurs, and return 
 Example:
 
 ```js
-const fs = require('fs-extra');
+const fs = require('fsxt');
 
 fs.copy('/tmp/myfile', '/tmp/mynewfile', function (err) {
   if (err) return console.error(err)

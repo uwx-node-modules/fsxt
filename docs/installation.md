@@ -1,4 +1,4 @@
 Installation
 ------------
 
-    npm install --save rafa1231518/node-fs-extra
+    npm install --save fsxt

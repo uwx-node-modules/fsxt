@@ -1,22 +1,22 @@
  <!-- BEGIN heading -->
-fs-extra+
+fsxt
 =========
 
 Improved fork of `fs-extra` with extra [sic] features (and semicolons!)  
-`fs-extra+` provides support for node.js 7 and above, but you should probably use 8.
+`fsxt` provides support for node.js 7 and above, but you should probably use 8.
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-google-brightgreen.svg)](https://google.github.io/styleguide/jsguide.html)
-[![Used by practically no-one](https://img.shields.io/badge/downloads-basically_none-brightgreen.svg)](https://github.com/uwx/node-fs-extra)
-[![Travis Build Status](https://img.shields.io/travis/uwx/node-fs-extra.svg)](https://travis-ci.org/uwx/node-fs-extra)
+[![Used by practically no-one](https://img.shields.io/badge/downloads-basically_none-brightgreen.svg)](https://github.com/hansen-modules/fsxt)
+[![Travis Build Status](https://img.shields.io/travis/hansen-modules/fsxt.svg)](https://travis-ci.org/hansen-modules/fsxt)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/v5el5nslee17t1mw/branch/master?svg=true)](https://ci.appveyor.com/project/rafa1231518/node-fs-extra/branch/master)
-[![Coverage Status](https://coveralls.io/repos/github/uwx/node-fs-extra/badge.svg?branch=master)](https://coveralls.io/github/uwx/node-fs-extra?branch=master)
-[![GitHub issues](https://img.shields.io/github/issues/uwx/node-fs-extra.svg)](https://github.com/uwx/node-fs-extra/issues)
-[![GitHub closed issues](https://img.shields.io/github/issues-closed/uwx/node-fs-extra.svg)](https://github.com/uwx/node-fs-extra/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/uwx/node-fs-extra.svg)](https://github.com/uwx/node-fs-extra/pulls)
-[![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/uwx/node-fs-extra.svg)](https://github.com/uwx/node-fs-extra/pulls)
-[![GitHub contributors](https://img.shields.io/github/contributors/uwx/node-fs-extra.svg)](https://github.com/uwx/node-fs-extra/graphs/contributors)
-[![Licensed under MIT](https://img.shields.io/github/license/uwx/node-fs-extra.svg)](https://github.com/uwx/node-fs-extra/blob/master/LICENSE)
-[![Maintenance](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/uwx/node-fs-extra)
+[![Coverage Status](https://coveralls.io/repos/github/hansen-modules/fsxt/badge.svg?branch=master)](https://coveralls.io/github/hansen-modules/fsxt?branch=master)
+[![GitHub issues](https://img.shields.io/github/issues/hansen-modules/fsxt.svg)](https://github.com/hansen-modules/fsxt/issues)
+[![GitHub closed issues](https://img.shields.io/github/issues-closed/hansen-modules/fsxt.svg)](https://github.com/hansen-modules/fsxt/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/hansen-modules/fsxt.svg)](https://github.com/hansen-modules/fsxt/pulls)
+[![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/hansen-modules/fsxt.svg)](https://github.com/hansen-modules/fsxt/pulls)
+[![GitHub contributors](https://img.shields.io/github/contributors/hansen-modules/fsxt.svg)](https://github.com/hansen-modules/fsxt/graphs/contributors)
+[![Licensed under MIT](https://img.shields.io/github/license/hansen-modules/fsxt.svg)](https://github.com/hansen-modules/fsxt/blob/master/LICENSE)
+[![Maintenance](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/hansen-modules/fsxt)
 
 <!-- ENDIN heading --> 
 
@@ -24,7 +24,7 @@ Improved fork of `fs-extra` with extra [sic] features (and semicolons!)
 Installation
 ------------
 
-    npm install --save uwx/node-fs-extra
+    npm install --save hansen-modules/fsxt
 
 <!-- ENDIN installation --> 
 
@@ -32,7 +32,7 @@ Installation
 Usage
 -----
 
-`fs-extra+` is a drop in replacement for native [`fs`](http://nodejs.org/docs/latest/api/fs.html). All methods in [`fs`](http://nodejs.org/docs/latest/api/fs.html) are unmodified and attached to `fs-extra+`.
+`fsxt` is a drop in replacement for native [`fs`](http://nodejs.org/docs/latest/api/fs.html). All methods in [`fs`](http://nodejs.org/docs/latest/api/fs.html) are unmodified and attached to `fsxt`.
 
 You don't ever need to include the original [`fs`](http://nodejs.org/docs/latest/api/fs.html) module again:
 
@@ -43,21 +43,21 @@ const fs = require('fs'); // this is no longer necessary
 you can now do this:
 
 ```js
-const fs = require('fs-extra');
+const fs = require('fsxt');
 ```
 
-or if you prefer to make it clear that you're using `fs-extra` and not [`fs`](http://nodejs.org/docs/latest/api/fs.html), you may want
+or if you prefer to make it clear that you're using `fsxt` and not [`fs`](http://nodejs.org/docs/latest/api/fs.html), you may want
 to name your [`fs`](http://nodejs.org/docs/latest/api/fs.html) variable `fse` like so:
 
 ```js
-const fse = require('fs-extra');
+const fse = require('fsxt');
 ```
 
 you can also keep both, but it's redundant:
 
 ```js
 const fs = require('fs');
-const fse = require('fs-extra');
+const fse = require('fsxt');
 ```
 
 #### Useful Resources
@@ -80,7 +80,7 @@ Synchronous methods on the other hand will throw if an error occurs, and return 
 Example:
 
 ```js
-const fs = require('fs-extra');
+const fs = require('fsxt');
 
 fs.copy('/tmp/myfile', '/tmp/mynewfile', function (err) {
   if (err) return console.error(err)
@@ -112,7 +112,7 @@ Methods
 - [readJson(file, [options, callback])](#readjsonfile-options-callback) | [readJsonSync(file, [options])](#readjsonsyncfile-options)
 - [remove(path, [callback])](#removepath-callback) | [removeSync(path)](#removesyncpath)
 - [writeJson(file, object, [options, callback])](#writejsonfile-object-options-callback) | [writeJsonSync(file, object, [options])](#writejsonsyncfile-object-options)
-##### (methods added in fs-extra+)
+##### (methods added in fsxt)
 - [exists](#existsfile-callback)
 - [resolve](#resolvepath-child)
 - [forEachChild](#foreachchildfunctionerror-file-options-callback) | [forEachChildSync](#foreachchildsyncpath-functionfile-options)
@@ -128,7 +128,7 @@ Methods
 ##### (built-in `fs` module methods)
 
  <!-- BEGIN node-fs-nav -->
-<!-- Generated using: copy($('.anchor').map(e => '- [' + e.parentElement.textContent + '](' + e.href.substring('https://github.com/uwx/node-fs-extra/blob/master/docs/fs.md'.length) + ')').join('\n'))-->
+<!-- Generated using: copy($('.anchor').map(e => '- [' + e.parentElement.textContent + '](' + e.href.substring('https://github.com/hansen-modules/fsxt/blob/master/docs/fs.md'.length) + ')').join('\n'))-->
 - [access(path[, mode], callback)](#fsaccesspath-mode-callback) | [accessSync(path[, mode])](#fsaccesssyncpath-mode)
 - [appendFile(file, data[, options], callback)](#fsappendfilefile-data-options-callback) | [appendFileSync(file, data[, options])](#fsappendfilesyncfile-data-options)
 - [chmod(path, mode, callback)](#fschmodpath-mode-callback) | [chmodSync(path, mode)](#fschmodsyncpath-mode)
@@ -191,7 +191,7 @@ Copy a file or directory. The directory can have contents. Like `cp -r`.
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 // copy file
 fs.copySync('/tmp/myfile', '/tmp/mynewfile')
@@ -203,7 +203,7 @@ fs.copySync('/tmp/mydir', '/tmp/mynewdir')
 **Using filter function**
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const filterFunc = (src, dest) => {
   // your logic here
@@ -230,7 +230,7 @@ Copy a file or directory. The directory can have contents. Like `cp -r`.
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 fs.copy('/tmp/myfile', '/tmp/mynewfile', err => {
   if (err) return console.error(err)
@@ -257,7 +257,7 @@ fs.copy('/tmp/myfile', '/tmp/mynewfile')
 **Using filter function**
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const filterFunc = (src, dest) => {
   // your logic here
@@ -282,7 +282,7 @@ Ensures that a directory is empty. Deletes directory contents if the directory i
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 // assume this directory has a lot of files and folders
 fs.emptyDirSync('/tmp/some/dir')
@@ -300,7 +300,7 @@ Ensures that a directory is empty. Deletes directory contents if the directory i
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 // assume this directory has a lot of files and folders
 fs.emptyDir('/tmp/some/dir', err => {
@@ -330,7 +330,7 @@ Ensures that the directory exists. If the directory structure does not exist, it
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const dir = '/tmp/this/path/does/not/exist'
 fs.ensureDirSync(dir)
@@ -349,7 +349,7 @@ Ensures that the directory exists. If the directory structure does not exist, it
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const dir = '/tmp/this/path/does/not/exist'
 fs.ensureDir(dir, err => {
@@ -378,7 +378,7 @@ Ensures that the file exists. If the file that is requested to be created is in 
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const file = '/tmp/this/path/does/not/exist/file.txt'
 fs.ensureFileSync(file)
@@ -397,7 +397,7 @@ Ensures that the file exists. If the file that is requested to be created is in 
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const file = '/tmp/this/path/does/not/exist/file.txt'
 fs.ensureFile(file, err => {
@@ -425,7 +425,7 @@ Ensures that the link exists. If the directory structure does not exist, it is c
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const srcpath = '/tmp/file.txt'
 const dstpath = '/tmp/this/path/does/not/exist/file.txt'
@@ -444,7 +444,7 @@ Ensures that the link exists. If the directory structure does not exist, it is c
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const srcpath = '/tmp/file.txt'
 const dstpath = '/tmp/this/path/does/not/exist/file.txt'
@@ -474,7 +474,7 @@ Ensures that the symlink exists. If the directory structure does not exist, it i
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const srcpath = '/tmp/file.txt'
 const dstpath = '/tmp/this/path/does/not/exist/file.txt'
@@ -494,7 +494,7 @@ Ensures that the symlink exists. If the directory structure does not exist, it i
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const srcpath = '/tmp/file.txt'
 const dstpath = '/tmp/this/path/does/not/exist/file.txt'
@@ -517,7 +517,7 @@ fs.ensureSymlink(srcpath, dstpath)
 
 [`fs.read()`](https://nodejs.org/api/fs.html#fs_fs_read_fd_buffer_offset_length_position_callback) & [`fs.write()`](https://nodejs.org/api/fs.html#fs_fs_write_fd_buffer_offset_length_position_callback) are different from other `fs` methods in that their callbacks are called with 3 arguments instead of the usual 2 arguments.
 
-If you're using them with callbacks, they will behave as usual. However, their promise usage is a little different. `fs-extra` promisifies these methods like [`util.promisify()`](https://nodejs.org/api/util.html#util_util_promisify_original) (only availible in Node 8+) does.
+If you're using them with callbacks, they will behave as usual. However, their promise usage is a little different. `fsxt` promisifies these methods like [`util.promisify()`](https://nodejs.org/api/util.html#util_util_promisify_original) (only availible in Node 8+) does.
 
 Here's the example promise usage:
 
@@ -565,7 +565,7 @@ Moves a file or directory, even across devices.
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 fs.moveSync('/tmp/somefile', '/tmp/does/not/exist/yet/somefile')
 ```
@@ -573,7 +573,7 @@ fs.moveSync('/tmp/somefile', '/tmp/does/not/exist/yet/somefile')
 **Using `overwrite` option**
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 fs.moveSync('/tmp/somedir', '/tmp/may/already/existed/somedir', { overwrite: true })
 ```
@@ -591,7 +591,7 @@ Moves a file or directory, even across devices.
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 fs.move('/tmp/somefile', '/tmp/does/not/exist/yet/somefile', err => {
   if (err) return console.error(err)
@@ -611,7 +611,7 @@ fs.move('/tmp/somefile', '/tmp/does/not/exist/yet/somefile')
 **Using `overwrite` option**
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 fs.move('/tmp/somedir', '/tmp/may/already/existed/somedir', { overwrite: true }, err => {
   if (err) return console.error(err)
@@ -631,7 +631,7 @@ Almost the same as `writeFileSync` (i.e. it [overwrites](http://pages.citebite.c
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const file = '/tmp/this/path/does/not/exist/file.txt'
 fs.outputFileSync(file, 'hello!')
@@ -652,7 +652,7 @@ Almost the same as `writeFile` (i.e. it [overwrites](http://pages.citebite.com/v
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const file = '/tmp/this/path/does/not/exist/file.txt'
 fs.outputFile(file, 'hello!', err => {
@@ -691,7 +691,7 @@ Almost the same as [`writeJsonSync`](writeJson-sync.md), except that if the dire
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const file = '/tmp/this/path/does/not/exist/file.json'
 fs.outputJsonSync(file, {name: 'JP'})
@@ -717,7 +717,7 @@ Almost the same as [`writeJson`](writeJson.md), except that if the directory doe
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const file = '/tmp/this/path/does/not/exist/file.json'
 fs.outputJson(file, {name: 'JP'}, err => {
@@ -754,7 +754,7 @@ Test whether or not the given path exists by checking with the file system. Like
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const file = '/tmp/this/path/does/not/exist/file.txt'
 // Promise usage:
@@ -780,7 +780,7 @@ that you'd pass to [`jsonFile.readFileSync`](https://github.com/jprichardson/nod
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const packageObj = fs.readJsonSync('./package.json')
 console.log(packageObj.version) // => 2.0.0
@@ -791,7 +791,7 @@ console.log(packageObj.version) // => 2.0.0
 `readJsonSync()` can take a `throws` option set to `false` and it won't throw if the JSON is invalid. Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const file = '/tmp/some-invalid.json'
 const data = '{not valid JSON'
@@ -815,7 +815,7 @@ that you'd pass to [`jsonFile.readFile`](https://github.com/jprichardson/node-js
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 fs.readJson('./package.json', (err, packageObj) => {
   if (err) console.error(err)
@@ -838,7 +838,7 @@ fs.readJson('./package.json')
 `readJson()` can take a `throws` option set to `false` and it won't throw if the JSON is invalid. Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 const file = '/tmp/some-invalid.json'
 const data = '{not valid JSON'
@@ -869,7 +869,7 @@ Removes a file or directory. The directory can have contents. Like `rm -rf`.
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 // remove file
 fs.removeSync('/tmp/myfile')
@@ -887,7 +887,7 @@ Removes a file or directory. The directory can have contents. Like `rm -rf`.
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
 // remove file
 fs.remove('/tmp/myfile', err => {
@@ -928,9 +928,9 @@ Writes an object to a JSON file.
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
-fs.writeJsonSync('./package.json', {name: 'fs-extra'})
+fs.writeJsonSync('./package.json', {name: 'fsxt'})
 ```
 ---
 
@@ -953,16 +953,16 @@ Writes an object to a JSON file.
 ### Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 
-fs.writeJson('./package.json', {name: 'fs-extra'}, err => {
+fs.writeJson('./package.json', {name: 'fsxt'}, err => {
   if (err) return console.error(err)
 
   console.log('success!')
 })
 
 // With Promises
-fs.writeJson('./package.json', {name: 'fs-extra'})
+fs.writeJson('./package.json', {name: 'fsxt'})
 .then(() => {
   console.log('success!')
 })
@@ -985,7 +985,7 @@ Non-deprecated check if a file exists. Calls `callback` with `true`, `false` or 
 Example:
 
 ```js
-const fs = require('fs-extra')
+const fs = require('fsxt')
 fs.exists('./package.json', function (res) {
   if (typeof res == 'string') {
     console.error(err);
@@ -3736,18 +3736,18 @@ If you want to watch for changes to files or directories, then you should use [c
 
 ## Misc.
 
-- [mfs](https://github.com/cadorn/mfs) - Monitor your fs-extra calls.
+- [mfs](https://github.com/cadorn/mfs) - Monitor your fsxt calls.
 
-Hacking on fs-extra+
+Hacking on fsxt
 -------------------
 
-Do you want to hack on fs-extra+? Well, that's pretty stupid. Still, you can go ahead and send a PR.
+Do you want to hack on fsxt? Well, that's pretty stupid. Still, you can go ahead and send a PR.
 
-fs-extra+ uses the [Google Style](https://google.github.io/styleguide/jsguide.html). It's good-looking and safe JavaScript as God (Brendan Eich) intended.
+fsxt uses the [Google Style](https://google.github.io/styleguide/jsguide.html). It's good-looking and safe JavaScript as God (Brendan Eich) intended.
 
 ## Running the Test Suite
 
-fs-extra contains hundreds of tests that don't work.
+fsxt contains hundreds of tests that don't work.
 
 - `npm run lint`: runs eslint
 - `npm run unit`: runs the unit tests
@@ -3765,7 +3765,7 @@ I open the `Node.js command prompt` and run as `Administrator`. I then map the n
 
     net use z: "\\vmware-host\Shared Folders"
 
-I can then navigate to my `fs-extra` directory and run the tests.
+I can then navigate to my `fsxt` directory and run the tests.
 
 Naming
 ------
@@ -3779,12 +3779,12 @@ Licensed under MIT
 
 `fs-extra` is copyright (c) 2011-2017 [JP Richardson](https://github.com/jprichardson)
 
-`fs-extra+` is copyright © 2016-2017 [chrishansen69/rafa1231518](https://github.com/rafa1231518), some rights reserved.
+`fsxt` is copyright © 2016-2017 [fallk/uwx](https://github.com/uwx), some rights reserved.
 
 Parts of the documentation have been completely stolen from [create-readdir-stream](https://github.com/tunnckoCore/create-readdir-stream/),
 [diveSync](https://github.com/pvorb/node-diveSync), [dive](https://github.com/pvorb/node-dive) and the Node.js `fs` module.
 
-`fs-extra` and `fs-extra+` are not endorsed by or affiliated with Joyent or the Node.js Foundation.
-`fs-extra+` is not endorsed by or affiliated with JP Richardson, but who the fuck would want that, anyway?
+`fs-extra` and `fsxt` are not endorsed by or affiliated with Joyent or the Node.js Foundation.
+`fsxt` is not endorsed by or affiliated with JP Richardson, but who would want that, anyway?
 
 <!-- ENDIN ending --> 
