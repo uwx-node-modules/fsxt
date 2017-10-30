@@ -37,8 +37,10 @@ on_success:
  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
  - git config --global user.email "bbbbbbenes@outlook.com.br"
  - git config --global user.name "Appveyor Automated Build"
+ # commit and push markdown files
  - cmd: For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set mydate=%%c-%%a-%%b)
  - cmd: For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set mytime=%%a%%b)
  - cmd: addall.bat md
  - cmd: try.bat git commit -m "Built markdown at %mydate%_%mytime% [skip ci]"
  - git push origin master
+ 

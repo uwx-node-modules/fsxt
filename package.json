@@ -45,6 +45,8 @@
   "devDependencies": {
     "chalk": "^2.0.1",
     "coveralls": "^2.11.2",
+    "esformatter": "^0.10.0",
+    "esformatter-semicolons": "^1.1.2",
     "eslint": "^4.3.0",
     "eslint-config-google": "^0.9.1",
     "idiomatic-console": "0.0.9",
