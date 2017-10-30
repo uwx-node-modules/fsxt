@@ -14,6 +14,20 @@ assign(exports, require('./lib'));
 
 // async fs exists
 exports.exists = function(path, callback) {
+  if (!callback) {
+    return new Promise((resolve, reject) => {
+      fs.stat(path, function(err) {
+        if (!err) {
+          resolve(true); // file exists
+        } else if (err.code == 'ENOENT') {
+          resolve(false); // file does not exist
+        } else {
+          reject(err); // unknown error
+        }
+      });
+    });
+  }
+  // legacy (not promise)
   fs.stat(path, function(err) {
     if (err === null) {
       callback(true); // file exists
@@ -60,6 +74,7 @@ exports.forEachChild = function(path, func, options) {
       for (let i = 0, len = children.length; i < len; i++) {
         func(null, children[i]);
       }
+      func(null);
     }
   });
 };

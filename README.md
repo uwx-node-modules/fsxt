@@ -6,17 +6,17 @@ Improved fork of `fs-extra` with extra [sic] features (and semicolons!)
 `fs-extra+` provides support for node.js 7 and above, but you should probably use 8.
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-google-brightgreen.svg)](https://google.github.io/styleguide/jsguide.html)
-[![Used by practically no-one](https://img.shields.io/badge/downloads-basically_none-brightgreen.svg)](https://github.com/fallk/node-fs-extra)
-[![Travis Build Status](https://img.shields.io/travis/fallk/node-fs-extra.svg)](https://travis-ci.org/fallk/node-fs-extra)
+[![Used by practically no-one](https://img.shields.io/badge/downloads-basically_none-brightgreen.svg)](https://github.com/uwx/node-fs-extra)
+[![Travis Build Status](https://img.shields.io/travis/uwx/node-fs-extra.svg)](https://travis-ci.org/uwx/node-fs-extra)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/v5el5nslee17t1mw/branch/master?svg=true)](https://ci.appveyor.com/project/rafa1231518/node-fs-extra/branch/master)
-[![Coverage Status](https://coveralls.io/repos/github/fallk/node-fs-extra/badge.svg?branch=master)](https://coveralls.io/github/fallk/node-fs-extra?branch=master)
-[![GitHub issues](https://img.shields.io/github/issues/fallk/node-fs-extra.svg)](https://github.com/fallk/node-fs-extra/issues)
-[![GitHub closed issues](https://img.shields.io/github/issues-closed/fallk/node-fs-extra.svg)](https://github.com/fallk/node-fs-extra/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/fallk/node-fs-extra.svg)](https://github.com/fallk/node-fs-extra/pulls)
-[![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/fallk/node-fs-extra.svg)](https://github.com/fallk/node-fs-extra/pulls)
-[![GitHub contributors](https://img.shields.io/github/contributors/fallk/node-fs-extra.svg)](https://github.com/fallk/node-fs-extra/graphs/contributors)
-[![Licensed under MIT](https://img.shields.io/github/license/fallk/node-fs-extra.svg)](https://github.com/fallk/node-fs-extra/blob/master/LICENSE)
-[![Maintenance](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/fallk/node-fs-extra)
+[![Coverage Status](https://coveralls.io/repos/github/uwx/node-fs-extra/badge.svg?branch=master)](https://coveralls.io/github/uwx/node-fs-extra?branch=master)
+[![GitHub issues](https://img.shields.io/github/issues/uwx/node-fs-extra.svg)](https://github.com/uwx/node-fs-extra/issues)
+[![GitHub closed issues](https://img.shields.io/github/issues-closed/uwx/node-fs-extra.svg)](https://github.com/uwx/node-fs-extra/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/uwx/node-fs-extra.svg)](https://github.com/uwx/node-fs-extra/pulls)
+[![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/uwx/node-fs-extra.svg)](https://github.com/uwx/node-fs-extra/pulls)
+[![GitHub contributors](https://img.shields.io/github/contributors/uwx/node-fs-extra.svg)](https://github.com/uwx/node-fs-extra/graphs/contributors)
+[![Licensed under MIT](https://img.shields.io/github/license/uwx/node-fs-extra.svg)](https://github.com/uwx/node-fs-extra/blob/master/LICENSE)
+[![Maintenance](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/uwx/node-fs-extra)
 
 <!-- ENDIN heading --> 
 
@@ -24,7 +24,7 @@ Improved fork of `fs-extra` with extra [sic] features (and semicolons!)
 Installation
 ------------
 
-    npm install --save rafa1231518/node-fs-extra
+    npm install --save uwx/node-fs-extra
 
 <!-- ENDIN installation --> 
 
@@ -128,7 +128,7 @@ Methods
 ##### (built-in `fs` module methods)
 
  <!-- BEGIN node-fs-nav -->
-<!-- Generated using: copy($('.anchor').map(e => '- [' + e.parentElement.textContent + '](' + e.href.substring('https://github.com/fallk/node-fs-extra/blob/master/docs/fs.md'.length) + ')').join('\n'))-->
+<!-- Generated using: copy($('.anchor').map(e => '- [' + e.parentElement.textContent + '](' + e.href.substring('https://github.com/uwx/node-fs-extra/blob/master/docs/fs.md'.length) + ')').join('\n'))-->
 - [access(path[, mode], callback)](#fsaccesspath-mode-callback) | [accessSync(path[, mode])](#fsaccesssyncpath-mode)
 - [appendFile(file, data[, options], callback)](#fsappendfilefile-data-options-callback) | [appendFileSync(file, data[, options])](#fsappendfilesyncfile-data-options)
 - [chmod(path, mode, callback)](#fschmodpath-mode-callback) | [chmodSync(path, mode)](#fschmodsyncpath-mode)
