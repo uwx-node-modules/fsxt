@@ -1,6 +1,5 @@
  <!-- BEGIN heading -->
-fsxt
-=========
+# fsxt
 
 Improved fork of `fs-extra` with extra [sic] features (and semicolons!)  
 `fsxt` provides support for node.js 7 and above, but you should probably use 8.
@@ -15,7 +14,7 @@ Improved fork of `fs-extra` with extra [sic] features (and semicolons!)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/hansen-modules/fsxt.svg)](https://github.com/hansen-modules/fsxt/pulls)
 [![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/hansen-modules/fsxt.svg)](https://github.com/hansen-modules/fsxt/pulls)
 [![GitHub contributors](https://img.shields.io/github/contributors/hansen-modules/fsxt.svg)](https://github.com/hansen-modules/fsxt/graphs/contributors)
-[![Licensed under MIT](https://img.shields.io/github/license/hansen-modules/fsxt.svg)](https://github.com/hansen-modules/fsxt/blob/master/LICENSE)
+[![Licensed under MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/hansen-modules/fsxt/blob/master/LICENSE)
 [![Maintenance](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/hansen-modules/fsxt)
 
 <!-- ENDIN heading --> 
