@@ -1,11 +1,11 @@
 {
-  "name": "fs-extra",
+  "name": "fsxt",
   "version": "4.0.22",
-  "description": "fs-extra+: fs-extra on crack",
-  "homepage": "https://github.com/fallk/node-fs-extra",
+  "description": "fs module extensions. it's fs-extra on fs-extra",
+  "homepage": "https://github.com/hansen-modules/fsxt",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fallk/node-fs-extra"
+    "url": "https://github.com/hansen-modules/fsxt"
   },
   "keywords": [
     "fs",
