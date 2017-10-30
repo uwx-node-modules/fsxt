@@ -24,7 +24,7 @@ Improved fork of `fs-extra` with extra [sic] features (and semicolons!)
 Installation
 ------------
 
-    npm install --save hansen-modules/fsxt
+    npm install --save fsxt
 
 <!-- ENDIN installation --> 
 
@@ -112,7 +112,7 @@ Methods
 - [readJson(file, [options, callback])](#readjsonfile-options-callback) | [readJsonSync(file, [options])](#readjsonsyncfile-options)
 - [remove(path, [callback])](#removepath-callback) | [removeSync(path)](#removesyncpath)
 - [writeJson(file, object, [options, callback])](#writejsonfile-object-options-callback) | [writeJsonSync(file, object, [options])](#writejsonsyncfile-object-options)
-##### (methods added in fsxt)
+##### (methods added in fs-extra+)
 - [exists](#existsfile-callback)
 - [resolve](#resolvepath-child)
 - [forEachChild](#foreachchildfunctionerror-file-options-callback) | [forEachChildSync](#foreachchildsyncpath-functionfile-options)
@@ -128,7 +128,7 @@ Methods
 ##### (built-in `fs` module methods)
 
  <!-- BEGIN node-fs-nav -->
-<!-- Generated using: copy($('.anchor').map(e => '- [' + e.parentElement.textContent + '](' + e.href.substring('https://github.com/hansen-modules/fsxt/blob/master/docs/fs.md'.length) + ')').join('\n'))-->
+<!-- Generated using: copy($('.anchor').map(e => '- [' + e.parentElement.textContent + '](' + e.href.substring('https://github.com/fallk/node-fs-extra/blob/master/docs/fs.md'.length) + ')').join('\n'))-->
 - [access(path[, mode], callback)](#fsaccesspath-mode-callback) | [accessSync(path[, mode])](#fsaccesssyncpath-mode)
 - [appendFile(file, data[, options], callback)](#fsappendfilefile-data-options-callback) | [appendFileSync(file, data[, options])](#fsappendfilesyncfile-data-options)
 - [chmod(path, mode, callback)](#fschmodpath-mode-callback) | [chmodSync(path, mode)](#fschmodsyncpath-mode)
@@ -191,7 +191,7 @@ Copy a file or directory. The directory can have contents. Like `cp -r`.
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 // copy file
 fs.copySync('/tmp/myfile', '/tmp/mynewfile')
@@ -203,7 +203,7 @@ fs.copySync('/tmp/mydir', '/tmp/mynewdir')
 **Using filter function**
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const filterFunc = (src, dest) => {
   // your logic here
@@ -218,7 +218,7 @@ fs.copySync('/tmp/mydir', '/tmp/mynewdir', { filter: filterFunc })
 Copy a file or directory. The directory can have contents. Like `cp -r`.
 
 - `src` `<String>`
-- `dest` `<String>`
+- `dest` `<String>` Note that if `src` is a file, `dest` cannot be a directory (see [issue #323](https://github.com/jprichardson/node-fs-extra/issues/323)).
 - `options` `<Object>`
   - `overwrite` `<boolean>`: overwrite existing file or directory, default is `true`. _Note that the copy operation will silently fail if you set this to `false` and the destination exists._ Use the `errorOnExist` option to change this behavior.
   - `errorOnExist` `<boolean>`: when `overwrite` is `false` and the destination exists, throw an error. Default is `false`.
@@ -230,7 +230,7 @@ Copy a file or directory. The directory can have contents. Like `cp -r`.
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 fs.copy('/tmp/myfile', '/tmp/mynewfile', err => {
   if (err) return console.error(err)
@@ -257,7 +257,7 @@ fs.copy('/tmp/myfile', '/tmp/mynewfile')
 **Using filter function**
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const filterFunc = (src, dest) => {
   // your logic here
@@ -282,7 +282,7 @@ Ensures that a directory is empty. Deletes directory contents if the directory i
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 // assume this directory has a lot of files and folders
 fs.emptyDirSync('/tmp/some/dir')
@@ -300,7 +300,7 @@ Ensures that a directory is empty. Deletes directory contents if the directory i
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 // assume this directory has a lot of files and folders
 fs.emptyDir('/tmp/some/dir', err => {
@@ -330,7 +330,7 @@ Ensures that the directory exists. If the directory structure does not exist, it
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const dir = '/tmp/this/path/does/not/exist'
 fs.ensureDirSync(dir)
@@ -349,7 +349,7 @@ Ensures that the directory exists. If the directory structure does not exist, it
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const dir = '/tmp/this/path/does/not/exist'
 fs.ensureDir(dir, err => {
@@ -378,7 +378,7 @@ Ensures that the file exists. If the file that is requested to be created is in 
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const file = '/tmp/this/path/does/not/exist/file.txt'
 fs.ensureFileSync(file)
@@ -397,7 +397,7 @@ Ensures that the file exists. If the file that is requested to be created is in 
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const file = '/tmp/this/path/does/not/exist/file.txt'
 fs.ensureFile(file, err => {
@@ -425,7 +425,7 @@ Ensures that the link exists. If the directory structure does not exist, it is c
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const srcpath = '/tmp/file.txt'
 const dstpath = '/tmp/this/path/does/not/exist/file.txt'
@@ -444,7 +444,7 @@ Ensures that the link exists. If the directory structure does not exist, it is c
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const srcpath = '/tmp/file.txt'
 const dstpath = '/tmp/this/path/does/not/exist/file.txt'
@@ -474,7 +474,7 @@ Ensures that the symlink exists. If the directory structure does not exist, it i
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const srcpath = '/tmp/file.txt'
 const dstpath = '/tmp/this/path/does/not/exist/file.txt'
@@ -494,7 +494,7 @@ Ensures that the symlink exists. If the directory structure does not exist, it i
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const srcpath = '/tmp/file.txt'
 const dstpath = '/tmp/this/path/does/not/exist/file.txt'
@@ -517,7 +517,7 @@ fs.ensureSymlink(srcpath, dstpath)
 
 [`fs.read()`](https://nodejs.org/api/fs.html#fs_fs_read_fd_buffer_offset_length_position_callback) & [`fs.write()`](https://nodejs.org/api/fs.html#fs_fs_write_fd_buffer_offset_length_position_callback) are different from other `fs` methods in that their callbacks are called with 3 arguments instead of the usual 2 arguments.
 
-If you're using them with callbacks, they will behave as usual. However, their promise usage is a little different. `fsxt` promisifies these methods like [`util.promisify()`](https://nodejs.org/api/util.html#util_util_promisify_original) (only availible in Node 8+) does.
+If you're using them with callbacks, they will behave as usual. However, their promise usage is a little different. `fs-extra` promisifies these methods like [`util.promisify()`](https://nodejs.org/api/util.html#util_util_promisify_original) (only available in Node 8+) does.
 
 Here's the example promise usage:
 
@@ -565,7 +565,7 @@ Moves a file or directory, even across devices.
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 fs.moveSync('/tmp/somefile', '/tmp/does/not/exist/yet/somefile')
 ```
@@ -573,7 +573,7 @@ fs.moveSync('/tmp/somefile', '/tmp/does/not/exist/yet/somefile')
 **Using `overwrite` option**
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 fs.moveSync('/tmp/somedir', '/tmp/may/already/existed/somedir', { overwrite: true })
 ```
@@ -591,7 +591,7 @@ Moves a file or directory, even across devices.
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 fs.move('/tmp/somefile', '/tmp/does/not/exist/yet/somefile', err => {
   if (err) return console.error(err)
@@ -611,7 +611,7 @@ fs.move('/tmp/somefile', '/tmp/does/not/exist/yet/somefile')
 **Using `overwrite` option**
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 fs.move('/tmp/somedir', '/tmp/may/already/existed/somedir', { overwrite: true }, err => {
   if (err) return console.error(err)
@@ -631,7 +631,7 @@ Almost the same as `writeFileSync` (i.e. it [overwrites](http://pages.citebite.c
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const file = '/tmp/this/path/does/not/exist/file.txt'
 fs.outputFileSync(file, 'hello!')
@@ -652,7 +652,7 @@ Almost the same as `writeFile` (i.e. it [overwrites](http://pages.citebite.com/v
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const file = '/tmp/this/path/does/not/exist/file.txt'
 fs.outputFile(file, 'hello!', err => {
@@ -685,13 +685,14 @@ Almost the same as [`writeJsonSync`](writeJson-sync.md), except that if the dire
 - `object` `<Object>`
 - `options` `<Object>`
   - `spaces` `<Number|String>` Number of spaces to indent; or a string to use for indentation (i.e. pass `'\t'` for tab indentation). See [the docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#The_space_argument) for more info.
+  - `EOL` `<String>` Set EOL character. Default is `\n`.
   - `replacer` [JSON replacer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#The_replacer_parameter)
   - Also accepts [`fs.writeFileSync` options](https://nodejs.org/api/fs.html#fs_fs_writefilesync_file_data_options)
 
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const file = '/tmp/this/path/does/not/exist/file.json'
 fs.outputJsonSync(file, {name: 'JP'})
@@ -710,6 +711,7 @@ Almost the same as [`writeJson`](writeJson.md), except that if the directory doe
 - `object` `<Object>`
 - `options` `<Object>`
   - `spaces` `<Number|String>` Number of spaces to indent; or a string to use for indentation (i.e. pass `'\t'` for tab indentation). See [the docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#The_space_argument) for more info.
+  - `EOL` `<String>` Set EOL character. Default is `\n`.
   - `replacer` [JSON replacer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#The_replacer_parameter)
   - Also accepts [`fs.writeFile` options](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback)
 - `callback` `<Function>`
@@ -717,7 +719,7 @@ Almost the same as [`writeJson`](writeJson.md), except that if the directory doe
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const file = '/tmp/this/path/does/not/exist/file.json'
 fs.outputJson(file, {name: 'JP'}, err => {
@@ -754,7 +756,7 @@ Test whether or not the given path exists by checking with the file system. Like
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const file = '/tmp/this/path/does/not/exist/file.txt'
 // Promise usage:
@@ -780,7 +782,7 @@ that you'd pass to [`jsonFile.readFileSync`](https://github.com/jprichardson/nod
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const packageObj = fs.readJsonSync('./package.json')
 console.log(packageObj.version) // => 2.0.0
@@ -791,7 +793,7 @@ console.log(packageObj.version) // => 2.0.0
 `readJsonSync()` can take a `throws` option set to `false` and it won't throw if the JSON is invalid. Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const file = '/tmp/some-invalid.json'
 const data = '{not valid JSON'
@@ -815,7 +817,7 @@ that you'd pass to [`jsonFile.readFile`](https://github.com/jprichardson/node-js
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 fs.readJson('./package.json', (err, packageObj) => {
   if (err) console.error(err)
@@ -838,7 +840,7 @@ fs.readJson('./package.json')
 `readJson()` can take a `throws` option set to `false` and it won't throw if the JSON is invalid. Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 const file = '/tmp/some-invalid.json'
 const data = '{not valid JSON'
@@ -869,7 +871,7 @@ Removes a file or directory. The directory can have contents. Like `rm -rf`.
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 // remove file
 fs.removeSync('/tmp/myfile')
@@ -887,7 +889,7 @@ Removes a file or directory. The directory can have contents. Like `rm -rf`.
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
 // remove file
 fs.remove('/tmp/myfile', err => {
@@ -922,15 +924,16 @@ Writes an object to a JSON file.
 - `object` `<Object>`
 - `options` `<Object>`
   - `spaces` `<Number|String>` Number of spaces to indent; or a string to use for indentation (i.e. pass `'\t'` for tab indentation). See [the docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#The_space_argument) for more info.
+  - `EOL` `<String>` Set EOL character. Default is `\n`.
   - `replacer` [JSON replacer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#The_replacer_parameter)
   - Also accepts [`fs.writeFileSync` options](https://nodejs.org/api/fs.html#fs_fs_writefilesync_file_data_options)
 
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
-fs.writeJsonSync('./package.json', {name: 'fsxt'})
+fs.writeJsonSync('./package.json', {name: 'fs-extra'})
 ```
 ---
 
@@ -946,6 +949,7 @@ Writes an object to a JSON file.
 - `object` `<Object>`
 - `options` `<Object>`
   - `spaces` `<Number|String>` Number of spaces to indent; or a string to use for indentation (i.e. pass `'\t'` for tab indentation). See [the docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#The_space_argument) for more info.
+  - `EOL` `<String>` Set EOL character. Default is `\n`.
   - `replacer` [JSON replacer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#The_replacer_parameter)
   - Also accepts [`fs.writeFile` options](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback)
 - `callback` `<Function>`
@@ -953,16 +957,16 @@ Writes an object to a JSON file.
 ### Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 
-fs.writeJson('./package.json', {name: 'fsxt'}, err => {
+fs.writeJson('./package.json', {name: 'fs-extra'}, err => {
   if (err) return console.error(err)
 
   console.log('success!')
 })
 
 // With Promises
-fs.writeJson('./package.json', {name: 'fsxt'})
+fs.writeJson('./package.json', {name: 'fs-extra'})
 .then(() => {
   console.log('success!')
 })
@@ -985,7 +989,7 @@ Non-deprecated check if a file exists. Calls `callback` with `true`, `false` or 
 Example:
 
 ```js
-const fs = require('fsxt')
+const fs = require('fs-extra')
 fs.exists('./package.json', function (res) {
   if (typeof res == 'string') {
     console.error(err);
@@ -3741,7 +3745,7 @@ If you want to watch for changes to files or directories, then you should use [c
 Hacking on fsxt
 -------------------
 
-Do you want to hack on fsxt? Well, that's pretty stupid. Still, you can go ahead and send a PR.
+Do you want to hack on fsxt? Well, that's pretty dumb. Still, you can go ahead and send a PR.
 
 fsxt uses the [Google Style](https://google.github.io/styleguide/jsguide.html). It's good-looking and safe JavaScript as God (Brendan Eich) intended.
 
@@ -3779,7 +3783,7 @@ Licensed under MIT
 
 `fs-extra` is copyright (c) 2011-2017 [JP Richardson](https://github.com/jprichardson)
 
-`fsxt` is copyright © 2016-2017 [fallk/uwx](https://github.com/uwx), some rights reserved.
+`fsxt` is copyright © 2016-2017 [chrishansen69/rafa1231518](https://github.com/rafa1231518), some rights reserved.
 
 Parts of the documentation have been completely stolen from [create-readdir-stream](https://github.com/tunnckoCore/create-readdir-stream/),
 [diveSync](https://github.com/pvorb/node-diveSync), [dive](https://github.com/pvorb/node-dive) and the Node.js `fs` module.
