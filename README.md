@@ -114,13 +114,15 @@ Methods
 ##### (methods added in fs-extra+)
 - [exists](#existsfile-callback)
 - [resolve](#resolvepath-child)
+- mapChildren(path, mapper(contents, filename, pathOnly, pathWithFilename) => toContents[, readOptions[, writeOptions]])
+- mapStructure(path, mapper(contents, fullPath, stat) => toContents[, readOptions[, writeOptions]])
 - [forEachChild](#foreachchildfunctionerror-file-options-callback) | [forEachChildSync](#foreachchildsyncpath-functionfile-options)
 - [vacuum](#vacuumdirectory-options-callback)
-- [dive | diveSync](#divedirectory-options-action-complete)
+- [dive](#divedirectory-options-action-complete)| [diveSync](#divesyncpath-options)
 - [createReaddirStream](#createreaddirstreamdir-options)
-- [readXML | readXMLSync](#readxmlpath-functionerr-parsedobject)
-- [readLinesSync](#readlinessyncpath-encoding)
-- [readSync](#readsyncpath-encoding)
+- [readXML](#readxmlpath-functionerr-parsedobject) | [readXMLSync](#readxmlsyncpath)
+- readLines(path[, encoding]\[, callback(err, lines)]) | [readLinesSync](#readlinessyncpath-encoding)
+- readText(path[, encoding]\[, callback(err, text)]) | [readSync](#readsyncpath-encoding)
 - [isDirectory | isDirectorySync](#isdirectorypath-callback)
 <!-- ENDIN nav --> 
 
@@ -1002,15 +1004,55 @@ fs.exists('./package.json', function (res) {
 
 Resolve a child file of a folder.
 
+## mapChildren(path, mapper(contents, filename, pathOnly, pathWithFilename) => toContents[, readOptions[, writeOptions]])
+
+Iterate through every file child of a folder, call a mapper function with each file's contents and write the returned value of the mapper to the files. This will not recurse into subdirectories.
+
+Returns a Promise resolving to an array of the children files, once the mapping is finished.
+
+* `path` {String} folder path to iterate through
+* `mapper` {Function => String | Promise} mapping function to call on each file, with these arguments:
+  * contents {String | ?} returned value of [fs.readFile](#fsreadfilepath-options-callback). Varies depending on `readOptions`
+  * filename {String} file name including extension
+  * pathOnly {String} path not including file name
+  * pathWithFilename {String} full path, including file name
+  * => toContents {String | Promise | ?} return the value or a Promise resolving to the value to pass to [fs.writeFile](#fswritefilefile-data-options-callback).
+* readOptions {String | Object} options to pass to [fs.readFile](#fsreadfilepath-options-callback)
+* writeOptions {Object} options to pass to [fs.writeFile](#fswritefilefile-data-options-callback)
+
+## mapStructure(path, mapper(contents, fullPath, stat) => toContents[, readOptions[, writeOptions]])
+
+Iterate through every file child of a folder recursively, call a mapper function with each file's contents and write the returned value of the mapper to the files.
+
+Returns a Promise resoving to nothing.
+
+* `path` {String} folder path to iterate through
+* `mapper` {Function => String | Promise} mapping function to call on each file, with these arguments:
+  * contents {String | ?} returned value of [fs.readFile](#fsreadfilepath-options-callback). Varies depending on `readOptions`
+  * fullPath {String} the full path to the file **relative to the current working directory, not** `path`
+  * stat {fs.Stats} an [fs.Stats](https://nodejs.org/api/fs.html#fs_class_fs_stats) object.
+  * => toContents {String | Promise | ?} return the value or a Promise resolving to the value to pass to [fs.writeFile](#fswritefilefile-data-options-callback).
+* readOptions {String | Object} options to pass to [fs.readFile](#fsreadfilepath-options-callback)
+* writeOptions {Object} options to pass to [fs.writeFile](#fswritefilefile-data-options-callback)
+
 ## forEachChildSync(path, function(file)[, options])
 
-Iterate through every child of a folder, synchronously.
+Iterate through every child of a folder, synchronously. This function will not recurse into subdirectories.
 
-## forEachChild(function(error, file)[, options], callback)
+* `path` {String} folder path to iterate through
+* `options` {Object} options to pass through to [fs.readdirSync](#fsreaddirsyncpath-options)
+* `func` {Function} iterate function, called for every child
 
-Iterate through every child of a folder, asynchronously.
+## forEachChild(path[, options], function(file)[, callback(err | null)])
 
-## vacuum(directory, options, callback)
+Iterate through every child of a folder, asynchronously. This function will not recurse into subdirectories.
+
+* `path` {String} folder path to iterate through
+* `options` {Object} options to pass through to [fs.readdir](#fsreaddirpath-options-callback)
+* `func` {Function} iterate function, called for every child
+* `callback` {Function} Function to call once all items have been iterated. If not present, returns a Promise
+
+## vacuum(directory, options[, callback])
 
 Remove the empty branches of a directory tree, optionally up to (but not including) a specified base directory. Optionally nukes the leaf directory.
 
@@ -1019,7 +1061,7 @@ Remove the empty branches of a directory tree, optionally up to (but not includi
   * `base` {String} No directories at or above this level of the filesystem will be removed.
   * `purge` {Boolean} If set, nuke the whole leaf directory, including its contents.
   * `log` {Function} A logging function that takes `npmlog`-compatible argument lists.
-* `callback` {Function} Function to call once vacuuming is complete.
+* `callback` {Function} Function to call once vacuuming is complete. If not present, returns a Promise.
   * `error` {Error} What went wrong along the way, if anything.
 
 ### Usage
@@ -1066,11 +1108,11 @@ Recursively walk (_“dive”_) a directory tree.
 }
 ```
 
-*   `action` is passed three arguments `(err, file, stat)` where `err` is an
-    error or `null`, `file` is the pathname of a file and `stat` is an
-    [fs.Stats](https://nodejs.org/api/fs.html#fs_class_fs_stats) object.
-*   `complete [optional]` may define a second callback, that is called, when all
-    files have been processed. It takes no arguments.
+* `action` is passed three arguments `(err, file, stat)` or `(file, stat)` when not passing `complete` (promise form).
+  * `err` is an error or `null` (not present when using the promise form)
+  * `file` is the **full** pathname of a file (relative to process.cwd, not relative to `directory`)
+  * `stat` is an [fs.Stats](https://nodejs.org/api/fs.html#fs_class_fs_stats) object.
+* `complete` may define a second callback, that is called, when all files have been processed. It takes no arguments.
 
 ### Usage
 
@@ -1247,9 +1289,17 @@ Read a file containing XML to an object.
 
 Read a file containing XML to an object. Returns the object.
 
-## readLinesSync(path[, encoding])
+## readLines(path[, encoding]\[, callback(err, lines)])
 
 Read a file into a string array of its lines. Default encoding is UTF-8.
+
+## readLinesSync(path[, encoding])
+
+Read a file into a string array of its lines. Default encoding is UTF-8. Returns the array.
+
+## readText(path[, encoding]\[, callback(err, text)])
+
+Shorter version of `fs.readFile` where the default encoding is UTF-8.
 
 ## readSync(path[, encoding])
 
