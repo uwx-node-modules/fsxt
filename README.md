@@ -114,15 +114,15 @@ Methods
 ##### (methods added in fs-extra+)
 - [exists](#existsfile-callback)
 - [resolve](#resolvepath-child)
-- mapChildren(path, mapper(contents, filename, pathOnly, pathWithFilename) => toContents[, readOptions[, writeOptions]])
-- mapStructure(path, mapper(contents, fullPath, stat) => toContents[, readOptions[, writeOptions]])
+- [mapChildren(path, mapper(contents, filename, pathOnly, pathWithFilename) => toContents[, readOptions[, writeOptions]])](#mapchildrenpath-mappercontents-filename-pathonly-pathwithfilename--tocontents-readoptions-writeoptions)
+- [mapStructure(path, mapper(contents, fullPath, stat) => toContents[, readOptions[, writeOptions]])](#mapstructurepath-mappercontents-fullpath-stat--tocontents-readoptions-writeoptions)
 - [forEachChild](#foreachchildfunctionerror-file-options-callback) | [forEachChildSync](#foreachchildsyncpath-functionfile-options)
 - [vacuum](#vacuumdirectory-options-callback)
 - [dive](#divedirectory-options-action-complete)| [diveSync](#divesyncpath-options)
 - [createReaddirStream](#createreaddirstreamdir-options)
 - [readXML](#readxmlpath-functionerr-parsedobject) | [readXMLSync](#readxmlsyncpath)
-- readLines(path[, encoding]\[, callback(err, lines)]) | [readLinesSync](#readlinessyncpath-encoding)
-- readText(path[, encoding]\[, callback(err, text)]) | [readSync](#readsyncpath-encoding)
+- [readLines(path[, encoding]\[, callback(err, lines)])](#readlinespath-encoding-callbackerr-lines) | [readLinesSync](#readlinessyncpath-encoding)
+- [readText(path[, encoding]\[, callback(err, text)])](#readtextpath-encoding-callbackerr-text) | [readSync](#readsyncpath-encoding)
 - [isDirectory | isDirectorySync](#isdirectorypath-callback)
 <!-- ENDIN nav --> 
 
@@ -187,7 +187,7 @@ Copy a file or directory. The directory can have contents. Like `cp -r`.
   - `errorOnExist` `<boolean>`: when `overwrite` is `false` and the destination exists, throw an error. Default is `false`.
   - `dereference` `<boolean>`: dereference symlinks, default is `false`.
   - `preserveTimestamps` `<boolean>`: will set last modification and access times to the ones of the original source files, default is `false`.
-  - `filter` `<Function>`: Function to filter copied files. Return `true` to include, `false` to exclude. This can also be a RegExp, however this is deprecated (See [issue #239](https://github.com/jprichardson/node-fs-extra/issues/239) for background).
+  - `filter` `<Function>`: Function to filter copied files. Return `true` to include, `false` to exclude.
 
 ### Example:
 
@@ -225,7 +225,7 @@ Copy a file or directory. The directory can have contents. Like `cp -r`.
   - `errorOnExist` `<boolean>`: when `overwrite` is `false` and the destination exists, throw an error. Default is `false`.
   - `dereference` `<boolean>`: dereference symlinks, default is `false`.
   - `preserveTimestamps` `<boolean>`: will set last modification and access times to the ones of the original source files, default is `false`.
-  - `filter` `<Function>`: Function to filter copied files. Return `true` to include, `false` to exclude. This can also be a RegExp, however this is deprecated (See [issue #239](https://github.com/jprichardson/node-fs-extra/issues/239) for background).
+  - `filter` `<Function>`: Function to filter copied files. Return `true` to include, `false` to exclude. Can also return a `Promise` that resolves to `true` or `false` (or pass in an `async` function).
 - `callback` `<Function>`
 
 ### Example:
