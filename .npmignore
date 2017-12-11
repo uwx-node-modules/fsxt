@@ -4,6 +4,7 @@ test/
 .travis.yml
 appveyor.yml
 lib/**/__tests__/
+test/readme.md
 test.js
 *.bat
 *.sh
@@ -16,3 +17,4 @@ lib/copy/__tests__/ncp/README.md
 CHANGELOG.md
 docs
 build
+.github/
