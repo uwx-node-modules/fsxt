@@ -1,21 +1,17 @@
-'use strict';
-/* globals module, exports, require, process */
-/* exported module, exports, require, process */
+const assert = require('assert');
+const util = require('util');
 
-let os = require('os');
-let path = require('path');
-let Mocha = require('mocha');
-let assign = require('../lib/util/assign');
-let klaw = require('klaw');
+describe('fs', () => {
+  const fs = require('../');
 
-(() => {
-  const arr = [];
-  const r = require('../index.js');
-  for (let key in r) {
-    if (r[key] === undefined) {
-      arr.push(key + ' is not defined');
-    }
-  }
-  if (arr.length > 0) throw arr.join(', ');
-  else console.log('hansen tests finished without error.');
-})();
+  describe('hansen', () => {
+    it('should have no undefined properties', done => {
+      for (let key in fs) {
+        assert(fs[key] !== undefined, key + ' is not defined: ' + util.inspect(fs[key]));
+        assert(fs[key] !== null, key + ' is null: ' + util.inspect(fs[key]));
+        assert.ok(typeof fs[key] == 'number' || fs[key], key + ' is N/A: ' + util.inspect(fs[key]));
+      }
+      done();
+    });
+  });
+});
