@@ -40,7 +40,7 @@ exports.exists = (path, callback) => {
     });
   }
   // legacy (not promise)
-  existsHelper(path, callback, callback);
+  existsHelper(path, status => callback(null, status), callback);
 };
 
 // get a child file of this file
