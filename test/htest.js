@@ -393,6 +393,73 @@ describe('fs', () => {
         });
       });
     });
+    describe('.vacuum', () => {
+      beforeEach(async () => {
+        await fs.mkdir(t);
+        await fs.ensureFolder(t+'/brap/');
+        await fs.ensureFolder(t+'/brap2/');
+        await fs.ensureFolder(t+'/brap2/a/b/c/d');
+        await fs.ensureFolder(t+'/brap2/a/b/d/e');
+        await fs.ensureFolder(t+'/brap3/');
+        await fs.ensureFolder(t+'/brap3/zz/41');
+        await fs.ensureFolder(t+'/brap4/');
+        await fs.ensureFolder(t+'/brap5/');
+        await fs.ensureFolder(t+'/brap6/');
+        await fs.ensureFolder(t+'/brap6/7');
+        await fs.ensureFolder(t+'/brap6/8/9');
+        await fs.ensureFolder(t+'/brap6/1/2/3');
+        await fs.ensureFolder(t+'/brap6/1/4/5');
+        await fs.ensureFolder(t+'/brap6/1/4/6');
+        await fs.ensureFolder(t+'/brap6/2/4/7');
+        await fs.ensureFolder(t+'/brap6/2/4/8/9');
+      });
+      afterEach(async () => {
+        await fs.remove(t);
+      });
+      it('normal functionality, Promise', async () => {
+        await fs.vacuum(t, {purge: true});
+        assert(!(await fs.exists(t+'/brap/')));
+        assert(!(await fs.exists(t+'/brap2/')));
+        assert(!(await fs.exists(t+'/brap2/a/b/c/d')));
+        assert(!(await fs.exists(t+'/brap2/a/b/d/e')));
+        assert(!(await fs.exists(t+'/brap3/')));
+        assert(!(await fs.exists(t+'/brap3/zz/41')));
+        assert(!(await fs.exists(t+'/brap4/')));
+        assert(!(await fs.exists(t+'/brap5/')));
+        assert(!(await fs.exists(t+'/brap6/')));
+        assert(!(await fs.exists(t+'/brap6/7')));
+        assert(!(await fs.exists(t+'/brap6/8/9')));
+        assert(!(await fs.exists(t+'/brap6/1/2/3')));
+        assert(!(await fs.exists(t+'/brap6/1/4/5')));
+        assert(!(await fs.exists(t+'/brap6/1/4/6')));
+        assert(!(await fs.exists(t+'/brap6/2/4/7')));
+        assert(!(await fs.exists(t+'/brap6/2/4/8/9')));
+      });
+      it('normal functionality, callback', done => {
+        fs.vacuum(t, {purge: true}, async err => {
+          assert(!err, err);
+
+          assert(!(await fs.exists(t+'/brap/')));
+          assert(!(await fs.exists(t+'/brap2/')));
+          assert(!(await fs.exists(t+'/brap2/a/b/c/d')));
+          assert(!(await fs.exists(t+'/brap2/a/b/d/e')));
+          assert(!(await fs.exists(t+'/brap3/')));
+          assert(!(await fs.exists(t+'/brap3/zz/41')));
+          assert(!(await fs.exists(t+'/brap4/')));
+          assert(!(await fs.exists(t+'/brap5/')));
+          assert(!(await fs.exists(t+'/brap6/')));
+          assert(!(await fs.exists(t+'/brap6/7')));
+          assert(!(await fs.exists(t+'/brap6/8/9')));
+          assert(!(await fs.exists(t+'/brap6/1/2/3')));
+          assert(!(await fs.exists(t+'/brap6/1/4/5')));
+          assert(!(await fs.exists(t+'/brap6/1/4/6')));
+          assert(!(await fs.exists(t+'/brap6/2/4/7')));
+          assert(!(await fs.exists(t+'/brap6/2/4/8/9')));
+
+          done();
+        });
+      });
+    });
 
     it('.exists Promise', async () => {
     });
