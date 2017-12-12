@@ -15,7 +15,7 @@ assign(exports, require('./lib'));
 // async promise with auto reject
 function asyncPromise(f) {
   return new Promise((resolve, reject) => {
-    f(resolve, reject).catch(reject);
+    f(resolve, reject).then(() => {}).catch(reject);
   });
 }
 
@@ -135,7 +135,7 @@ exports.forEachChild = (path, o1, o2, o3) => {
   // promise
   if (!callback) {
     return asyncPromise(async resolve => {
-      const children = await fs.readdir(path, options);
+      const children = await exports.readdir(path, options);
       for (let i = 0, len = children.length; i < len; i++) {
         const ret = func(children[i]);
         if (ret instanceof Promise) {
@@ -146,7 +146,7 @@ exports.forEachChild = (path, o1, o2, o3) => {
     });
   }
   // legacy
-  fs.readdir(path, options, (err, children) => {
+  exports.readdir(path, options, (err, children) => {
     if (err) {
       callback(err);
     } else {
@@ -214,7 +214,7 @@ exports.createReaddirStream = crs.createReaddirStream;
 exports.readXML = function(path, callback) {
   if (!callback) {
     return asyncPromise(async (resolve, reject) => {
-      const data = await exports.fs.readFile(path, 'utf8');
+      const data = await exports.readFile(path, 'utf8');
 
       xml2js.parseString(data, {async: true}, (err, parsedObject) => {
         if (err) reject(err);
