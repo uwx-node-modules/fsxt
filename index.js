@@ -9,7 +9,6 @@ const dive = require('dive');
 const crs = require('create-readdir-stream');
 const xml2js = require('xml2js');
 const assign = require('./lib/util/assign');
-const asyncFilter = require('array-async-filter');
 
 assign(exports, require('./lib'));
 
@@ -18,6 +17,25 @@ function asyncPromise(f) {
   return new Promise((resolve, reject) => {
     f(resolve, reject).catch(reject);
   });
+}
+
+async function asyncFilter(iterable, condition) {
+  const output = [];
+  let e;
+  if ('length' in iterable) {
+    for (let i = 0; i < iterable.length; i++) {
+      e = iterable[i];
+      if (await condition(e, i, iterable)) {
+        output.push(e);
+      }
+    }
+  }
+  for (let value of iterable) {
+    if (await condition(value, null, iterable)) {
+      output.push(e);
+    }
+  }
+  return output;
 }
 
 function existsHelper(path, resolve, reject) {
@@ -31,6 +49,9 @@ function existsHelper(path, resolve, reject) {
     }
   });
 }
+
+// alias ensureFolder => ensureDir
+exports.ensureFolder = exports.ensureDir;
 
 // async fs exists
 exports.exists = (path, callback) => {
@@ -60,7 +81,7 @@ exports.resolve = (path, child) => {
 // map file contents of immediate children
 // mapChildren(path, mapper(contents, filename, pathOnly, pathWithFilename) => toContents[, readOptions[, writeOptions]])
 exports.mapChildren = async function(path, mapper, readOptions = 'utf8', writeOptions) {
-  const children = asyncFilter((await exports.readdir(path)).map(child => path + '/' + child), async e => !await exports.isDirectory(e));
+  const children = await asyncFilter((await exports.readdir(path)).map(child => path + '/' + child), async e => !await exports.isDirectory(e));
   for (let e of children) {
     let c;
     const f = await exports.readFile(e, readOptions);
@@ -84,18 +105,18 @@ exports.mapStructure = async function(path, mapper, readOptions = 'utf8', writeO
   const arr = [];
 
   await exports.dive(path, {all: true}, storeAndExec(arr, async (file, stat) => {
-    const f = await exports.readFile(e, readOptions);
+    const f = await exports.readFile(file, readOptions);
     let ret = mapper(f, file, stat);
     if (ret instanceof Promise) {
       ret = await ret;
     }
     if (ret != f) {
-      await exports.writeFile(e, ret, writeOptions);
+      await exports.writeFile(file, ret, writeOptions);
     }
   }));
 
   return await Promise.all(arr);
-}
+};
 
 // forEachChildSync(function(file)[, options])
 exports.forEachChildSync = (path, func, options) => {
