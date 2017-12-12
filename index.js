@@ -3,7 +3,7 @@
 /* exported module, exports, require */
 const fs = require('fs');
 
-const vacuum = require('fs-vacuum');
+const vacuum = require('./external/vacuum');
 const diveSync = require('diveSync');
 const dive = require('dive');
 const crs = require('create-readdir-stream');
