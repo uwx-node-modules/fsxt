@@ -137,7 +137,10 @@ exports.forEachChild = (path, o1, o2, o3) => {
     return asyncPromise(async resolve => {
       const children = await fs.readdir(path, options);
       for (let i = 0, len = children.length; i < len; i++) {
-        func(children[i]);
+        const ret = func(children[i]);
+        if (ret instanceof Promise) {
+          await ret;
+        }
       }
       resolve(children);
     });
