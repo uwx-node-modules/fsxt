@@ -3,6 +3,7 @@
 const assert = require('assert');
 const util = require('util');
 const t = './test/hansen_tmp';
+const timeout = ms => new Promise(res => setTimeout(res, ms));
 
 describe('fs', () => {
   const fs = require('../');
@@ -202,6 +203,194 @@ describe('fs', () => {
           assert(false, 'should never happen!');
         });
         done();
+      });
+    });
+    describe('.forEachChild', () => {
+      beforeEach(async () => {
+        await fs.mkdir(t);
+        await fs.ensureFile(t+'/brap/1.txt');
+        await fs.ensureFile(t+'/brap/2.txt');
+        await fs.ensureFile(t+'/brap/3.avi');
+        await fs.ensureFile(t+'/brap/4.avi');
+        await fs.ensureFile(t+'/brap/5.avi');
+        await fs.ensureFolder(t+'/brap2/');
+      });
+      afterEach(async () => {
+        await fs.remove(t);
+      });
+      describe('w/o [options]', () => {
+        it('should pick up folders', async () => {
+          let i = 0;
+          await fs.forEachChild(t, file => {
+            switch(i) {
+              case 0: assert.equal(file, 'brap'); break;
+              case 1: assert.equal(file, 'brap2'); break;
+              default: assert(false, 'should never happen!');
+            }
+            i++;
+          });
+        });
+        it('should work', async () => {
+          let i = 0;
+          await fs.forEachChild(t+'/brap/', file => {
+            switch(i) {
+              case 0: assert.equal(file, '1.txt'); break;
+              case 1: assert.equal(file, '2.txt'); break;
+              case 2: assert.equal(file, '3.avi'); break;
+              case 3: assert.equal(file, '4.avi'); break;
+              case 4: assert.equal(file, '5.avi'); break;
+              default: assert(false, 'should never happen!');
+            }
+            i++;
+          });
+        });
+        it('should await promise', async () => {
+          let i = 0;
+          await fs.forEachChild(t+'/brap/', async file => {
+            switch(i) {
+              case 0: assert.equal(file, '1.txt'); await timeout(50); break;
+              case 1: assert.equal(file, '2.txt'); await timeout(50); break;
+              case 2: assert.equal(file, '3.avi'); await timeout(50); break;
+              case 3: assert.equal(file, '4.avi'); await timeout(50); break;
+              case 4: assert.equal(file, '5.avi'); await timeout(50); break;
+              default: assert(false, 'should never happen!');
+            }
+            i++;
+          });
+        });
+        it('should pick up empty folders', async () => {
+          await fs.forEachChild(t+'/brap2/', () => {
+            assert(false, 'should never happen!');
+          });
+        });
+      });
+      describe('w/ [options]', () => {
+        it('should pick up folders', async () => {
+          let i = 0;
+          await fs.forEachChild(t, {}, file => {
+            switch(i) {
+              case 0: assert.equal(file, 'brap'); break;
+              case 1: assert.equal(file, 'brap2'); break;
+              default: assert(false, 'should never happen!');
+            }
+            i++;
+          });
+        });
+        it('should work', async () => {
+          let i = 0;
+          await fs.forEachChild(t+'/brap/', {}, file => {
+            switch(i) {
+              case 0: assert.equal(file, '1.txt'); break;
+              case 1: assert.equal(file, '2.txt'); break;
+              case 2: assert.equal(file, '3.avi'); break;
+              case 3: assert.equal(file, '4.avi'); break;
+              case 4: assert.equal(file, '5.avi'); break;
+              default: assert(false, 'should never happen!');
+            }
+            i++;
+          });
+        });
+        it('should await promise', async () => {
+          let i = 0;
+          await fs.forEachChild(t+'/brap/', {}, async file => {
+            switch(i) {
+              case 0: assert.equal(file, '1.txt'); await timeout(50); break;
+              case 1: assert.equal(file, '2.txt'); await timeout(50); break;
+              case 2: assert.equal(file, '3.avi'); await timeout(50); break;
+              case 3: assert.equal(file, '4.avi'); await timeout(50); break;
+              case 4: assert.equal(file, '5.avi'); await timeout(50); break;
+              default: assert(false, 'should never happen!');
+            }
+            i++;
+          });
+        });
+        it('should pick up empty folders', async () => {
+          await fs.forEachChild(t+'/brap2/', {}, () => {
+            assert(false, 'should never happen!');
+          });
+        });
+      });
+      describe('w/o [options], w/ callback', () => {
+        it('should pick up folders', done => {
+          let i = 0;
+          fs.forEachChild(t, file => {
+            switch(i) {
+              case 0: assert.equal(file, 'brap'); break;
+              case 1: assert.equal(file, 'brap2'); break;
+              default: assert(false, 'should never happen!');
+            }
+            i++;
+          }, err => {
+            assert.ok(!err, 'forEachChild threw error');
+            done();
+          });
+        });
+        it('should work', done => {
+          let i = 0;
+          fs.forEachChild(t+'/brap/', file => {
+            switch(i) {
+              case 0: assert.equal(file, '1.txt'); break;
+              case 1: assert.equal(file, '2.txt'); break;
+              case 2: assert.equal(file, '3.avi'); break;
+              case 3: assert.equal(file, '4.avi'); break;
+              case 4: assert.equal(file, '5.avi'); break;
+              default: assert(false, 'should never happen!');
+            }
+            i++;
+          }, err => {
+            assert.ok(!err, 'forEachChild threw error');
+            done();
+          });
+        });
+        it('should pick up empty folders', done => {
+          fs.forEachChild(t+'/brap2/', () => {
+            assert(false, 'should never happen!');
+          }, err => {
+            assert.ok(!err, 'forEachChild threw error');
+            done();
+          });
+        });
+      });
+      describe('w/ [options], w/ callback', () => {
+        it('should pick up folders', done => {
+          let i = 0;
+          fs.forEachChild(t, {}, file => {
+            switch(i) {
+              case 0: assert.equal(file, 'brap'); break;
+              case 1: assert.equal(file, 'brap2'); break;
+              default: assert(false, 'should never happen!');
+            }
+            i++;
+          }, err => {
+            assert.ok(!err, 'forEachChild threw error');
+            done();
+          });
+        });
+        it('should work', done => {
+          let i = 0;
+          fs.forEachChild(t+'/brap/', {}, file => {
+            switch(i) {
+              case 0: assert.equal(file, '1.txt'); break;
+              case 1: assert.equal(file, '2.txt'); break;
+              case 2: assert.equal(file, '3.avi'); break;
+              case 3: assert.equal(file, '4.avi'); break;
+              case 4: assert.equal(file, '5.avi'); break;
+              default: assert(false, 'should never happen!');
+            }
+            i++;
+          }, err => {
+            assert.ok(!err, 'forEachChild threw error');
+            done();
+          });
+        });
+        it('should pick up empty folders', done => {
+          fs.forEachChild(t+'/brap2/', {}, () => {
+            assert(false, 'should never happen!');
+          }, err => {
+            assert.ok(!err, 'forEachChild threw error');
+            done();
+          });
+        });
       });
     });
 
