@@ -1179,107 +1179,13 @@ for (let i = 0; i < files.length; i++) {
 
 ```
 
-## createReaddirStream(dir[, options])
+## ~~createReaddirStream(dir[, options])~~
 
-Streaming `fs.readdir`, extensible with smart plugins. No recursion and no globs by default - [use](https://www.npmjs.com/package/use) plugins. Does not stat and doesn't read the filepaths - use plugins. It just push [vinyl](https://www.npmjs.com/package/vinyl) files to stream. Follows signature and semantics of `fs.createReadStream` method.
+**DEPRECATED!**
 
-### Usage
-For more use-cases see the [tests](./test.js)
+*Removed in 8.0.0.*
 
-```js
-const readdir = require('create-readdir-stream')
-```
-
-
-### API
-
-#### [CreateReaddirStream](https://github.com/tunnckoCore/create-readdir-stream/blob/master/index.js#L32)
-Initialize `CreateReaddirStream` with default `options`.
-
-**Params**
-
-* `[options]` **{Object}**: one of them is `cwd`.    
-
-**Example**
-
-```js
-const inst = require('create-readdir-stream')
-
-console.log(inst.use) // => 'function'
-console.log(inst.createReaddirStream) // => 'function'
-
-// or get constructor
-const Readdir = require('create-readdir-stream').CreateReaddirStream
-```
-
-#### [.use](https://github.com/tunnckoCore/create-readdir-stream/blob/master/index.js#L118)
-Smart plugins support using [use](https://www.npmjs.com/package/use). It just calls that `fn` immediately and if it returns function again it is called (**only when** `.createReaddirStream` is called) with `file` argument ([vinyl](https://www.npmjs.com/package/vinyl) file) for each item in the returned array by `fs.readdir`.
-
-**Params**
-
-* `<fn>` **{Function}**: plugin to be called immediately    
-* `returns` **{CreateReadStream}**: this instance for chaining  
-
-**Example**
-
-```js
-const through2 = require('through2')
-const readdir = require('create-readdir-stream')
-
-readdir.use(function (app) {
-  // both `this` and `app` are the instance aka `readdir`
-  // called immediately
-
-  // below function IS NOT called immediately it is
-  // called only when `.createReaddirStream` is called
-  return function (file) {
-    // both `this` and `file` are Vinyl virtual file object
-    // called on each filepath. Or in other words
-    // this function is called on each item in
-    // returned array by `fs.readdir`
-
-    // exclude `index.js` from been pushed to stream
-    if (file.basename === 'index.js') {
-      file.exclude = true
-      // or file.include = false
-    }
-    console.log('from plugin', file.basename)
-  }
-})
-
-readdir
-  .createReaddirStream('./')
-  .once('error', console.error)
-  .pipe(through2.obj(function (file, enc, cb) {
-    // you should NOT expect to see `index.js` here :)
-    console.log('from pipe', file.basename)
-    cb()
-  }))
-```
-
-#### [.createReaddirStream](https://github.com/tunnckoCore/create-readdir-stream/blob/master/index.js#L144)
-Reads a `dir` contents, creates [vinyl](https://www.npmjs.com/package/vinyl) file from each filepath, after that push them to stream.
-
-**Params**
-
-* `<dir>` **{String|Buffer}**: buffer or string folder/directory to read    
-* `[options]` **{Object}**: options are [extend-shallow](https://www.npmjs.com/package/extend-shallow)ed with `this.options`    
-* `returns` **{Stream}**: Transform Stream, [through2](https://www.npmjs.com/package/through2)  
-
-**Example**
-
-```js
-const th2 = require('through2')
-const fs2 = require('create-readdir-stream')
-
-// same signature and api as `fs.createReadStream`
-fs2.createReaddirStream('./')
-  .once('error', console.error)
-  .pipe(th2.obj(function (file, enc, cb) {
-    console.log('from pipe', file.basename)
-    cb()
-  }))
-```
+Use NPM package [create-readdir-stream](https://github.com/olstenlarck/create-readdir-stream) if you still need the functionality.
 
 ## readXML(path, function(err, parsedObject))
 
