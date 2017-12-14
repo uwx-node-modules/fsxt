@@ -6,7 +6,6 @@ const fs = require('fs');
 const vacuum = require('./external/vacuum');
 const diveSync = require('./external/diveSync');
 const dive = require('./external/dive');
-const crs = require('./external/create-readdir-stream');
 const xml2js = require('xml2js');
 const assign = require('./lib/util/assign');
 
@@ -206,9 +205,6 @@ exports.diveSync = (path, opt) => {
   diveSync(path, opt || action, !opt ? action : undefined);
   return files;
 };
-
-// createReaddirStream(dir[, options])
-exports.createReaddirStream = crs.createReaddirStream.bind(crs);
 
 // readXML(path, function(err, parsedObject))
 exports.readXML = function(path, callback) {

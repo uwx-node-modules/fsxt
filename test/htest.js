@@ -674,25 +674,25 @@ describe('fs', () => {
         });
       });
     });
-    describe('createReaddirStream', () => {
-      it('should `.createReaddirStream` throw TypeError if `dir` not a string or buffer', done => {
-        function fixture() {
-          fs.createReaddirStream(123);
-        }
-        assert.throws(fixture, TypeError);
-        assert.throws(fixture, /expect `dir` to be a string or Buffer/);
-        done();
-      });
-
-      it('should `.createReaddirStream` emit `error` event if fs.readdir fails', done => {
-        var stream = fs.createReaddirStream('./not-existing-dir');
-        stream.once('error', err => {
-          assert.ifError(!err);
-          assert.ok(/no such file or directory/.test(err.message));
-          done();
-        });
-      });
-    });
+    //describe('createReaddirStream', () => {
+    //  it('should `.createReaddirStream` throw TypeError if `dir` not a string or buffer', done => {
+    //    function fixture() {
+    //      fs.createReaddirStream(123);
+    //    }
+    //    assert.throws(fixture, TypeError);
+    //    assert.throws(fixture, /expect `dir` to be a string or Buffer/);
+    //    done();
+    //  });
+    //
+    //  it('should `.createReaddirStream` emit `error` event if fs.readdir fails', done => {
+    //    var stream = fs.createReaddirStream('./not-existing-dir');
+    //    stream.once('error', err => {
+    //      assert.ifError(!err);
+    //      assert.ok(/no such file or directory/.test(err.message));
+    //      done();
+    //    });
+    //  });
+    //});
 
     it('.exists Promise', async () => {
     });
