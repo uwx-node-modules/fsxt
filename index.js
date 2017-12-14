@@ -3,21 +3,39 @@
 /* exported module, exports, require */
 const fs = require('fs');
 
-const vacuum = require('fs-vacuum');
+const vacuum = require('./external/vacuum');
 const diveSync = require('diveSync');
 const dive = require('dive');
 const crs = require('create-readdir-stream');
 const xml2js = require('xml2js');
 const assign = require('./lib/util/assign');
-const asyncFilter = require('array-async-filter');
 
 assign(exports, require('./lib'));
 
 // async promise with auto reject
 function asyncPromise(f) {
   return new Promise((resolve, reject) => {
-    f(resolve, reject).catch(reject);
+    f(resolve, reject).then(() => {}).catch(reject);
   });
+}
+
+async function asyncFilter(iterable, condition) {
+  const output = [];
+  let e;
+  if ('length' in iterable) {
+    for (let i = 0; i < iterable.length; i++) {
+      e = iterable[i];
+      if (await condition(e, i, iterable)) {
+        output.push(e);
+      }
+    }
+  }
+  for (let value of iterable) {
+    if (await condition(value, null, iterable)) {
+      output.push(e);
+    }
+  }
+  return output;
 }
 
 function existsHelper(path, resolve, reject) {
@@ -32,6 +50,9 @@ function existsHelper(path, resolve, reject) {
   });
 }
 
+// alias ensureFolder => ensureDir
+exports.ensureFolder = exports.ensureDir;
+
 // async fs exists
 exports.exists = (path, callback) => {
   if (!callback) {
@@ -40,7 +61,7 @@ exports.exists = (path, callback) => {
     });
   }
   // legacy (not promise)
-  existsHelper(path, callback, callback);
+  existsHelper(path, status => callback(null, status), callback);
 };
 
 // get a child file of this file
@@ -60,7 +81,7 @@ exports.resolve = (path, child) => {
 // map file contents of immediate children
 // mapChildren(path, mapper(contents, filename, pathOnly, pathWithFilename) => toContents[, readOptions[, writeOptions]])
 exports.mapChildren = async function(path, mapper, readOptions = 'utf8', writeOptions) {
-  const children = asyncFilter((await exports.readdir(path)).map(child => path + '/' + child), async e => !await exports.isDirectory(e));
+  const children = await asyncFilter((await exports.readdir(path)).map(child => path + '/' + child), async e => !await exports.isDirectory(e));
   for (let e of children) {
     let c;
     const f = await exports.readFile(e, readOptions);
@@ -84,18 +105,18 @@ exports.mapStructure = async function(path, mapper, readOptions = 'utf8', writeO
   const arr = [];
 
   await exports.dive(path, {all: true}, storeAndExec(arr, async (file, stat) => {
-    const f = await exports.readFile(e, readOptions);
+    const f = await exports.readFile(file, readOptions);
     let ret = mapper(f, file, stat);
     if (ret instanceof Promise) {
       ret = await ret;
     }
     if (ret != f) {
-      await exports.writeFile(e, ret, writeOptions);
+      await exports.writeFile(file, ret, writeOptions);
     }
   }));
 
   return await Promise.all(arr);
-}
+};
 
 // forEachChildSync(function(file)[, options])
 exports.forEachChildSync = (path, func, options) => {
@@ -114,15 +135,18 @@ exports.forEachChild = (path, o1, o2, o3) => {
   // promise
   if (!callback) {
     return asyncPromise(async resolve => {
-      const children = await fs.readdir(path, options);
+      const children = await exports.readdir(path, options);
       for (let i = 0, len = children.length; i < len; i++) {
-        func(children[i]);
+        const ret = func(children[i]);
+        if (ret instanceof Promise) {
+          await ret;
+        }
       }
       resolve(children);
     });
   }
   // legacy
-  fs.readdir(path, options, (err, children) => {
+  exports.readdir(path, options, (err, children) => {
     if (err) {
       callback(err);
     } else {
@@ -156,7 +180,7 @@ exports.dive = (directory, o1, o2, o3) => {
   if (!complete) {
     return new Promise((resolve, reject) => {
       let failed = false;
-      dive(directory, options, (err, file, stat) => {
+      dive(directory, options || {}, (err, file, stat) => {
         if (err && !failed) {
           failed = true;
           reject();
@@ -169,10 +193,10 @@ exports.dive = (directory, o1, o2, o3) => {
     });
   }
   // legacy form (no promise)
-  return dive(directory, options, action, complete);
+  return dive(directory, options || {}, action, complete);
 };
 
-// diveSync(dir[, opt], action)
+// diveSync(dir[, opt])
 exports.diveSync = (path, opt) => {
   let files = [];
   function action(err, file) {
@@ -190,7 +214,7 @@ exports.createReaddirStream = crs.createReaddirStream;
 exports.readXML = function(path, callback) {
   if (!callback) {
     return asyncPromise(async (resolve, reject) => {
-      const data = await exports.fs.readFile(path, 'utf8');
+      const data = await exports.readFile(path, 'utf8');
 
       xml2js.parseString(data, {async: true}, (err, parsedObject) => {
         if (err) reject(err);

@@ -4,7 +4,8 @@
     },
     "env": {
       "node": true, // just in case
-      "es6": true // let, const, ``...
+      "es6": true, // let, const, ``...
+      "mocha": true
     },
     "extends": ["eslint:recommended", "google"],
     "rules": {

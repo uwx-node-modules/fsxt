@@ -10,7 +10,7 @@ const argv = require('minimist')(process.argv.slice(2));
 
 const mochaOpts = assign({
   ui: 'bdd',
-  reporter: 'dot',
+  reporter: 'list',
   timeout: 30000,
 }, argv);
 
@@ -25,6 +25,8 @@ klaw('./lib').on('readable', function() {
     mocha.addFile(item.path);
   }
 }).on('end', () => {
+  mocha.addFile('./test/htest.js');
+  mocha.addFile('./test/mzfs-test.js');
   mocha.run((failures) => {
     require('../').remove(path.join(os.tmpdir(), 'fs-extra'), () => process.exit(failures));
   });
