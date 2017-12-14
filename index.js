@@ -208,7 +208,7 @@ exports.diveSync = (path, opt) => {
 };
 
 // createReaddirStream(dir[, options])
-exports.createReaddirStream = crs.createReaddirStream;
+exports.createReaddirStream = crs.createReaddirStream.bind(crs);
 
 // readXML(path, function(err, parsedObject))
 exports.readXML = function(path, callback) {
