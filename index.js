@@ -4,9 +4,9 @@
 const fs = require('fs');
 
 const vacuum = require('./external/vacuum');
-const diveSync = require('diveSync');
-const dive = require('dive');
-const crs = require('create-readdir-stream');
+const diveSync = require('./external/diveSync');
+const dive = require('./external/dive');
+const crs = require('./external/create-readdir-stream');
 const xml2js = require('xml2js');
 const assign = require('./lib/util/assign');
 
