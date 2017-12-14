@@ -471,6 +471,14 @@ describe('fs', () => {
         path.resolve(t+'/brap6/2/4/7'),
         path.resolve(t+'/brap6/2/4/8/9'),
       ];
+      const relativePaths = [
+        t+'/brap6/8/9',
+        t+'/brap6/1/2/3',
+        t+'/brap6/1/4/5',
+        t+'/brap6/1/4/6',
+        t+'/brap6/2/4/7',
+        t+'/brap6/2/4/8/9',
+      ];
 
       beforeEach(async () => {
         await fs.mkdir(t);
@@ -493,6 +501,17 @@ describe('fs', () => {
       });
       afterEach(async () => {
         await fs.remove(t);
+      });
+      describe('sync', () => {
+        it('no entries', async () => {
+          assert.equal(fs.diveSync(t+'/brap').length, 0);
+        });
+        it('no entries, trailing slash', async () => {
+          assert.equal(fs.diveSync(t+'/brap/').length, 0);
+        });
+        it('normal functionality', async () => {
+          assert.deepEqual(fs.diveSync(t).sort(), relativePaths.sort());
+        });
       });
       it('no entries, Promise', async () => {
         await fs.dive(t+'/brap', () => {
