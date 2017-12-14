@@ -9,7 +9,7 @@ describe('fs', () => {
   const fs = require('../');
   fs.removeSync(t);
 
-  describe('hansen', () => {
+  describe('xt', () => {
     it('should have no undefined properties', () => {
       for (let key in fs) {
         assert(fs[key] !== undefined, key + ' is not defined: ' + util.inspect(fs[key]));
@@ -457,6 +457,94 @@ describe('fs', () => {
           assert(!(await fs.exists(t+'/brap6/2/4/8/9')));
 
           done();
+        });
+      });
+    });
+    describe('.dive', () => {
+      //require('path').resolve('.')
+      const path = require('path');
+      const paths = [
+        path.resolve(t+'/brap6/8/9'),
+        path.resolve(t+'/brap6/1/2/3'),
+        path.resolve(t+'/brap6/1/4/5'),
+        path.resolve(t+'/brap6/1/4/6'),
+        path.resolve(t+'/brap6/2/4/7'),
+        path.resolve(t+'/brap6/2/4/8/9'),
+      ];
+
+      beforeEach(async () => {
+        await fs.mkdir(t);
+        await fs.ensureFolder(t+'/brap/');
+        await fs.ensureFolder(t+'/brap2/');
+        await fs.ensureFolder(t+'/brap2/a/b/c/d');
+        await fs.ensureFolder(t+'/brap2/a/b/d/e');
+        await fs.ensureFolder(t+'/brap3/');
+        await fs.ensureFolder(t+'/brap3/zz/41');
+        await fs.ensureFolder(t+'/brap4/');
+        await fs.ensureFolder(t+'/brap5/');
+        await fs.ensureFolder(t+'/brap6/');
+        await fs.ensureFolder(t+'/brap6/7');
+        await fs.ensureFile(t+'/brap6/8/9');
+        await fs.ensureFile(t+'/brap6/1/2/3');
+        await fs.ensureFile(t+'/brap6/1/4/5');
+        await fs.ensureFile(t+'/brap6/1/4/6');
+        await fs.ensureFile(t+'/brap6/2/4/7');
+        await fs.ensureFile(t+'/brap6/2/4/8/9');
+      });
+      afterEach(async () => {
+        await fs.remove(t);
+      });
+      it('no entries, Promise', async () => {
+        await fs.dive(t+'/brap', () => {
+          throw new Error('Should have no entries!');
+        });
+      });
+      it('no entries, callback', async () => {
+        await fs.dive(t+'/brap', () => {
+          throw new Error('Should have no entries!');
+        });
+      });
+      it('no entries, trailing slash, Promise', async () => {
+        await fs.dive(t+'/brap/', () => {
+          throw new Error('Should have no entries!');
+        });
+      });
+      it('no entries, trailing slash, callback', async () => {
+        await fs.dive(t+'/brap/', () => {
+          throw new Error('Should have no entries!');
+        });
+      });
+      it('normal functionality, Promise', async () => {
+        const visited = [];
+        await fs.dive(t, e => {
+          if (visited.indexOf(e) > -1) {
+            throw new Error('Visited contains ' + e + ' twice');
+          }
+          if (paths.indexOf(e) > -1) {
+            visited.push(e);
+          } else {
+            throw new Error('No ' + e + ' in paths.');
+          }
+        });
+        if (visited.length < paths.length) {
+          throw new Error('' + visited);
+        }
+      });
+      it('normal functionality, callback', done => {
+        const visited = [];
+        fs.dive(t, (err, e) => {
+          if (err) throw err;
+          if (visited.indexOf(e) > -1) {
+            throw new Error('Visited contains ' + e + ' twice');
+          }
+          if (paths.indexOf(e) > -1) {
+            visited.push(e);
+          } else {
+            throw new Error('No ' + e + ' in paths.');
+          }
+        }, err => {
+          if (err) done(err);
+          else done();
         });
       });
     });
