@@ -180,7 +180,7 @@ exports.dive = (directory, o1, o2, o3) => {
   if (!complete) {
     return new Promise((resolve, reject) => {
       let failed = false;
-      dive(directory, options, (err, file, stat) => {
+      dive(directory, options || {}, (err, file, stat) => {
         if (err && !failed) {
           failed = true;
           reject();
@@ -193,10 +193,10 @@ exports.dive = (directory, o1, o2, o3) => {
     });
   }
   // legacy form (no promise)
-  return dive(directory, options, action, complete);
+  return dive(directory, options || {}, action, complete);
 };
 
-// diveSync(dir[, opt], action)
+// diveSync(dir[, opt])
 exports.diveSync = (path, opt) => {
   let files = [];
   function action(err, file) {
