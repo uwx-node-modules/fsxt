@@ -255,7 +255,9 @@ function readLinesHelper(path, encoding, resolve, reject) {
 }
 
 // readLines(path[, encoding][, callback])
-exports.readLines = (path, encoding = 'utf8', callback = typeof encoding == 'string' ? null : encoding) => {
+exports.readLines = (path, o1, o2) => {
+  const encoding = typeof o1 == 'string' ? o1 : 'utf8';
+  const callback = typeof o1 == 'string' ? o2 : o1;
   if (!callback) {
     return new Promise((resolve, reject) => {
       readLinesHelper(path, encoding, resolve, reject);
@@ -291,10 +293,14 @@ exports.readSync = (path, encoding = 'utf8') => {
   return fs.readFileSync(path, encoding);
 };
 
+async function isDirectoryHelper(path) {
+  return (await exports.stat(path)).isDirectory();
+}
+
 // check if file path is directory, from https://github.com/overlookmotel/fs-extra-promise
 exports.isDirectory = (path, callback) => {
   if (!callback) {
-    return (async () => (await exports.stat(path)).isDirectory())();
+    return isDirectoryHelper(path);
   }
   // legacy (non-promise)
   fs.stat(path, (err, stats) => {

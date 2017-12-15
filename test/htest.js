@@ -674,6 +674,138 @@ describe('fs', () => {
         });
       });
     });
+    const xmlFixture = {
+      'note': {
+        'to': ['Tove'],
+        'from': ['Jani'],
+        'heading': ['Reminder'],
+        'body': ['Don\'t forget me this weekend!']
+      }
+    };
+    describe('.readXML', () => {
+      it('normal functionality, callback', done => {
+        fs.readXML('./test/fixtures/test.xml', (err, res) => {
+          if (err) {
+            done(err);
+            return;
+          }
+          
+          try {
+            assert.deepStrictEqual(res, xmlFixture);
+          } catch (e) {
+            done(e);
+            return;
+          }
+          done();
+        });
+      });
+      it('normal functionality, Promise', async () => {
+        const res = await fs.readXML('./test/fixtures/test.xml');
+        assert.deepStrictEqual(res, xmlFixture);
+      });
+      it('should decode BOM, callback', done => {
+        fs.readXML('./test/fixtures/bom.xml', (err, res) => {
+          if (err) done(err);
+          assert.equal(res.xml.foo[0], 'bar');
+          done();
+        });
+      });
+      it('should decode BOM, Promise', async () => {
+        const res = await fs.readXML('./test/fixtures/bom.xml');
+        assert.equal(res.xml.foo[0], 'bar');
+      });
+    });
+    describe('.readXMLSync', () => {
+      it('normal functionality', done => {
+        assert.deepStrictEqual(fs.readXMLSync('./test/fixtures/test.xml'), xmlFixture);
+        done();
+      });
+      it('should decode BOM', done => {
+        assert.deepStrictEqual(fs.readXMLSync('./test/fixtures/bom.xml').xml.foo[0], 'bar');
+        done();
+      });
+    });
+    describe('.readLines', () => {
+      it('normal functionality, Promise', async () => {
+        assert.equal((await fs.readLines(__filename)).join('\n'), (await fs.readFile(__filename, 'utf8')).replace(/\r\n/g, '\n'));
+      });
+      it('normal functionality, callback', done => {
+        fs.readLines(__filename, (err, lines) => {
+          try {
+            assert.equal(lines.join('\n'), fs.readFileSync(__filename, 'utf8').replace(/\r\n/g, '\n'));
+            done();
+          } catch (e) {
+            done(e);
+          }
+        });
+      });
+    });
+    describe('.readLinesSync', () => {
+      it('normal functionality', done => {
+        try {
+          assert.equal(fs.readLinesSync(__filename).join('\n'), fs.readFileSync(__filename, 'utf8').replace(/\r\n/g, '\n'));
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+    describe('.readText', () => {
+      it('normal functionality, Promise', async () => {
+        assert.equal(await fs.readText(__filename), await fs.readFile(__filename, 'utf8'));
+      });
+      it('normal functionality, callback', done => {
+        fs.readText(__filename, (err, data) => {
+          try {
+            assert.equal(data, fs.readFileSync(__filename, 'utf8'));
+            done();
+          } catch (e) {
+            done(e);
+          }
+        });
+      });
+    });
+    describe('.readSync', () => {
+      it('normal functionality', async () => {
+        assert.equal(fs.readSync(__filename), await fs.readFile(__filename, 'utf8'));
+      });
+    });
+    describe('.isDirectory', () => {
+      it('normal functionality, Promise', async () => {
+        assert.equal(await fs.isDirectory(__dirname), true);
+      });
+      it('normal functionality, callback', done => {
+        fs.isDirectory(__dirname, (err, is) => {
+          try {
+            assert.equal(is, true);
+            done();
+          } catch (e) {
+            done(e);
+          }
+        });
+      });
+      it('normal functionality, inverse, Promise', async () => {
+        assert.equal(await fs.isDirectory(__filename), false);
+      });
+      it('normal functionality, inverse, callback', done => {
+        fs.isDirectory(__filename, (err, is) => {
+          try {
+            assert.equal(is, false);
+            done();
+          } catch (e) {
+            done(e);
+          }
+        });
+      });
+    });
+    describe('.isDirectorySync', () => {
+      it('normal functionality', () => {
+        assert.equal(fs.isDirectorySync(__dirname), true);
+      });
+      it('normal functionality, inverse', () => {
+        assert.equal(fs.isDirectorySync(__filename), false);
+      });
+    });
     //describe('createReaddirStream', () => {
     //  it('should `.createReaddirStream` throw TypeError if `dir` not a string or buffer', done => {
     //    function fixture() {
