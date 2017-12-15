@@ -825,10 +825,5 @@ describe('fs', () => {
     //    });
     //  });
     //});
-
-    it('.exists Promise', async () => {
-    });
-    it('.exists Promise', async () => {
-    });
   });
 });
