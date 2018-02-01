@@ -51,9 +51,9 @@ Licensed under MIT
 
 `fs-extra` is copyright (c) 2011-2017 [JP Richardson](https://github.com/jprichardson)
 
-`fsxt` is copyright © 2016-2017 [chrishansen69/rafa1231518](https://github.com/rafa1231518), some rights reserved.
+`fsxt` is copyright © 2016-2018 [uwx](https://github.com/uwx), some rights reserved.
 
-Parts of the documentation have been completely stolen from [create-readdir-stream](https://github.com/tunnckoCore/create-readdir-stream/),
+Parts of the documentation were taken from [create-readdir-stream](https://github.com/tunnckoCore/create-readdir-stream/),
 [diveSync](https://github.com/pvorb/node-diveSync), [dive](https://github.com/pvorb/node-dive) and the Node.js `fs` module.
 
 `fs-extra` and `fsxt` are not endorsed by or affiliated with Joyent or the Node.js Foundation.
