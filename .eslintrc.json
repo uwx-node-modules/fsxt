@@ -31,6 +31,9 @@
         "no-console": 0,
         "require-jsdoc": "off",
         "valid-jsdoc": "off",
-        "max-len": "off"
+        "max-len": "off",
+        "curly": "off",
+        "arrow-parens": "off",
+        "comma-dangle": "off"
     }
 }
