@@ -11,13 +11,6 @@ const assign = require('./lib/util/assign');
 
 assign(exports, require('./lib'));
 
-// async promise with auto reject
-function asyncPromise(f) {
-  return new Promise((resolve, reject) => {
-    f(resolve, reject).then(() => {}).catch(reject);
-  });
-}
-
 async function asyncFilter(iterable, condition) {
   const output = [];
   let e;
@@ -133,7 +126,7 @@ exports.forEachChild = (path, o1, o2, o3) => {
 
   // promise
   if (!callback) {
-    return asyncPromise(async resolve => {
+    return (async resolve => { // TODO does error in this cause unhandled promise rejection? it shouldn't
       const children = await exports.readdir(path, options);
       for (let i = 0, len = children.length; i < len; i++) {
         const ret = func(children[i]);
@@ -141,8 +134,7 @@ exports.forEachChild = (path, o1, o2, o3) => {
           await ret;
         }
       }
-      resolve(children);
-    });
+    })();
   }
   // legacy
   exports.readdir(path, options, (err, children) => {
@@ -209,13 +201,13 @@ exports.diveSync = (path, opt) => {
 // readXML(path, function(err, parsedObject))
 exports.readXML = function(path, callback) {
   if (!callback) {
-    return asyncPromise(async (resolve, reject) => {
-      const data = await exports.readFile(path, 'utf8');
-
-      xml2js.parseString(data, {async: true}, (err, parsedObject) => {
-        if (err) reject(err);
-        else resolve(parsedObject);
-      });
+    return new Promise((resolve, reject) => {
+      exports.readFile(path, 'utf8').then(data => {
+        xml2js.parseString(data, {async: true}, (err, parsedObject) => {
+          if (err) reject(err);
+          else resolve(parsedObject);
+        });
+      }).catch(reject);
     });
   }
   fs.readFile(path, 'utf8', (err, data) => {
