@@ -1,20 +1,3 @@
-## exists(file, callback)
-
-Non-deprecated check if a file exists. Calls `callback` with `true`, `false` or an error.
-
-Example:
-
-```js
-const fs = require('fs-extra')
-fs.exists('./package.json', function (res) {
-  if (typeof res == 'string') {
-    console.error(err);
-  } else {
-    console.log(res ? 'file exists' : 'file doesn\'t exist');
-  }
-})
-```
-
 ## resolve(path, child)
 
 Resolve a child file of a folder.
@@ -222,7 +205,7 @@ Read a file into a string array of its lines. Default encoding is UTF-8. Returns
 
 Shorter version of `fs.readFile` where the default encoding is UTF-8.
 
-## readSync(path[, encoding])
+## readTextSync(path[, encoding])
 
 Shorter version of `fs.readFileSync` where the default encoding is UTF-8.
 
