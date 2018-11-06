@@ -11,6 +11,17 @@ const assign = require('./lib/util/assign');
 
 assign(exports, require('./lib'));
 
+const ex = new Proxy(exports, {
+  set: (obj, prop, value) => {
+    if (prop in obj) {
+      throw new Error(`Attempted to export existing function '${prop}', this is a library error`);
+    } else {
+      obj[prop] = value;
+    }
+    return true;
+  }
+})
+
 async function asyncFilter(iterable, condition) {
   const output = [];
   let e;
@@ -43,21 +54,10 @@ function existsHelper(path, resolve, reject) {
 }
 
 // alias ensureFolder => ensureDir
-exports.ensureFolder = exports.ensureDir;
-
-// async fs exists
-exports.exists = (path, callback) => {
-  if (!callback) {
-    return new Promise((resolve, reject) => {
-      existsHelper(path, resolve, reject);
-    });
-  }
-  // legacy (not promise)
-  existsHelper(path, status => callback(null, status), callback);
-};
+ex.ensureFolder = exports.ensureDir;
 
 // get a child file of this file
-exports.resolve = (path, child) => {
+ex.resolve = (path, child) => {
   if (path.endsWith('/') || path.endsWith('\\')) {
     return path + child;
   }
@@ -72,7 +72,7 @@ exports.resolve = (path, child) => {
 
 // map file contents of immediate children
 // mapChildren(path, mapper(contents, filename, pathOnly, pathWithFilename) => toContents[, readOptions[, writeOptions]])
-exports.mapChildren = async function(path, mapper, readOptions = 'utf8', writeOptions) {
+ex.mapChildren = async function(path, mapper, readOptions = 'utf8', writeOptions) {
   const children = await asyncFilter((await exports.readdir(path)).map(child => path + '/' + child), async e => !await exports.isDirectory(e));
   for (let e of children) {
     let c;
@@ -93,7 +93,7 @@ function storeAndExec(arr, f) {
 }
 
 // mapStructure(path, mapper(contents, fullPath, stat) => toContents[, readOptions[, writeOptions]])
-exports.mapStructure = async function(path, mapper, readOptions = 'utf8', writeOptions) {
+ex.mapStructure = async function(path, mapper, readOptions = 'utf8', writeOptions) {
   const arr = [];
 
   await exports.dive(path, {all: true}, storeAndExec(arr, async (file, stat) => {
@@ -111,7 +111,7 @@ exports.mapStructure = async function(path, mapper, readOptions = 'utf8', writeO
 };
 
 // forEachChildSync(function(file)[, options])
-exports.forEachChildSync = (path, func, options) => {
+ex.forEachChildSync = (path, func, options) => {
   const children = fs.readdirSync(path, options);
   for (let i = 0, len = children.length; i < len; i++) {
     func(children[i]);
@@ -119,7 +119,7 @@ exports.forEachChildSync = (path, func, options) => {
 };
 
 // forEachChild(path[, options], function(file)[, callback])
-exports.forEachChild = (path, o1, o2, o3) => {
+ex.forEachChild = (path, o1, o2, o3) => {
   const options = typeof o1 == 'object' ? o1 : null;
   const func = !options ? o1 : o2;
   const callback = !options ? o2 : o3;
@@ -150,7 +150,7 @@ exports.forEachChild = (path, o1, o2, o3) => {
 };
 
 // vacuum(directory, options[, callback])
-exports.vacuum = (directory, options, callback) => {
+ex.vacuum = (directory, options, callback) => {
   if (!callback) {
     return new Promise((resolve, reject) => {
       vacuum(directory, options, err => {
@@ -164,7 +164,7 @@ exports.vacuum = (directory, options, callback) => {
 };
 
 // dive(directory[, options], action[, complete]);
-exports.dive = (directory, o1, o2, o3) => {
+ex.dive = (directory, o1, o2, o3) => {
   const options = typeof o1 == 'object' ? o1 : null;
   const action = !options ? o1 : o2;
   const complete = !options ? o2 : o3;
@@ -188,7 +188,7 @@ exports.dive = (directory, o1, o2, o3) => {
 };
 
 // diveSync(dir[, opt])
-exports.diveSync = (path, opt) => {
+ex.diveSync = (path, opt) => {
   let files = [];
   function action(err, file) {
     if (err) throw err;
@@ -199,7 +199,7 @@ exports.diveSync = (path, opt) => {
 };
 
 // readXML(path, function(err, parsedObject))
-exports.readXML = function(path, callback) {
+ex.readXML = function(path, callback) {
   if (!callback) {
     return new Promise((resolve, reject) => {
       exports.readFile(path, 'utf8').then(data => {
@@ -220,7 +220,7 @@ exports.readXML = function(path, callback) {
 };
 
 // readXMLSync(path)
-exports.readXMLSync = path => {
+ex.readXMLSync = path => {
   const fdata = fs.readFileSync(path, 'utf8');
   let err = null;
   let data;
@@ -247,7 +247,7 @@ function readLinesHelper(path, encoding, resolve, reject) {
 }
 
 // readLines(path[, encoding][, callback])
-exports.readLines = (path, o1, o2) => {
+ex.readLines = (path, o1, o2) => {
   const encoding = typeof o1 == 'string' ? o1 : 'utf8';
   const callback = typeof o1 == 'string' ? o2 : o1;
   if (!callback) {
@@ -260,7 +260,7 @@ exports.readLines = (path, o1, o2) => {
 };
 
 // readLinesSync(path[, encoding])
-exports.readLinesSync = (path, encoding = 'utf8') => {
+ex.readLinesSync = (path, encoding = 'utf8') => {
   const data = fs.readFileSync(path, encoding);
   if (data.indexOf('\r\n') > -1) {
     return data.split('\r\n');
@@ -271,7 +271,7 @@ exports.readLinesSync = (path, encoding = 'utf8') => {
   return [data];
 };
 
-exports.readText = (path, o1, o2) => {
+ex.readText = (path, o1, o2) => {
   const encoding = typeof o1 == 'string' ? o1 : 'utf8';
   const callback = typeof o1 == 'function' ? o1 : o2;
   if (!callback) {
@@ -281,7 +281,7 @@ exports.readText = (path, o1, o2) => {
   fs.readFile(path, encoding, callback);
 };
 
-exports.readSync = (path, encoding = 'utf8') => {
+ex.readTextSync = (path, encoding = 'utf8') => {
   return fs.readFileSync(path, encoding);
 };
 
@@ -290,7 +290,7 @@ async function isDirectoryHelper(path) {
 }
 
 // check if file path is directory, from https://github.com/overlookmotel/fs-extra-promise
-exports.isDirectory = (path, callback) => {
+ex.isDirectory = (path, callback) => {
   if (!callback) {
     return isDirectoryHelper(path);
   }
@@ -303,13 +303,13 @@ exports.isDirectory = (path, callback) => {
 };
 
 // sync check if file path is directory
-exports.isDirectorySync = function(path) {
+ex.isDirectorySync = function(path) {
   return fs.statSync(path).isDirectory();
 };
 
 // for fs-extra backwards compatibility
 // so users of fsxt can modify jsonFile.spaces
-exports.jsonfile = {
+ex.jsonfile = {
   get spaces() {
     return fs.spaces;
   },

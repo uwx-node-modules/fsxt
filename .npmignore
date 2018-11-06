@@ -6,6 +6,7 @@ appveyor.yml
 lib/**/__tests__/
 test/readme.md
 test.js
+testlite.js
 *.bat
 *.sh
 .eslintignore
