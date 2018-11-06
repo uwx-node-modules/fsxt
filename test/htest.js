@@ -17,9 +17,6 @@ describe('fs', () => {
         assert.ok(typeof fs[key] == 'number' || fs[key], key + ' is N/A: ' + util.inspect(fs[key]));
       }
     });
-    it('.exists Promise', async () => {
-      assert(await fs.exists(__filename));
-    });
     describe('.resolve', () => {
       it('should use forward slash by default (a,b to a/b)', () => {
         assert.equal(fs.resolve('a', 'b'), 'a/b');
@@ -52,19 +49,19 @@ describe('fs', () => {
       it('no changes', async () => {
         await fs.mapChildren(t, e => e);
 
-        for (let i = 0; i < 50; i++) assert.ok(await fs.exists(t + '/file' + i + '.txt'));
+        for (let i = 0; i < 50; i++) assert.ok(await fs.pathExists(t + '/file' + i + '.txt'));
         for (let i = 0; i < 50; i++) assert.equal(await fs.readFile(t + '/file' + i + '.txt', 'utf8'), 'Before: ' + i);
       });
       it('all changed', async () => {
         await fs.mapChildren(t, e => e.replace('Before', 'After'));
 
-        for (let i = 0; i < 50; i++) assert.ok(await fs.exists(t + '/file' + i + '.txt'));
+        for (let i = 0; i < 50; i++) assert.ok(await fs.pathExists(t + '/file' + i + '.txt'));
         for (let i = 0; i < 50; i++) assert.equal(await fs.readFile(t + '/file' + i + '.txt', 'utf8'), 'After: ' + i);
       });
       it('some changed', async () => {
         await fs.mapChildren(t, e => parseInt(e.slice('Before: '.length)) % 2 == 0 ? e.replace('Before', 'Even') : e.replace('Before', 'Odd'));
 
-        for (let i = 0; i < 50; i++) assert.ok(await fs.exists(t + '/file' + i + '.txt'));
+        for (let i = 0; i < 50; i++) assert.ok(await fs.pathExists(t + '/file' + i + '.txt'));
         for (let i = 0; i < 50; i++) assert.equal(await fs.readFile(t + '/file' + i + '.txt', 'utf8'), i % 2 == 0 ? 'Even: ' + i : 'Odd: ' + i);
       });
     });
@@ -92,7 +89,7 @@ describe('fs', () => {
       it('no changes', async () => {
         await fs.mapStructure(t, e => e);
 
-        for (let i = 0; i < 50; i++) assert.ok(await fs.exists(t + '/file' + i + '.txt'));
+        for (let i = 0; i < 50; i++) assert.ok(await fs.pathExists(t + '/file' + i + '.txt'));
         for (let i = 0; i < 50; i++) assert.equal(await fs.readFile(t + '/file' + i + '.txt', 'utf8'), 'Before: ' + i);
 
         assert.equal(await fs.readFile(t + '/brap/brap.txt', 'utf8'), 'Brapp!');
@@ -104,7 +101,7 @@ describe('fs', () => {
       it('some changed (Before => After)', async () => {
         await fs.mapStructure(t, e => e.replace('Before', 'After'));
 
-        for (let i = 0; i < 50; i++) assert.ok(await fs.exists(t + '/file' + i + '.txt'));
+        for (let i = 0; i < 50; i++) assert.ok(await fs.pathExists(t + '/file' + i + '.txt'));
         for (let i = 0; i < 50; i++) assert.equal(await fs.readFile(t + '/file' + i + '.txt', 'utf8'), 'After: ' + i);
 
         assert.equal(await fs.readFile(t + '/brap/brap.txt', 'utf8'), 'Brapp!');
@@ -116,7 +113,7 @@ describe('fs', () => {
       it('some changed (Before => Even/Odd)', async () => {
         await fs.mapChildren(t, e => parseInt(e.slice('Before: '.length)) % 2 == 0 ? e.replace('Before', 'Even') : e.replace('Before', 'Odd'));
 
-        for (let i = 0; i < 50; i++) assert.ok(await fs.exists(t + '/file' + i + '.txt'));
+        for (let i = 0; i < 50; i++) assert.ok(await fs.pathExists(t + '/file' + i + '.txt'));
         for (let i = 0; i < 50; i++) assert.equal(await fs.readFile(t + '/file' + i + '.txt', 'utf8'), i % 2 == 0 ? 'Even: ' + i : 'Odd: ' + i);
 
         assert.equal(await fs.readFile(t + '/brap/brap.txt', 'utf8'), 'Brapp!');
@@ -128,7 +125,7 @@ describe('fs', () => {
       it('some changed (Brap => Skrrap)', async () => {
         await fs.mapStructure(t, e => e.replace('Brap', 'Skrrap'));
 
-        for (let i = 0; i < 50; i++) assert.ok(await fs.exists(t + '/file' + i + '.txt'));
+        for (let i = 0; i < 50; i++) assert.ok(await fs.pathExists(t + '/file' + i + '.txt'));
         for (let i = 0; i < 50; i++) assert.equal(await fs.readFile(t + '/file' + i + '.txt', 'utf8'), 'Before: ' + i);
 
         assert.equal(await fs.readFile(t + '/brap/brap.txt', 'utf8'), 'Skrrapp!');
@@ -148,7 +145,7 @@ describe('fs', () => {
           return e.replace('Before', 'Odd');
         });
 
-        for (let i = 0; i < 50; i++) assert.ok(await fs.exists(t + '/file' + i + '.txt'));
+        for (let i = 0; i < 50; i++) assert.ok(await fs.pathExists(t + '/file' + i + '.txt'));
         for (let i = 0; i < 50; i++) assert.equal(await fs.readFile(t + '/file' + i + '.txt', 'utf8'), i % 2 == 0 ? 'Even: ' + i : 'Odd: ' + i);
 
         assert.equal(await fs.readFile(t + '/brap/brap.txt', 'utf8'), 'Skrrapp!');
@@ -522,22 +519,22 @@ describe('fs', () => {
         await fs.vacuum(t, {
           purge: true
         });
-        assert(!(await fs.exists(t + '/brap/')));
-        assert(!(await fs.exists(t + '/brap2/')));
-        assert(!(await fs.exists(t + '/brap2/a/b/c/d')));
-        assert(!(await fs.exists(t + '/brap2/a/b/d/e')));
-        assert(!(await fs.exists(t + '/brap3/')));
-        assert(!(await fs.exists(t + '/brap3/zz/41')));
-        assert(!(await fs.exists(t + '/brap4/')));
-        assert(!(await fs.exists(t + '/brap5/')));
-        assert(!(await fs.exists(t + '/brap6/')));
-        assert(!(await fs.exists(t + '/brap6/7')));
-        assert(!(await fs.exists(t + '/brap6/8/9')));
-        assert(!(await fs.exists(t + '/brap6/1/2/3')));
-        assert(!(await fs.exists(t + '/brap6/1/4/5')));
-        assert(!(await fs.exists(t + '/brap6/1/4/6')));
-        assert(!(await fs.exists(t + '/brap6/2/4/7')));
-        assert(!(await fs.exists(t + '/brap6/2/4/8/9')));
+        assert(!(await fs.pathExists(t + '/brap/')));
+        assert(!(await fs.pathExists(t + '/brap2/')));
+        assert(!(await fs.pathExists(t + '/brap2/a/b/c/d')));
+        assert(!(await fs.pathExists(t + '/brap2/a/b/d/e')));
+        assert(!(await fs.pathExists(t + '/brap3/')));
+        assert(!(await fs.pathExists(t + '/brap3/zz/41')));
+        assert(!(await fs.pathExists(t + '/brap4/')));
+        assert(!(await fs.pathExists(t + '/brap5/')));
+        assert(!(await fs.pathExists(t + '/brap6/')));
+        assert(!(await fs.pathExists(t + '/brap6/7')));
+        assert(!(await fs.pathExists(t + '/brap6/8/9')));
+        assert(!(await fs.pathExists(t + '/brap6/1/2/3')));
+        assert(!(await fs.pathExists(t + '/brap6/1/4/5')));
+        assert(!(await fs.pathExists(t + '/brap6/1/4/6')));
+        assert(!(await fs.pathExists(t + '/brap6/2/4/7')));
+        assert(!(await fs.pathExists(t + '/brap6/2/4/8/9')));
       });
       it('normal functionality, callback', done => {
         fs.vacuum(t, {
@@ -545,22 +542,22 @@ describe('fs', () => {
         }, async err => {
           assert(!err, err);
 
-          assert(!(await fs.exists(t + '/brap/')));
-          assert(!(await fs.exists(t + '/brap2/')));
-          assert(!(await fs.exists(t + '/brap2/a/b/c/d')));
-          assert(!(await fs.exists(t + '/brap2/a/b/d/e')));
-          assert(!(await fs.exists(t + '/brap3/')));
-          assert(!(await fs.exists(t + '/brap3/zz/41')));
-          assert(!(await fs.exists(t + '/brap4/')));
-          assert(!(await fs.exists(t + '/brap5/')));
-          assert(!(await fs.exists(t + '/brap6/')));
-          assert(!(await fs.exists(t + '/brap6/7')));
-          assert(!(await fs.exists(t + '/brap6/8/9')));
-          assert(!(await fs.exists(t + '/brap6/1/2/3')));
-          assert(!(await fs.exists(t + '/brap6/1/4/5')));
-          assert(!(await fs.exists(t + '/brap6/1/4/6')));
-          assert(!(await fs.exists(t + '/brap6/2/4/7')));
-          assert(!(await fs.exists(t + '/brap6/2/4/8/9')));
+          assert(!(await fs.pathExists(t + '/brap/')));
+          assert(!(await fs.pathExists(t + '/brap2/')));
+          assert(!(await fs.pathExists(t + '/brap2/a/b/c/d')));
+          assert(!(await fs.pathExists(t + '/brap2/a/b/d/e')));
+          assert(!(await fs.pathExists(t + '/brap3/')));
+          assert(!(await fs.pathExists(t + '/brap3/zz/41')));
+          assert(!(await fs.pathExists(t + '/brap4/')));
+          assert(!(await fs.pathExists(t + '/brap5/')));
+          assert(!(await fs.pathExists(t + '/brap6/')));
+          assert(!(await fs.pathExists(t + '/brap6/7')));
+          assert(!(await fs.pathExists(t + '/brap6/8/9')));
+          assert(!(await fs.pathExists(t + '/brap6/1/2/3')));
+          assert(!(await fs.pathExists(t + '/brap6/1/4/5')));
+          assert(!(await fs.pathExists(t + '/brap6/1/4/6')));
+          assert(!(await fs.pathExists(t + '/brap6/2/4/7')));
+          assert(!(await fs.pathExists(t + '/brap6/2/4/8/9')));
 
           done();
         });
@@ -765,9 +762,9 @@ describe('fs', () => {
         });
       });
     });
-    describe('.readSync', () => {
+    describe('.readTextSync', () => {
       it('normal functionality', async () => {
-        assert.equal(fs.readSync(__filename), await fs.readFile(__filename, 'utf8'));
+        assert.equal(fs.readTextSync(__filename), await fs.readFile(__filename, 'utf8'));
       });
     });
     describe('.isDirectory', () => {
