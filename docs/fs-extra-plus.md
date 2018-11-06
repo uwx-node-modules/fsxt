@@ -82,7 +82,7 @@ vacuum("/path/to/my/tree/root/out/to/my/files", function (error) {
 });
 ```
 
-## dive(directory[, options], action[, complete]);
+## dive(directory[, options], action[, complete])
 
 Recursively walk (_“dive”_) a directory tree.
 
@@ -176,14 +176,6 @@ for (let i = 0; i < files.length; i++) {
 }
 
 ```
-
-## ~~createReaddirStream(dir[, options])~~
-
-**DEPRECATED!**
-
-*Removed in 8.0.0.*
-
-Use NPM package [create-readdir-stream](https://github.com/olstenlarck/create-readdir-stream) if you still need the functionality.
 
 ## readXML(path, function(err, parsedObject))
 

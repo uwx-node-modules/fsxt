@@ -14,15 +14,15 @@
 ##### (methods added in fs-extra+)
 - ~~exists~~ **REMOVED** in 9.0.0
 - ensureFolder | ensureFolderSync **alias** to [ensureDir(dir, [callback])](#ensuredirdir-callback) | [ensureDirSync(dir)](#ensuredirsyncdir)
-- [resolve](#resolvepath-child)
+- [resolve(path, child)](#resolvepath-child)
 - [mapChildren(path, mapper(contents, filename, pathOnly, pathWithFilename) => toContents[, readOptions[, writeOptions]])](#mapchildrenpath-mappercontents-filename-pathonly-pathwithfilename--tocontents-readoptions-writeoptions)
 - [mapStructure(path, mapper(contents, fullPath, stat) => toContents[, readOptions[, writeOptions]])](#mapstructurepath-mappercontents-fullpath-stat--tocontents-readoptions-writeoptions)
-- [forEachChild](#foreachchildfunctionerror-file-options-callback) | [forEachChildSync](#foreachchildsyncpath-functionfile-options)
-- [vacuum](#vacuumdirectory-options-callback)
-- [dive](#divedirectory-options-action-complete) | [diveSync](#divesyncpath-options)
-- [createReaddirStream](#createreaddirstreamdir-options)
-- [readXML](#readxmlpath-functionerr-parsedobject) | [readXMLSync](#readxmlsyncpath)
+- [forEachChild(path\[, options\], function(file)\[, callback(err | null)\])](#foreachchildfunctionerror-file-options-callback) | [forEachChildSync(path, function(file)\[, options\])](#foreachchildsyncpath-functionfile-options)
+- [vacuum(directory, options\[, callback\])](#vacuumdirectory-options-callback)
+- [dive(directory[, options], action[, complete])](#divedirectory-options-action-complete) | [diveSync(path\[, options\])](#divesyncpath-options)
+- ~~createReaddirStream~~ **REMOVED** in 8.0.0
+- [readXML(path, function(err, parsedObject))](#readxmlpath-functionerr-parsedobject) | [readXMLSync(path)](#readxmlsyncpath)
 - [readLines(path[, encoding]\[, callback(err, lines)\])](#readlinespath-encoding-callbackerr-lines) | [readLinesSync](#readlinessyncpath-encoding)
 - ~~readSync(path[,-encoding])~~ **REMOVED** in 9.0.0
 - [readText(path[, encoding]\[, callback(err, text)\])](#readtextpath-encoding-callbackerr-text) | [readTextSync](#readtextsyncpath-encoding)
-- [isDirectory | isDirectorySync](#isdirectorypath-callback)
+- [isDirectory(path, callback) | isDirectorySync(path)](#isdirectorypath-callback)
