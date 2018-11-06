@@ -11,6 +11,11 @@ const assign = require('./lib/util/assign');
 
 assign(exports, require('./lib'));
 
+exports.exists = (...args) => {
+  console.warn('fsxt.exists has been removed, use pathExists instead');
+  return exports.pathExists(...args);
+};
+
 const ex = new Proxy(exports, {
   set: (obj, prop, value) => {
     if (prop in obj) {
@@ -55,6 +60,7 @@ function existsHelper(path, resolve, reject) {
 
 // alias ensureFolder => ensureDir
 ex.ensureFolder = exports.ensureDir;
+ex.ensureFolderSync = exports.ensureDirSync;
 
 // get a child file of this file
 ex.resolve = (path, child) => {
