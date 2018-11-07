@@ -1,8 +1,9 @@
+\!! How to fix semicolons.txt
 .nyc_output/
 coverage/
 test/
 .travis.yml
-appveyor.yml
+.appveyor.yml
 lib/**/__tests__/
 test/readme.md
 test.js
@@ -19,3 +20,6 @@ CHANGELOG.md
 docs
 build
 .github/
+.gitattributes
+fsxt-sublime.sublime-project
+fsxt-sublime.sublime-workspace
