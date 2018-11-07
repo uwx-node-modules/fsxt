@@ -83,12 +83,12 @@ ex.mapChildren = async function(path, mapper, readOptions = 'utf8', writeOptions
   for (let e of children) {
     const contents = await exports.readFile(e, readOptions);
     const filename = e.slice(e.lastIndexOf('/')+1);
-    let ret = mapper(contents, filename, path, e);
-    if (ret instanceof Promise) {
-      ret = await ret;
+    let result = mapper(contents, filename, path, e);
+    if (result instanceof Promise) {
+      result = await ret;
     }
-    if (ret != f) {
-      await exports.writeFile(e, ret, writeOptions);
+    if (result != contents) {
+      await exports.writeFile(e, result, writeOptions);
     }
   }
   return children;
