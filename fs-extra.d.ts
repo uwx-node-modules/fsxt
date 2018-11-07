@@ -1,3 +1,8 @@
+/**
+ * @module fsxt
+ * @internal
+ */
+
 // Type definitions for fs-extra 5.0
 // Project: https://github.com/jprichardson/node-fs-extra
 // Definitions by: Alan Agius <https://github.com/alan-agius4>,

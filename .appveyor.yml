@@ -36,15 +36,21 @@ on_success:
  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
  - git config --global user.email "bbbbbbenes@outlook.com.br"
  - git config --global user.name "Appveyor Automated Build"
- # commit markdown files
+ # set datetime vars
  - cmd: For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set mydate=%%c-%%a-%%b)
  - cmd: For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set mytime=%%a%%b)
- - cmd: addall.bat md
- - cmd: try.bat git commit -m "Built markdown at %mydate%_%mytime% [skip ci]"
+ # commit markdown files
+ - cmd: addall md
+ - cmd: try git commit -m "Built markdown at %mydate%_%mytime% [skip ci]"
  # commit fixed semicolons
- - cmd: try.bat node build/semi.js
- - cmd: addall.bat js
- - cmd: try.bat git commit -m "Fixed semicolons at %mydate%_%mytime% [skip ci]"
+ - cmd: try node build/semi.js
+ - cmd: addall js
+ - cmd: try git commit -m "Fixed semicolons at %mydate%_%mytime% [skip ci]"
+ # commit new docs
+ - cmd: gen-typedocs
+ - cmd: add docs/typedoc
+ - cmd: add docs/typedoc-fsxt-only
+ - cmd: try git commit -m "Generated docs at %mydate%_%mytime% [skip ci]"
  # push
  - git push origin master
 
