@@ -114,18 +114,21 @@ Methods
 - [remove(path, [callback])](#removepath-callback) | [removeSync(path)](#removesyncpath)
 - [writeJson(file, object, [options, callback])](#writejsonfile-object-options-callback) | [writeJsonSync(file, object, [options])](#writejsonsyncfile-object-options)
 ##### (methods added in fs-extra+)
-- [exists](#existsfile-callback)
-- [resolve](#resolvepath-child)
+- ~~exists~~ **REMOVED** in 9.0.0
+- ensureFolder | ensureFolderSync **alias** to [ensureDir(dir, [callback])](#ensuredirdir-callback) | [ensureDirSync(dir)](#ensuredirsyncdir)
+- [resolve(path, child)](#resolvepath-child)
 - [mapChildren(path, mapper(contents, filename, pathOnly, pathWithFilename) => toContents[, readOptions[, writeOptions]])](#mapchildrenpath-mappercontents-filename-pathonly-pathwithfilename--tocontents-readoptions-writeoptions)
 - [mapStructure(path, mapper(contents, fullPath, stat) => toContents[, readOptions[, writeOptions]])](#mapstructurepath-mappercontents-fullpath-stat--tocontents-readoptions-writeoptions)
-- [forEachChild](#foreachchildfunctionerror-file-options-callback) | [forEachChildSync](#foreachchildsyncpath-functionfile-options)
-- [vacuum](#vacuumdirectory-options-callback)
-- [dive](#divedirectory-options-action-complete)| [diveSync](#divesyncpath-options)
-- [createReaddirStream](#createreaddirstreamdir-options)
-- [readXML](#readxmlpath-functionerr-parsedobject) | [readXMLSync](#readxmlsyncpath)
-- [readLines(path[, encoding]\[, callback(err, lines)])](#readlinespath-encoding-callbackerr-lines) | [readLinesSync](#readlinessyncpath-encoding)
-- [readText(path[, encoding]\[, callback(err, text)])](#readtextpath-encoding-callbackerr-text) | [readSync](#readsyncpath-encoding)
-- [isDirectory | isDirectorySync](#isdirectorypath-callback)
+- [forEachChild(path\[, options\], function(file)\[, callback(err | null)\])](#foreachchildfunctionerror-file-options-callback) | [forEachChildSync(path, function(file)\[, options\])](#foreachchildsyncpath-functionfile-options)
+- [vacuum(directory, options\[, callback\])](#vacuumdirectory-options-callback)
+- [dive(directory[, options], action[, complete])](#divedirectory-options-action-complete) | [diveSync(path\[, options\])](#divesyncpath-options)
+- ~~createReaddirStream~~ **REMOVED** in 8.0.0
+- [readXML(path, function(err, parsedObject))](#readxmlpath-functionerr-parsedobject) | [readXMLSync(path)](#readxmlsyncpath)
+- [readLines(path[, encoding]\[, callback(err, lines)\])](#readlinespath-encoding-callbackerr-lines) | [readLinesSync](#readlinessyncpath-encoding)
+- ~~readSync(path[,-encoding])~~ **REMOVED** in 9.0.0
+- [readText(path[, encoding]\[, callback(err, text)\])](#readtextpath-encoding-callbackerr-text) | [readTextSync](#readtextsyncpath-encoding)
+- [isDirectory(path, callback) | isDirectorySync(path)](#isdirectorypath-callback)
+
 <!-- ENDIN nav --> 
 
 ##### (built-in `fs` module methods)
@@ -985,23 +988,6 @@ fs.writeJson('./package.json', {name: 'fs-extra'})
 <!-- ENDIN fsextra --> 
 
  <!-- BEGIN fs-extra-plus -->
-## exists(file, callback)
-
-Non-deprecated check if a file exists. Calls `callback` with `true`, `false` or an error.
-
-Example:
-
-```js
-const fs = require('fs-extra')
-fs.exists('./package.json', function (res) {
-  if (typeof res == 'string') {
-    console.error(err);
-  } else {
-    console.log(res ? 'file exists' : 'file doesn\'t exist');
-  }
-})
-```
-
 ## resolve(path, child)
 
 Resolve a child file of a folder.
@@ -1086,7 +1072,7 @@ vacuum("/path/to/my/tree/root/out/to/my/files", function (error) {
 });
 ```
 
-## dive(directory[, options], action[, complete]);
+## dive(directory[, options], action[, complete])
 
 Recursively walk (_“dive”_) a directory tree.
 
@@ -1181,14 +1167,6 @@ for (let i = 0; i < files.length; i++) {
 
 ```
 
-## ~~createReaddirStream(dir[, options])~~
-
-**DEPRECATED!**
-
-*Removed in 8.0.0.*
-
-Use NPM package [create-readdir-stream](https://github.com/olstenlarck/create-readdir-stream) if you still need the functionality.
-
 ## readXML(path, function(err, parsedObject))
 
 Read a file containing XML to an object.
@@ -1209,7 +1187,7 @@ Read a file into a string array of its lines. Default encoding is UTF-8. Returns
 
 Shorter version of `fs.readFile` where the default encoding is UTF-8.
 
-## readSync(path[, encoding])
+## readTextSync(path[, encoding])
 
 Shorter version of `fs.readFileSync` where the default encoding is UTF-8.
 
