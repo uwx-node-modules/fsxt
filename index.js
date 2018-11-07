@@ -296,18 +296,16 @@ ex.readLinesSync = (path, encoding = 'utf8') => {
   return [data];
 };
 
-ex.readText = (path, o1, o2) => {
-  const encoding = typeof o1 == 'string' ? o1 : 'utf8';
-  const callback = typeof o1 == 'function' ? o1 : o2;
+ex.readText = (path, callback) => {
   if (!callback) {
-    return exports.readFile(path, encoding);
+    return exports.readFile(path, 'utf8');
   }
   // legacy (non-promise)
-  fs.readFile(path, encoding, callback);
+  fs.readFile(path, 'utf8', callback);
 };
 
-ex.readTextSync = (path, encoding = 'utf8') => {
-  return fs.readFileSync(path, encoding);
+ex.readTextSync = (path) => {
+  return fs.readFileSync(path, 'utf8');
 };
 
 async function isDirectoryHelper(path) {
