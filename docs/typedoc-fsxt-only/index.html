@@ -142,20 +142,22 @@ fs.copy(<span class="hljs-string">'/tmp/myfile'</span>, <span class="hljs-string
 					<li><a href="#removepath-callback">remove(path, [callback])</a> | <a href="#removesyncpath">removeSync(path)</a></li>
 					<li><a href="#writejsonfile-object-options-callback">writeJson(file, object, [options, callback])</a> | <a href="#writejsonsyncfile-object-options">writeJsonSync(file, object, [options])</a><h5 id="-methods-added-in-fs-extra-">(methods added in fs-extra+)</h5>
 					</li>
-					<li><a href="#existsfile-callback">exists</a></li>
-					<li><a href="#resolvepath-child">resolve</a></li>
+					<li><del>exists</del> <strong>REMOVED</strong> in 9.0.0</li>
+					<li>ensureFolder | ensureFolderSync <strong>alias</strong> to <a href="#ensuredirdir-callback">ensureDir(dir, [callback])</a> | <a href="#ensuredirsyncdir">ensureDirSync(dir)</a></li>
+					<li><a href="#resolvepath-child">resolve(path, child)</a></li>
 					<li>[mapChildren(path, mapper(contents, filename, pathOnly, pathWithFilename) =&gt; toContents[, readOptions[, writeOptions]])](#mapchildrenpath-mappercontents-filename-pathonly-pathwithfilename--tocontents-readoptions-writeoptions)</li>
 					<li>[mapStructure(path, mapper(contents, fullPath, stat) =&gt; toContents[, readOptions[, writeOptions]])](#mapstructurepath-mappercontents-fullpath-stat--tocontents-readoptions-writeoptions)</li>
-					<li><a href="#foreachchildfunctionerror-file-options-callback">forEachChild</a> | <a href="#foreachchildsyncpath-functionfile-options">forEachChildSync</a></li>
-					<li><a href="#vacuumdirectory-options-callback">vacuum</a></li>
-					<li><a href="#divedirectory-options-action-complete">dive</a>| <a href="#divesyncpath-options">diveSync</a></li>
-					<li><a href="#createreaddirstreamdir-options">createReaddirStream</a></li>
-					<li><a href="#readxmlpath-functionerr-parsedobject">readXML</a> | <a href="#readxmlsyncpath">readXMLSync</a></li>
+					<li><a href="#foreachchildfunctionerror-file-options-callback">forEachChild(path[, options], function(file)[, callback(err | null)])</a> | <a href="#foreachchildsyncpath-functionfile-options">forEachChildSync(path, function(file)[, options])</a></li>
+					<li><a href="#vacuumdirectory-options-callback">vacuum(directory, options[, callback])</a></li>
+					<li><a href="#divedirectory-options-action-complete">dive(directory[, options], action[, complete])</a> | <a href="#divesyncpath-options">diveSync(path[, options])</a></li>
+					<li><del>createReaddirStream</del> <strong>REMOVED</strong> in 8.0.0</li>
+					<li><a href="#readxmlpath-functionerr-parsedobject">readXML(path, function(err, parsedObject))</a> | <a href="#readxmlsyncpath">readXMLSync(path)</a></li>
 					<li><a href="#readlinespath-encoding-callbackerr-lines">readLines(path[, encoding][, callback(err, lines)])</a> | <a href="#readlinessyncpath-encoding">readLinesSync</a></li>
-					<li><a href="#readtextpath-encoding-callbackerr-text">readText(path[, encoding][, callback(err, text)])</a> | <a href="#readsyncpath-encoding">readSync</a></li>
-					<li><a href="#isdirectorypath-callback">isDirectory | isDirectorySync</a><!-- ENDIN nav -->
-					</li>
+					<li><del>readSync(path[,-encoding])</del> <strong>REMOVED</strong> in 9.0.0</li>
+					<li><a href="#readtextpath-encoding-callbackerr-text">readText(path[, encoding][, callback(err, text)])</a> | <a href="#readtextsyncpath-encoding">readTextSync</a></li>
+					<li><a href="#isdirectorypath-callback">isDirectory(path, callback) | isDirectorySync(path)</a></li>
 				</ul>
+				<!-- ENDIN nav -->
 				<h5 id="-built-in-fs-module-methods-">(built-in <code>fs</code> module methods)</h5>
 				<!-- BEGIN node-fs-nav -->
 				<!-- Generated using: copy($('.anchor').map(e => '- [' + e.parentElement.textContent + '](' + e.href.substring('https://github.com/fallk/node-fs-extra/blob/master/docs/fs.md'.length) + ')').join('\n'))-->
@@ -849,17 +851,6 @@ fs.writeJson(<span class="hljs-string">'./package.json'</span>, {<span class="hl
 				<p><strong>See also:</strong> <a href="outputJson.md"><code>outputJson()</code></a></p>
 				<!-- ENDIN fsextra -->
 				<!-- BEGIN fs-extra-plus -->
-				<h2 id="exists-file-callback-">exists(file, callback)</h2>
-				<p>Non-deprecated check if a file exists. Calls <code>callback</code> with <code>true</code>, <code>false</code> or an error.</p>
-				<p>Example:</p>
-				<pre><code class="language-js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs-extra'</span>)
-fs.exists(<span class="hljs-string">'./package.json'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> res == <span class="hljs-string">'string'</span>) {
-    <span class="hljs-built_in">console</span>.error(err);
-  } <span class="hljs-keyword">else</span> {
-    <span class="hljs-built_in">console</span>.log(res ? <span class="hljs-string">'file exists'</span> : <span class="hljs-string">'file doesn\'t exist'</span>);
-  }
-})</code></pre>
 				<h2 id="resolve-path-child-">resolve(path, child)</h2>
 				<p>Resolve a child file of a folder.</p>
 				<h2 id="mapchildren-path-mapper-contents-filename-pathonly-pathwithfilename-tocontents-readoptions-writeoptions-">mapChildren(path, mapper(contents, filename, pathOnly, pathWithFilename) =&gt; toContents[, readOptions[, writeOptions]])</h2>
@@ -939,7 +930,7 @@ fs.exists(<span class="hljs-string">'./package.json'</span>, <span class="hljs-f
 vacuum(<span class="hljs-string">"/path/to/my/tree/root/out/to/my/files"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
   <span class="hljs-keyword">if</span> (error) <span class="hljs-built_in">console</span>.error(<span class="hljs-string">"Unable to cleanly vacuum:"</span>, error.message);
 });</code></pre>
-				<h2 id="dive-directory-options-action-complete-">dive(directory[, options], action[, complete]);</h2>
+				<h2 id="dive-directory-options-action-complete-">dive(directory[, options], action[, complete])</h2>
 				<p>Recursively walk (<em>“dive”</em>) a directory tree.</p>
 				<ul>
 					<li><code>directory</code> is the pathname of a readable directory.</li>
@@ -1013,10 +1004,6 @@ files.forEach(<span class="hljs-function"><span class="hljs-keyword">function</s
 
 }
 </code></pre>
-				<h2 id="createreaddirstream-dir-options-"><del>createReaddirStream(dir[, options])</del></h2>
-				<p><strong>DEPRECATED!</strong></p>
-				<p><em>Removed in 8.0.0.</em></p>
-				<p>Use NPM package <a href="https://github.com/olstenlarck/create-readdir-stream">create-readdir-stream</a> if you still need the functionality.</p>
 				<h2 id="readxml-path-function-err-parsedobject-">readXML(path, function(err, parsedObject))</h2>
 				<p>Read a file containing XML to an object.</p>
 				<h2 id="readxmlsync-path-">readXMLSync(path)</h2>
@@ -1027,7 +1014,7 @@ files.forEach(<span class="hljs-function"><span class="hljs-keyword">function</s
 				<p>Read a file into a string array of its lines. Default encoding is UTF-8. Returns the array.</p>
 				<h2 id="readtext-path-encoding-callback-err-text-">readText(path[, encoding][, callback(err, text)])</h2>
 				<p>Shorter version of <code>fs.readFile</code> where the default encoding is UTF-8.</p>
-				<h2 id="readsync-path-encoding-">readSync(path[, encoding])</h2>
+				<h2 id="readtextsync-path-encoding-">readTextSync(path[, encoding])</h2>
 				<p>Shorter version of <code>fs.readFileSync</code> where the default encoding is UTF-8.</p>
 				<h2 id="isdirectory-path-callback-">isDirectory(path, callback)</h2>
 				<p>Check if the file at a path is a directory.</p>
