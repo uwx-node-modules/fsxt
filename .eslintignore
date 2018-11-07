@@ -1,3 +1,4 @@
 test/node
 /build
 /external
+lib/**/__tests__/
