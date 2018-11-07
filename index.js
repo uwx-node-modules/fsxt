@@ -81,9 +81,9 @@ ex.resolve = (path, child) => {
 ex.mapChildren = async function(path, mapper, readOptions = 'utf8', writeOptions) {
   const children = await asyncFilter((await exports.readdir(path)).map(child => path + '/' + child), async e => !await exports.isDirectory(e));
   for (let e of children) {
-    let c;
-    const f = await exports.readFile(e, readOptions);
-    let ret = mapper(f, e.slice(c = e.lastIndexOf('/')+1), e.slice(0, c), e);
+    const contents = await exports.readFile(e, readOptions);
+    const filename = e.slice(e.lastIndexOf('/')+1);
+    let ret = mapper(contents, filename, path, e);
     if (ret instanceof Promise) {
       ret = await ret;
     }
