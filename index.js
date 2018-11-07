@@ -94,34 +94,45 @@ ex.mapChildren = async function(path, mapper, readOptions = 'utf8', writeOptions
   return children;
 };
 
-function storeAndExec(arr, f) {
-  return (...args) => arr.push(f(...args));
+async function mapStructureProcessFile(file, stat) {
+  const contents = await exports.readFile(file, readOptions);
+  let result = mapper(contents, file, stat);
+  if (result instanceof Promise) {
+    result = await result;
+  }
+  if (result != contents) {
+    await exports.writeFile(file, result, writeOptions);
+  }
 }
 
 // mapStructure(path, mapper(contents, fullPath, stat) => toContents[, readOptions[, writeOptions]])
 ex.mapStructure = async function(path, mapper, readOptions = 'utf8', writeOptions) {
-  const arr = [];
+  const promiseArr = [];
+  const results = [];
 
-  await exports.dive(path, {all: true}, storeAndExec(arr, async (file, stat) => {
-    const f = await exports.readFile(file, readOptions);
-    let ret = mapper(f, file, stat);
-    if (ret instanceof Promise) {
-      ret = await ret;
-    }
-    if (ret != f) {
-      await exports.writeFile(file, ret, writeOptions);
-    }
-  }));
+  await exports.dive(path, {all: true}, (file, stat) => {
+    promiseArr.push(mapStructureProcessFile(file, stat));
+    results.push({ file, stat });
+  });
 
-  return await Promise.all(arr);
+  await Promise.all(promiseArr);
+
+  return results;
 };
 
-// forEachChildSync(function(file)[, options])
-ex.forEachChildSync = (path, func, options) => {
-  const children = fs.readdirSync(path, options);
-  for (let i = 0, len = children.length; i < len; i++) {
-    func(children[i]);
+// mapStructureOrdered(path, mapper(contents, fullPath, stat) => toContents[, readOptions[, writeOptions]])
+ex.mapStructureOrdered = async function(path, mapper, readOptions = 'utf8', writeOptions) {
+  const entries = [];
+
+  await exports.dive(path, {all: true}, (file, stat) => {
+    entries.push({ file, stat });
+  });
+
+  for (let { file, stat } of entries) {
+    await mapStructureProcessFile(file, stat)
   }
+
+  return entries;
 };
 
 // forEachChild(path[, options], function(file)[, callback])
@@ -132,7 +143,7 @@ ex.forEachChild = (path, o1, o2, o3) => {
 
   // promise
   if (!callback) {
-    return (async resolve => { // TODO does error in this cause unhandled promise rejection? it shouldn't
+    return (async () => { // TODO does error in this cause unhandled promise rejection? it shouldn't
       const children = await exports.readdir(path, options);
       for (let i = 0, len = children.length; i < len; i++) {
         const ret = func(children[i]);
@@ -153,6 +164,14 @@ ex.forEachChild = (path, o1, o2, o3) => {
       callback();
     }
   });
+};
+
+// forEachChildSync(function(file)[, options])
+ex.forEachChildSync = (path, func, options) => {
+  const children = fs.readdirSync(path, options);
+  for (let i = 0, len = children.length; i < len; i++) {
+    func(children[i]);
+  }
 };
 
 // vacuum(directory, options[, callback])
