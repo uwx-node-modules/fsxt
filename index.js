@@ -199,7 +199,7 @@ ex.dive = (directory, o1, o2, o3) => {
       dive(directory, options || {}, (err, file, stat) => {
         if (err && !failed) {
           failed = true;
-          reject();
+          reject(err);
         } else {
           action(file, stat);
         }
