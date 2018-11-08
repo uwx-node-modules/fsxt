@@ -1,6 +1,6 @@
 {
   "name": "fsxt",
-  "version": "10.0.2",
+  "version": "10.0.3",
   "description": "fs module extensions. it's fs-extra on fs-extra",
   "homepage": "https://github.com/hansen-modules/fsxt",
   "repository": {
