@@ -50,7 +50,7 @@
     "esformatter-semicolons": "^1.1.2",
     "esformatter-var-each": "^2.1.0",
     "eslint": "^4.3.0",
-    "eslint-config-google": "^0.9.1",
+    "eslint-config-google": "^0.11.0",
     "eslint-plugin-collection": "uwx/eslint-plugin-collection",
     "eslint-plugin-html": "^3.2.2",
     "hansen-await-event": "github:hansen-modules/hansen-await-event",

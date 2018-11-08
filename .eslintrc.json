@@ -17,8 +17,10 @@
             }
         ],
         "linebreak-style": [
-            "error",
-            "windows"
+            "off"
+        ],
+        "object-curly-spacing": [
+            "off"
         ],
         "quotes": [
             "error",
