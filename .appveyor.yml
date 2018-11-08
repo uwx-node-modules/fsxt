@@ -45,6 +45,10 @@ on_success:
  # commit fixed semicolons
  - cmd: addall js
  - cmd: try git commit -m "Fixed semicolons at %mydate%_%mytime% [skip ci]"
+ # gen fse typings docs
+ - cmd: node build/gen-fse-definitions
+ - cmd: add fs-extra.d.ts
+ - cmd: try git commit -m "Generated type definitions at %mydate%_%mytime% [skip ci]"
  # commit new docs
  - cmd: gen-typedocs
  - cmd: add docs/typedoc
