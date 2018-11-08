@@ -25,7 +25,7 @@ const ex = new Proxy(exports, {
     }
     return true;
   }
-})
+});
 
 async function asyncFilter(iterable, condition) {
   const output = [];
@@ -38,24 +38,12 @@ async function asyncFilter(iterable, condition) {
       }
     }
   }
-  for (let value of iterable) {
+  for (const value of iterable) {
     if (await condition(value, null, iterable)) {
       output.push(e);
     }
   }
   return output;
-}
-
-function existsHelper(path, resolve, reject) {
-  fs.stat(path, err => {
-    if (!err) {
-      resolve(true); // file exists
-    } else if (err.code == 'ENOENT') {
-      resolve(false); // file does not exist
-    } else {
-      reject(err); // unknown error
-    }
-  });
 }
 
 // alias ensureFolder => ensureDir
@@ -80,12 +68,12 @@ ex.resolve = (path, child) => {
 // mapChildren(path, mapper(contents, filename, pathOnly, pathWithFilename) => toContents[, readOptions[, writeOptions]])
 ex.mapChildren = async function(path, mapper, readOptions = 'utf8', writeOptions) {
   const children = await asyncFilter((await exports.readdir(path)).map(child => path + '/' + child), async e => !await exports.isDirectory(e));
-  for (let e of children) {
+  for (const e of children) {
     const contents = await exports.readFile(e, readOptions);
     const filename = e.slice(e.lastIndexOf('/')+1);
     let result = mapper(contents, filename, path, e);
     if (result instanceof Promise) {
-      result = await ret;
+      result = await result;
     }
     if (result != contents) {
       await exports.writeFile(e, result, writeOptions);
@@ -128,7 +116,7 @@ ex.mapStructureOrdered = async function(path, mapper, readOptions = 'utf8', writ
     entries.push({ file, stat });
   });
 
-  for (let { file, stat } of entries) {
+  for (const { file, stat } of entries) {
     await mapStructureProcessFile(file, stat, mapper, readOptions, writeOptions);
   }
 
@@ -214,7 +202,7 @@ ex.dive = (directory, o1, o2, o3) => {
 
 // diveSync(dir[, opt])
 ex.diveSync = (path, opt) => {
-  let files = [];
+  const files = [];
   function action(err, file) {
     if (err) throw err;
     files.push(file);
