@@ -1,4 +1,4 @@
-test/node
-/build
-/external
-lib
+/test/node/*
+/build/*
+/external/*
+/lib/*
