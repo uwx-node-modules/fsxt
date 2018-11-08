@@ -11,10 +11,9 @@ const assign = require('./lib/util/assign');
 
 assign(exports, require('./lib'));
 
-const fsExtraExists = exports.exists;
 exports.exists = (...args) => {
   console.warn('fsxt.exists has been removed, use pathExists instead');
-  return fsExtraExists(...args);
+  return exports.pathExists(...args);
 };
 
 const ex = new Proxy(exports, {
