@@ -233,11 +233,11 @@ copy($$('h2').map(e => ({
 
 Third Party
 -----------
-## File / Directory Watching
+### File / Directory Watching
 If you want to watch for changes to files or directories, then you should use [chokidar](https://github.com/paulmillr/chokidar).
 
 
-## Misc.
+### Misc.
 - [mfs](https://github.com/cadorn/mfs) - Monitor your fsxt calls.
 
 Hacking on fsxt
@@ -252,7 +252,7 @@ fsxt uses the [Google Style](https://google.github.io/styleguide/jsguide.html). 
 
 ### Running the Test Suite
 
-fsxt contains hundreds of tests that don't work.
+fsxt contains like at least 4 tests that pass.
 
 - `npm run lint`: runs eslint
 - `npm run unit`: runs the unit tests
