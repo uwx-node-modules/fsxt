@@ -60,21 +60,21 @@
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
 				<h1 id="fsxt">fsxt</h1>
-				<p>Improved fork of <code>fs-extra</code> with extra [sic] features (and semicolons!)<br><code>fsxt</code> provides support for node.js 7 and above, but you should probably use 8.</p>
+				<p>Improved fork of <code>fs-extra</code> with extra [sic] features (and semicolons!)<br><code>fsxt</code> provides support for node.js 10 and above.</p>
 				<p><a href="https://google.github.io/styleguide/jsguide.html"><img src="https://img.shields.io/badge/code_style-google-brightgreen.svg" alt="JavaScript Style Guide"></a>
-					<a href="https://github.com/hansen-modules/fsxt"><img src="https://img.shields.io/badge/downloads-basically_none-brightgreen.svg" alt="Used by practically no-one"></a>
-					<a href="https://travis-ci.org/hansen-modules/fsxt"><img src="https://img.shields.io/travis/hansen-modules/fsxt.svg" alt="Travis Build Status"></a>
+					<a href="https://github.com/uwx-node-modules/fsxt"><img src="https://img.shields.io/badge/downloads-basically_none-brightgreen.svg" alt="Used by practically no-one"></a>
+					<a href="https://travis-ci.org/uwx-node-modules/fsxt"><img src="https://img.shields.io/travis/uwx-node-modules/fsxt.svg" alt="Travis Build Status"></a>
 					<a href="https://ci.appveyor.com/project/uwx/fsxt"><img src="https://ci.appveyor.com/api/projects/status/q0oojcejiyualshb/branch/master?svg=true" alt="AppVeyor Build Status"></a>
-					<a href="https://coveralls.io/github/hansen-modules/fsxt?branch=master"><img src="https://coveralls.io/repos/github/hansen-modules/fsxt/badge.svg?branch=master" alt="Coverage Status"></a>
-					<a href="https://github.com/hansen-modules/fsxt/issues"><img src="https://img.shields.io/github/issues/hansen-modules/fsxt.svg" alt="GitHub issues"></a>
-					<a href="https://github.com/hansen-modules/fsxt/issues"><img src="https://img.shields.io/github/issues-closed/hansen-modules/fsxt.svg" alt="GitHub closed issues"></a>
-					<a href="https://github.com/hansen-modules/fsxt/pulls"><img src="https://img.shields.io/github/issues-pr/hansen-modules/fsxt.svg" alt="GitHub pull requests"></a>
-					<a href="https://github.com/hansen-modules/fsxt/pulls"><img src="https://img.shields.io/github/issues-pr-closed/hansen-modules/fsxt.svg" alt="GitHub closed pull requests"></a>
-					<a href="https://github.com/hansen-modules/fsxt/graphs/contributors"><img src="https://img.shields.io/github/contributors/hansen-modules/fsxt.svg" alt="GitHub contributors"></a>
-					<a href="https://github.com/hansen-modules/fsxt/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Licensed under MIT"></a>
-					<a href="https://github.com/hansen-modules/fsxt"><img src="https://img.shields.io/maintenance/yes/2018.svg" alt="Maintenance"></a>
-					<a href="https://david-dm.org/hansen-modules/fsxt"><img src="https://img.shields.io/david/hansen-modules/fsxt.svg" alt="David"></a>
-				<a href="https://david-dm.org/hansen-modules/fsx#info=devDependenciest"><img src="https://img.shields.io/david/dev/hansen-modules/fsxt.svg" alt="David"></a></p>
+					<a href="https://coveralls.io/github/uwx-node-modules/fsxt?branch=master"><img src="https://coveralls.io/repos/github/uwx-node-modules/fsxt/badge.svg?branch=master" alt="Coverage Status"></a>
+					<a href="https://github.com/uwx-node-modules/fsxt/issues"><img src="https://img.shields.io/github/issues/uwx-node-modules/fsxt.svg" alt="GitHub issues"></a>
+					<a href="https://github.com/uwx-node-modules/fsxt/issues"><img src="https://img.shields.io/github/issues-closed/uwx-node-modules/fsxt.svg" alt="GitHub closed issues"></a>
+					<a href="https://github.com/uwx-node-modules/fsxt/pulls"><img src="https://img.shields.io/github/issues-pr/uwx-node-modules/fsxt.svg" alt="GitHub pull requests"></a>
+					<a href="https://github.com/uwx-node-modules/fsxt/pulls"><img src="https://img.shields.io/github/issues-pr-closed/uwx-node-modules/fsxt.svg" alt="GitHub closed pull requests"></a>
+					<a href="https://github.com/uwx-node-modules/fsxt/graphs/contributors"><img src="https://img.shields.io/github/contributors/uwx-node-modules/fsxt.svg" alt="GitHub contributors"></a>
+					<a href="https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Licensed under MIT"></a>
+					<a href="https://github.com/uwx-node-modules/fsxt"><img src="https://img.shields.io/maintenance/yes/2018.svg" alt="Maintenance"></a>
+					<a href="https://david-dm.org/uwx-node-modules/fsxt"><img src="https://img.shields.io/david/uwx-node-modules/fsxt.svg" alt="David"></a>
+				<a href="https://david-dm.org/uwx-node-modules/fsx#info=devDependenciest"><img src="https://img.shields.io/david/dev/uwx-node-modules/fsxt.svg" alt="David"></a></p>
 				<h2 id="installation">Installation</h2>
 				<pre><code>npm <span class="hljs-keyword">install</span> <span class="hljs-comment">--save fsxt</span></code></pre><p>Or install with your preferred package manager (yarn, pnpm, ...)</p>
 				<h2 id="usage">Usage</h2>
@@ -85,8 +85,8 @@
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>); <span class="hljs-comment">// this is no longer necessary</span></code></pre>
 				<p>you can now do this:</p>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fsxt'</span>);</code></pre>
-				<p>or if you prefer to make it clear that you&#39;re using <code>fsxt</code> and not <a href="http://nodejs.org/docs/latest/api/fs.html"><code>fs</code></a>, you may want
-				to name your <a href="http://nodejs.org/docs/latest/api/fs.html"><code>fs</code></a> variable <code>fsxt</code> like so:</p>
+				<p>or if you prefer to make it clear that you&#39;re using <code>fsxt</code> and not <code>fs</code>, you may want to name your
+				<code>fs</code> variable <code>fsxt</code> like so:</p>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> fsxt = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fsxt'</span>);</code></pre>
 				<p>you can also keep both, but it&#39;s redundant:</p>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
@@ -101,6 +101,8 @@
 				<p>You can also use the methods in the legacy node.js form, passing a callback as the last parameter,
 					as a function that takes <code>(Error, &lt;result&gt;)</code> parameters, but it&#39;s not recommended, and those
 				variants may be removed in a later (major) version.</p>
+				<p>Additionally, see <a href="docs/fs-read-write.md">notes on <code>fs.read()</code> &amp; <code>fs.write()</code></a> if you&#39;re using
+				either method.</p>
 				<p>Example use:</p>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fsxt'</span>);
 
@@ -138,33 +140,141 @@ copyFiles();</code></pre>
 				<p>The documentation is available at <a href="https://uwx-node-modules.github.io/fsxt/typedoc/globals.html">https://uwx-node-modules.github.io/fsxt/typedoc/globals.html</a>.</p>
 				<p>You can also find the documentation for just the methods added in fsxt that aren&#39;t in fs-extra at
 				<a href="https://uwx-node-modules.github.io/fsxt/typedoc-fsxt-only/globals.html">https://uwx-node-modules.github.io/fsxt/typedoc-fsxt-only/globals.html</a>.</p>
+				<p>The docs don&#39;t include descriptions for methods inherited from fs-extra, but you can find them here:</p>
+				<ul>
+					<li><a href="docs/copy.md">copy</a>                   | <a href="docs/copy-sync.md">copySync</a></li>
+					<li><a href="docs/emptyDir.md">emptyDir</a>           | <a href="docs/emptyDir-sync.md">emptyDirSync</a></li>
+					<li><a href="docs/ensureFile.md">ensureFile</a>       | <a href="docs/ensureFile-sync.md">ensureFileSync</a></li>
+					<li><a href="docs/ensureDir.md">ensureDir</a>         | <a href="docs/ensureDir-sync.md">ensureDirSync</a></li>
+					<li><a href="docs/ensureLink.md">ensureLink</a>       | <a href="docs/ensureLink-sync.md">ensureLinkSync</a></li>
+					<li><a href="docs/ensureSymlink.md">ensureSymlink</a> | <a href="docs/ensureSymlink-sync.md">ensureSymlinkSync</a></li>
+					<li><a href="docs/ensureDir.md">mkdirp</a>            | <a href="docs/ensureDir-sync.md">mkdirpSync</a></li>
+					<li><a href="docs/ensureDir.md">mkdirs</a>            | <a href="docs/ensureDir-sync.md">mkdirsSync</a></li>
+					<li><a href="docs/move.md">move</a>                   | <a href="docs/move-sync.md">moveSync</a></li>
+					<li><a href="docs/outputFile.md">outputFile</a>       | <a href="docs/outputFile-sync.md">outputFileSync</a></li>
+					<li><a href="docs/outputJson.md">outputJson</a>       | <a href="docs/outputJson-sync.md">outputJsonSync</a></li>
+					<li><a href="docs/pathExists.md">pathExists</a>       | <a href="docs/pathExists-sync.md">pathExistsSync</a></li>
+					<li><a href="docs/readJson.md">readJson</a>           | <a href="docs/readJson-sync.md">readJsonSync</a></li>
+					<li><a href="docs/remove.md">remove</a>               | <a href="docs/remove-sync.md">removeSync</a></li>
+					<li><a href="docs/writeJson.md">writeJson</a>         | <a href="docs/writeJson-sync.md">writeJsonSync</a></li>
+				</ul>
+				<p>The core node.js <a href="http://nodejs.org/docs/latest/api/fs.html"><code>fs</code></a> module methods are also
+					available; although the node.js documentation doesn&#39;t show Promise overloads of the async methods,
+				you can find them at:</p>
+				<!--
+generator snippet for nodejs core methods (run in http://nodejs.org/docs/latest/api/fs.html)
+copy($$('h2').map(e => ({
+    text: e.firstChild.textContent,
+    mark: e.querySelector('.mark') && e.querySelector('.mark').href || null
+})).filter(e => e.mark).map(e => `[${e.text.replace(/[\(\[\]\)]/g, '\\$&')}](${e.mark})`))
+-->
+				<ul>
+					<li><a href="https://nodejs.org/api/fs.html#fs_class_fs_stats">Class: fs.Stats</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_access_path_mode_callback">fs.access(path[, mode], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_accesssync_path_mode">fs.accessSync(path[, mode])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_appendfile_path_data_options_callback">fs.appendFile(path, data[, options], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_appendfilesync_path_data_options">fs.appendFileSync(path, data[, options])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_chmod_path_mode_callback">fs.chmod(path, mode, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_chmodsync_path_mode">fs.chmodSync(path, mode)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_chown_path_uid_gid_callback">fs.chown(path, uid, gid, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_chownsync_path_uid_gid">fs.chownSync(path, uid, gid)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_close_fd_callback">fs.close(fd, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_closesync_fd">fs.closeSync(fd)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_constants">fs.constants</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_copyfile_src_dest_flags_callback">fs.copyFile(src, dest[, flags], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_copyfilesync_src_dest_flags">fs.copyFileSync(src, dest[, flags])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options">fs.createReadStream(path[, options])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_createwritestream_path_options">fs.createWriteStream(path[, options])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_exists_path_callback">fs.exists(path, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_existssync_path">fs.existsSync(path)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_fchmod_fd_mode_callback">fs.fchmod(fd, mode, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_fchmodsync_fd_mode">fs.fchmodSync(fd, mode)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_fchown_fd_uid_gid_callback">fs.fchown(fd, uid, gid, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_fchownsync_fd_uid_gid">fs.fchownSync(fd, uid, gid)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_fdatasync_fd_callback">fs.fdatasync(fd, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_fdatasyncsync_fd">fs.fdatasyncSync(fd)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_fstat_fd_options_callback">fs.fstat(fd[, options], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_fstatsync_fd_options">fs.fstatSync(fd[, options])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_fsync_fd_callback">fs.fsync(fd, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_fsyncsync_fd">fs.fsyncSync(fd)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_ftruncate_fd_len_callback">fs.ftruncate(fd[, len], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_ftruncatesync_fd_len">fs.ftruncateSync(fd[, len])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_futimes_fd_atime_mtime_callback">fs.futimes(fd, atime, mtime, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_futimessync_fd_atime_mtime">fs.futimesSync(fd, atime, mtime)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_lchmod_path_mode_callback">fs.lchmod(path, mode, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_lchmodsync_path_mode">fs.lchmodSync(path, mode)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_lchown_path_uid_gid_callback">fs.lchown(path, uid, gid, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_lchownsync_path_uid_gid">fs.lchownSync(path, uid, gid)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_link_existingpath_newpath_callback">fs.link(existingPath, newPath, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_linksync_existingpath_newpath">fs.linkSync(existingPath, newPath)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_lstat_path_options_callback">fs.lstat(path[, options], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_lstatsync_path_options">fs.lstatSync(path[, options])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_mkdir_path_options_callback">fs.mkdir(path[, options], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_mkdirsync_path_options">fs.mkdirSync(path[, options])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_mkdtemp_prefix_options_callback">fs.mkdtemp(prefix[, options], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_mkdtempsync_prefix_options">fs.mkdtempSync(prefix[, options])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_open_path_flags_mode_callback">fs.open(path[, flags[, mode]], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_opensync_path_flags_mode">fs.openSync(path[, flags, mode])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_read_fd_buffer_offset_length_position_callback">fs.read(fd, buffer, offset, length, position, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_readdir_path_options_callback">fs.readdir(path[, options], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_readdirsync_path_options">fs.readdirSync(path[, options])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback">fs.readFile(path[, options], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_readfilesync_path_options">fs.readFileSync(path[, options])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_readlink_path_options_callback">fs.readlink(path[, options], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_readlinksync_path_options">fs.readlinkSync(path[, options])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_readsync_fd_buffer_offset_length_position">fs.readSync(fd, buffer, offset, length, position)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_realpath_path_options_callback">fs.realpath(path[, options], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_realpath_native_path_options_callback">fs.realpath.native(path[, options], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_realpathsync_path_options">fs.realpathSync(path[, options])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_realpathsync_native_path_options">fs.realpathSync.native(path[, options])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback">fs.rename(oldPath, newPath, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_renamesync_oldpath_newpath">fs.renameSync(oldPath, newPath)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_rmdir_path_callback">fs.rmdir(path, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_rmdirsync_path">fs.rmdirSync(path)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_stat_path_options_callback">fs.stat(path[, options], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_statsync_path_options">fs.statSync(path[, options])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_symlink_target_path_type_callback">fs.symlink(target, path[, type], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_symlinksync_target_path_type">fs.symlinkSync(target, path[, type])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_truncate_path_len_callback">fs.truncate(path[, len], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_truncatesync_path_len">fs.truncateSync(path[, len])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback">fs.unlink(path, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_unlinksync_path">fs.unlinkSync(path)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_unwatchfile_filename_listener">fs.unwatchFile(filename[, listener])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_utimes_path_atime_mtime_callback">fs.utimes(path, atime, mtime, callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_utimessync_path_atime_mtime">fs.utimesSync(path, atime, mtime)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_watch_filename_options_listener">fs.watch(filename[, options][, listener])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_watchfile_filename_options_listener">fs.watchFile(filename[, options], listener)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_write_fd_buffer_offset_length_position_callback">fs.write(fd, buffer[, offset[, length[, position]]], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_write_fd_string_position_encoding_callback">fs.write(fd, string[, position[, encoding]], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback">fs.writeFile(file, data[, options], callback)</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_writefilesync_file_data_options">fs.writeFileSync(file, data[, options])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_writesync_fd_buffer_offset_length_position">fs.writeSync(fd, buffer[, offset[, length[, position]]])</a></li>
+					<li><a href="https://nodejs.org/api/fs.html#fs_fs_writesync_fd_string_position_encoding">fs.writeSync(fd, string[, position[, encoding]])</a></li>
+				</ul>
 				<h2 id="third-party">Third Party</h2>
-				<h2 id="file-directory-watching">File / Directory Watching</h2>
+				<h3 id="file-directory-watching">File / Directory Watching</h3>
 				<p>If you want to watch for changes to files or directories, then you should use <a href="https://github.com/paulmillr/chokidar">chokidar</a>.</p>
-				<h2 id="misc-">Misc.</h2>
+				<h3 id="misc-">Misc.</h3>
 				<ul>
 					<li><a href="https://github.com/cadorn/mfs">mfs</a> - Monitor your fsxt calls.</li>
 				</ul>
 				<h2 id="hacking-on-fsxt">Hacking on fsxt</h2>
 				<p>Do you want to hack on fsxt? Well, you probably shouldn&#39;t. Still, you can go ahead and send a PR.</p>
+				<p>Please, no changes to anything in the <code>lib</code> folder; the contents of that folder are almost entirely
+				verbatim from fs-extra, so they should be submitted upstream.</p>
 				<p>fsxt uses the <a href="https://google.github.io/styleguide/jsguide.html">Google Style</a>. It&#39;s pretty.</p>
-				<h2 id="running-the-test-suite">Running the Test Suite</h2>
-				<p>fsxt contains hundreds of tests that don&#39;t work.</p>
+				<h3 id="running-the-test-suite">Running the Test Suite</h3>
+				<p>fsxt contains like at least 4 tests that pass.</p>
 				<ul>
 					<li><code>npm run lint</code>: runs eslint</li>
 					<li><code>npm run unit</code>: runs the unit tests</li>
 					<li><code>npm test</code>: runs both the linter and the tests</li>
 				</ul>
-				<h2 id="windows">Windows</h2>
-				<p>If you run the tests on the Windows and receive a lot of symbolic link <code>EPERM</code> permission errors, it&#39;s
-					because on Windows you need elevated privilege to create symbolic links. You can add this to your Windows&#39;s
-					account by following the instructions here: <a href="http://superuser.com/questions/104845/permission-to-make-symbolic-links-in-windows-7">http://superuser.com/questions/104845/permission-to-make-symbolic-links-in-windows-7</a>
-				However, I didn&#39;t have much luck doing this.</p>
-				<p>Since I develop on Mac OS X, I use VMWare Fusion for Windows testing. I create a shared folder that I map to a drive on Windows.
-				I open the <code>Node.js command prompt</code> and run as <code>Administrator</code>. I then map the network drive running the following command:</p>
-				<pre><code><span class="hljs-keyword">net</span> <span class="hljs-keyword">use</span> z: <span class="hljs-string">"\\vmware-host\Shared Folders"</span></code></pre><p>I can then navigate to my <code>fsxt</code> directory and run the tests.</p>
-				<h2 id="naming">Naming</h2>
-				<p>eh just go with whatever feels good</p>
+				<h4 id="windows">Windows</h4>
+				<p>If you run the tests on the Windows and receive a lot of symbolic link <code>EPERM</code> permission errors,
+					it&#39;s because on Windows you need elevated privilege to create symbolic links. You can either run the
+					tests as Administrator or run <code>node testlite</code> to test only fsxt-exclusive methods, which doesn&#39;t
+				include symbolic links</p>
 				<h2 id="legal">Legal</h2>
 				<p>Licensed under MIT. Full license text available at <a href="https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.txt">LICENSE.txt</a></p>
 				<p><code>fs-extra</code> is copyright (c) 2011-2017 <a href="https://github.com/jprichardson">JP Richardson</a></p>
@@ -177,12 +287,12 @@ copyFiles();</code></pre>
 					<li><a href="https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.fs-extra.txt">LICENSE.fs-extra.txt</a> </li>
 					<li><a href="https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.fs-vacuum.txt">LICENSE.fs-vacuum.txt</a> </li>
 					<li><a href="https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.nodejs.txt">LICENSE.nodejs.txt</a> </li>
-					<li><a href="https://github.com/uwx-node-modules/fsxt/blob/master/external%5CLICENSE.fs-vacuum.txt">external/LICENSE.fs-vacuum.txt</a> </li>
-					<li><a href="https://github.com/uwx-node-modules/fsxt/blob/master/external%5CLICENSE.path-is-inside.txt">external/LICENSE.path-is-inside.txt</a> </li>
-					<li><a href="https://github.com/uwx-node-modules/fsxt/blob/master/external%5CLICENSE.rimraf.txt">external/LICENSE.rimraf.txt</a> </li>
-					<li><a href="https://github.com/uwx-node-modules/fsxt/blob/master/external%5CLICENSE.append.txt">external/LICENSE.append.txt</a> </li>
-					<li><a href="https://github.com/uwx-node-modules/fsxt/blob/master/external%5CLICENSE.dive.txt">external/LICENSE.dive.txt</a> </li>
-					<li><a href="https://github.com/uwx-node-modules/fsxt/blob/master/external%5CLICENSE.dive-sync.txt">external/LICENSE.dive-sync.txt</a> </li>
+					<li><a href="https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.fs-vacuum.txt">external/LICENSE.fs-vacuum.txt</a> </li>
+					<li><a href="https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.path-is-inside.txt">external/LICENSE.path-is-inside.txt</a> </li>
+					<li><a href="https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.rimraf.txt">external/LICENSE.rimraf.txt</a> </li>
+					<li><a href="https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.append.txt">external/LICENSE.append.txt</a> </li>
+					<li><a href="https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.dive.txt">external/LICENSE.dive.txt</a> </li>
+					<li><a href="https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.dive-sync.txt">external/LICENSE.dive-sync.txt</a> </li>
 				</ul>
 				<p><code>fs-extra</code> and <code>fsxt</code> are not endorsed by or affiliated with Joyent or the Node.js Foundation.
 				<code>fsxt</code> is not endorsed by or affiliated with JP Richardson.</p>
