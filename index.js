@@ -94,7 +94,7 @@ ex.mapChildren = async function(path, mapper, readOptions = 'utf8', writeOptions
   return children;
 };
 
-async function mapStructureProcessFile(file, stat, readOptions, writeOptions) {
+async function mapStructureProcessFile(file, stat, mapper, readOptions, writeOptions) {
   const contents = await exports.readFile(file, readOptions);
   let result = mapper(contents, file, stat);
   if (result instanceof Promise) {
@@ -111,7 +111,7 @@ ex.mapStructure = async function(path, mapper, readOptions = 'utf8', writeOption
   const results = [];
 
   await exports.dive(path, {all: true}, (file, stat) => {
-    promiseArr.push(mapStructureProcessFile(file, stat, readOptions, writeOptions));
+    promiseArr.push(mapStructureProcessFile(file, stat, mapper, readOptions, writeOptions));
     results.push({ file, stat });
   });
 
@@ -129,7 +129,7 @@ ex.mapStructureOrdered = async function(path, mapper, readOptions = 'utf8', writ
   });
 
   for (let { file, stat } of entries) {
-    await mapStructureProcessFile(file, stat, readOptions, writeOptions);
+    await mapStructureProcessFile(file, stat, mapper, readOptions, writeOptions);
   }
 
   return entries;
