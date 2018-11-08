@@ -1,7 +1,7 @@
 # fsxt
 
 Improved fork of `fs-extra` with extra [sic] features (and semicolons!)  
-`fsxt` provides support for node.js 7 and above, but you should probably use 8.
+`fsxt` provides support for node.js 10 and above.
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-google-brightgreen.svg)](https://google.github.io/styleguide/jsguide.html)
 [![Used by practically no-one](https://img.shields.io/badge/downloads-basically_none-brightgreen.svg)](https://github.com/uwx-node-modules/fsxt)

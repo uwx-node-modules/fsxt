@@ -3,7 +3,7 @@ language: node_js
 matrix:
   include:
     # We run lint, unit and coverage on Node 8
-    - node_js: "8"
+    - node_js: "10"
       env: TEST_SUITE=test
       env: TEST_SUITE=coverage
 env:
