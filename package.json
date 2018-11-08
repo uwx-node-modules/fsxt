@@ -79,7 +79,7 @@
     "istanbul": "cd build && istanbul cover -i '**' -x 'lib/**' test.js",
     "coveralls": "coveralls < coverage/lcov.info",
     "lint": "eslint . || exit 0",
-    "test": "node test.js",
+    "test": "node build/test.js",
     "test-no-fse": "node build/test-no-fse.js"
   }
 }
