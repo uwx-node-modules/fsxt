@@ -7,9 +7,8 @@ const vacuum = require('./external/vacuum');
 const diveSync = require('./external/diveSync');
 const dive = require('./external/dive');
 const xml2js = require('xml2js');
-const assign = require('./lib/util/assign');
 
-assign(exports, require('./lib'));
+Object.assign(exports, require('./lib'));
 
 exports.exists = (...args) => {
   console.warn('fsxt.exists has been removed, use pathExists instead');
