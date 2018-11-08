@@ -75,10 +75,11 @@
   "main": "./index.js",
   "types": "./typings.d.ts",
   "scripts": {
-    "istanbul": "istanbul cover -i '**' -x 'lib/**' build/test.js",
+    "coverage": "npm run istanbul && npm run coveralls",
+    "istanbul": "cd build && istanbul cover -i '**' -x 'lib/**' test.js",
     "coveralls": "coveralls < coverage/lcov.info",
     "lint": "eslint . || exit 0",
-    "test": "node build/test.js",
+    "test": "node test.js",
     "test-no-fse": "node build/test-no-fse.js"
   }
 }
