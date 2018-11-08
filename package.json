@@ -75,9 +75,6 @@
   "main": "./index.js",
   "types": "./typings.d.ts",
   "scripts": {
-    "coverage": "npm run istanbul && npm run coveralls",
-    "istanbul": "cd build && istanbul cover -i '**' -x '../**' test.js",
-    "coveralls": "coveralls < coverage/lcov.info",
     "lint": "eslint . || exit 0",
     "test": "node build/test.js",
     "test-no-fse": "node build/test-no-fse.js"
