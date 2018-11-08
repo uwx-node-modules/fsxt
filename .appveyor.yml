@@ -23,10 +23,11 @@ test_script:
   - node --version
   - npm --version
   # run tests
-  - cmd: test.bat
+  - cmd: try npm run lint
+  - cmd: try npm run test
 
 build_script:
- - cmd: try node build/semi.js
+ - cmd: try node build/patch-fse-semicolons.js
 
 before_build:
  - git checkout master
@@ -36,6 +37,8 @@ on_success:
  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
  - git config --global user.email "bbbbbbenes@outlook.com.br"
  - git config --global user.name "Appveyor Automated Build"
+ # run coverage
+ - cmd: try npm run coverage
  # set datetime vars
  - cmd: For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set mydate=%%c-%%a-%%b)
  - cmd: For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set mytime=%%a%%b)

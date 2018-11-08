@@ -1,6 +1,0 @@
-note - this is now obsolete, just run build/semi.js from the root folder instead
-
-
-old content:
-copy the .jshintrc file to your $HOME or %USERPROFILE% on Windows, then install fixmyjs and run clean
-delete the file afterwards so you don't accidentally hang JSHint processes in the future
