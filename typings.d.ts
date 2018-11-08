@@ -652,6 +652,7 @@ export function isDirectory(path: string, callback: (err: NodeJS.ErrnoException 
  * @returns [[Promise]] that resolves with whether or not the file is a directory
  */
 export function isDirectory(path: string): Promise<boolean>;
+
 /**
  * Check if the file at a path is a directory.
  * @param path the path to the file to check
