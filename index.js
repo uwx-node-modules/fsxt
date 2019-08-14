@@ -8,34 +8,12 @@ const diveSync = require('./external/diveSync');
 const dive = require('./external/dive');
 const xml2js = require('xml2js');
 
-Object.assign(exports, require('./lib'));
-
-exports.exists = (...args) => {
-  console.warn('fsxt.exists has been removed, use pathExists instead');
-  return exports.pathExists(...args);
-};
-
-async function asyncFilter(iterable, condition) {
-  const output = [];
-  let e;
-  if ('length' in iterable) {
-    for (let i = 0; i < iterable.length; i++) {
-      e = iterable[i];
-      if (await condition(e, i, iterable)) {
-        output.push(e);
-      }
-    }
-  }
-  for (const value of iterable) {
-    if (await condition(value, null, iterable)) {
-      output.push(e);
-    }
-  }
-  return output;
+// converts an object's properties into an ES class' static members
+function asStatic(object) {
+  return Object.assign(class {}, object);
 }
 
-
-module.exports = class FSXT {
+module.exports = class FSXT extends asStatic(require('./lib')) {
   // for fs-extra backwards compatibility
   // so users of fsxt can modify jsonFile.spaces
   static jsonfile = {
@@ -48,8 +26,13 @@ module.exports = class FSXT {
   };
 
   // alias ensureFolder => ensureDir
-  static ensureFolder = exports.ensureDir;
-  static ensureFolderSync = exports.ensureDirSync;
+  static ensureFolder = FSXT.ensureDir;
+  static ensureFolderSync = FSXT.ensureDirSync;
+
+  static exists(...args) {
+    console.warn('fsxt.exists has been removed, use pathExists instead');
+    return FSXT.pathExists(...args);
+  }
 
   // get a child file of this file
   static resolve(path, child) {
@@ -65,32 +48,51 @@ module.exports = class FSXT {
     return path + '/' + child;
   }
 
+  static async _asyncFilter(iterable, condition) {
+    const output = [];
+    let e;
+    if ('length' in iterable) {
+      for (let i = 0; i < iterable.length; i++) {
+        e = iterable[i];
+        if (await condition(e, i, iterable)) {
+          output.push(e);
+        }
+      }
+    }
+    for (const value of iterable) {
+      if (await condition(value, null, iterable)) {
+        output.push(e);
+      }
+    }
+    return output;
+  }
+
   // map file contents of immediate children
   // mapChildren(path, mapper(contents, filename, pathOnly, pathWithFilename) => toContents[, readOptions[, writeOptions]])
   static async mapChildren(path, mapper, readOptions = 'utf8', writeOptions) {
-    const children = await asyncFilter((await exports.readdir(path)).map(child => path + '/' + child), async e => !await exports.isDirectory(e));
+    const children = await FSXT._asyncFilter((await FSXT.readdir(path)).map(child => path + '/' + child), async e => !await FSXT.isDirectory(e));
     for (const e of children) {
-      const contents = await exports.readFile(e, readOptions);
+      const contents = await FSXT.readFile(e, readOptions);
       const filename = e.slice(e.lastIndexOf('/')+1);
       let result = mapper(contents, filename, path, e);
       if (result instanceof Promise) {
         result = await result;
       }
       if (result != contents) {
-        await exports.writeFile(e, result, writeOptions);
+        await FSXT.writeFile(e, result, writeOptions);
       }
     }
     return children;
   }
 
   static async _mapStructureProcessFile(file, stat, mapper, readOptions, writeOptions) {
-    const contents = await exports.readFile(file, readOptions);
+    const contents = await FSXT.readFile(file, readOptions);
     let result = mapper(contents, file, stat);
     if (result instanceof Promise) {
       result = await result;
     }
     if (result != contents) {
-      await exports.writeFile(file, result, writeOptions);
+      await FSXT.writeFile(file, result, writeOptions);
     }
   }
 
@@ -99,7 +101,7 @@ module.exports = class FSXT {
     const promiseArr = [];
     const results = [];
 
-    await exports.dive(path, {all: true}, (file, stat) => {
+    await FSXT.dive(path, {all: true}, (file, stat) => {
       promiseArr.push(FSXT._mapStructureProcessFile(file, stat, mapper, readOptions, writeOptions));
       results.push({ file, stat });
     });
@@ -113,7 +115,7 @@ module.exports = class FSXT {
   static async mapStructureOrdered(path, mapper, readOptions = 'utf8', writeOptions) {
     const entries = [];
 
-    await exports.dive(path, {all: true}, (file, stat) => {
+    await FSXT.dive(path, {all: true}, (file, stat) => {
       entries.push({ file, stat });
     });
 
@@ -133,7 +135,7 @@ module.exports = class FSXT {
     // promise
     if (!callback) {
       return (async () => { // TODO does error in this cause unhandled promise rejection? it shouldn't
-        const children = await exports.readdir(path, options);
+        const children = await FSXT.readdir(path, options);
         for (let i = 0, len = children.length; i < len; i++) {
           const ret = func(children[i]);
           if (ret instanceof Promise) {
@@ -143,7 +145,7 @@ module.exports = class FSXT {
       })();
     }
     // legacy
-    exports.readdir(path, options, (err, children) => {
+    FSXT.readdir(path, options, (err, children) => {
       if (err) {
         callback(err);
       } else {
@@ -216,7 +218,7 @@ module.exports = class FSXT {
   static readXML(path, callback) {
     if (!callback) {
       return new Promise((resolve, reject) => {
-        exports.readFile(path, 'utf8').then(data => {
+        FSXT.readFile(path, 'utf8').then(data => {
           xml2js.parseString(data, {async: true}, (err, parsedObject) => {
             if (err) reject(err);
             else resolve(parsedObject);
@@ -287,7 +289,7 @@ module.exports = class FSXT {
 
   static readText(path, callback) {
     if (!callback) {
-      return exports.readFile(path, 'utf8');
+      return FSXT.readFile(path, 'utf8');
     }
     // legacy (non-promise)
     fs.readFile(path, 'utf8', callback);
@@ -298,7 +300,7 @@ module.exports = class FSXT {
   }
 
   static async _isDirectoryHelper(path) {
-    return (await exports.stat(path)).isDirectory();
+    return (await FSXT.stat(path)).isDirectory();
   }
 
   // check if file path is directory, from https://github.com/overlookmotel/fs-extra-promise
