@@ -324,7 +324,7 @@ module.exports = class FSXT extends asStatic(require('./lib')) {
   // TODO document
   static isSymlink(file, callback) {
     return callback
-      ? fs.lstat(file, (err, stats) => err ? callback(err) : callback(null, stats.isSymbolicLink()));
+      ? fs.lstat(file, (err, stats) => err ? callback(err) : callback(null, stats.isSymbolicLink()))
       : fs.lstat(file).then(stats => stats.isSymbolicLink());
   }
 };
