@@ -2,10 +2,10 @@
   "name": "fsxt",
   "version": "11.2.0",
   "description": "fs module extensions. it's fs-extra on fs-extra",
-  "homepage": "https://github.com/hansen-modules/fsxt",
+  "homepage": "https://github.com/uwx-node-modules/fsxt",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hansen-modules/fsxt"
+    "url": "https://github.com/uwx-node-modules/fsxt"
   },
   "keywords": [
     "fs",
