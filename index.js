@@ -313,8 +313,12 @@ ex.isDirectory = (path, callback) => {
 };
 
 // sync check if file path is directory
-ex.isDirectorySync = function(path) {
+ex.isDirectorySync = path => {
   return fs.statSync(path).isDirectory();
+};
+
+ex.isSymlink = file => {
+  return fs.lstat(file).then(stats => stats.isSymbolicLink());
 };
 
 // for fs-extra backwards compatibility
