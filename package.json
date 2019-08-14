@@ -1,6 +1,6 @@
 {
   "name": "fsxt",
-  "version": "13.0.0",
+  "version": "13.0.1",
   "description": "fs module extensions. it's fs-extra on fs-extra",
   "homepage": "https://github.com/uwx-node-modules/fsxt",
   "repository": {
