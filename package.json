@@ -53,7 +53,7 @@
     "eslint-config-google": "^0.11.0",
     "eslint-plugin-collection": "uwx/eslint-plugin-collection",
     "eslint-plugin-html": "^4.0.6",
-    "hansen-await-event": "github:hansen-modules/hansen-await-event",
+    "hansen-await-event": "github:uwx-node-modules/hansen-await-event",
     "idiomatic-console": "0.0.9",
     "istanbul": "^0.4.5",
     "klaw": "^3.0.0",
