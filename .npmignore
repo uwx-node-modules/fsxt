@@ -6,7 +6,7 @@ test/
 .appveyor.yml
 lib/**/__tests__/
 test/readme.md
-test.js
+test.mjs
 testlite.js
 *.bat
 *.sh
@@ -24,3 +24,10 @@ build
 fsxt-sublime.sublime-project
 fsxt-sublime.sublime-workspace
 fs-extra.template.d.ts
+/lib
+/.vscode
+/src
+/rollup.config.mjs
+/tsconfig.json
+/*.ts
+/typedoc.json

@@ -1,8 +1,8 @@
-import assert from 'assert'
-import fsLegacy from './lib/index.js'
+import assert from 'assert';
+import fsLegacy from './lib/index.js';
 // NOTE: eslint comments needed because we're importing the same file multiple times
 import fsDefault from './lib/esm.mjs' // eslint-disable-line
-import * as fsStar from './lib/esm.mjs'
+import * as fsStar from './lib/esm.mjs';
 import {
   copy,
   copySync,
@@ -94,11 +94,11 @@ const fsNamed = [
   pathExistsSync,
   remove,
   removeSync
-]
+];
 
-const keys = Object.keys(fsDefault)
+const keys = Object.keys(fsDefault);
 
-assert.deepStrictEqual(Object.values(fsDefault), fsNamed, 'named and default exports should match')
+assert.deepStrictEqual(Object.values(fsDefault), fsNamed, 'named and default exports should match');
 assert.deepStrictEqual(
   Object.entries(fsStar)
     .filter(([name]) => name !== 'default') // remove "default" property here
@@ -106,11 +106,11 @@ assert.deepStrictEqual(
     .map(([name, fn]) => fn),
   Object.values(fsDefault),
   'star and default exports should match'
-)
+);
 
 // default exports a subset of the legacy implementation, but functions are the same
 Object.entries(fsDefault).forEach(([name, fn]) => {
-  assert.strictEqual(fn, fsLegacy[name], `${name}() should match legacy implementation`)
-})
+  assert.strictEqual(fn, fsLegacy[name], `${name}() should match legacy implementation`);
+});
 
-console.warn('ESM tests pass!')
+console.warn('ESM tests pass!');

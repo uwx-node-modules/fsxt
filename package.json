@@ -1,6 +1,6 @@
 {
   "name": "fsxt",
-  "version": "13.0.1",
+  "version": "14.0.0",
   "description": "fs module extensions. it's fs-extra on fs-extra",
   "homepage": "https://github.com/uwx-node-modules/fsxt",
   "repository": {
@@ -33,51 +33,61 @@
   "author": "uwx / fallk",
   "license": "MIT",
   "dependencies": {
-    "glob": "^7.1.3",
-    "graceful-fs": "^4.1.2",
-    "jsonfile": "^5.0.0",
-    "universalify": "^0.1.1",
-    "xml2js": "^0.4.17"
+    "graceful-fs": "^4.2.11",
+    "universalify": "^2.0.0"
   },
   "devDependencies": {
-    "@types/node": "^10.12.3",
-    "chalk": "^2.0.1",
-    "coveralls": "^3.0.2",
-    "esformatter": "^0.10.0",
-    "esformatter-dot-notation": "^1.3.1",
-    "esformatter-literal-notation": "^1.0.1",
-    "esformatter-quotes": "^1.1.0",
-    "esformatter-semicolons": "^1.1.2",
-    "esformatter-var-each": "^2.1.0",
-    "eslint": "^5.8.0",
-    "eslint-config-google": "^0.11.0",
-    "eslint-plugin-collection": "github:uwx-node-modules/eslint-plugin-collection",
-    "eslint-plugin-html": "^4.0.6",
-    "hansen-await-event": "github:uwx-node-modules/hansen-await-event",
-    "idiomatic-console": "0.0.9",
-    "istanbul": "^0.4.5",
-    "klaw": "^3.0.0",
+    "@cspotcode/source-map-support": "^0.8.1",
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.1",
+    "@rollup/plugin-terser": "^0.4.3",
+    "@swc/core": "^1.3.78",
+    "@types/fs-extra": "^11.0.1",
+    "@types/graceful-fs": "^4.1.6",
+    "@types/jsonfile": "^6.1.1",
+    "@types/klaw": "^3.0.3",
+    "@types/klaw-sync": "^6.0.1",
+    "@types/node": "^20.5.1",
+    "@types/universalify": "^1.0.0",
+    "eslint": "^8.47.0",
+    "eslint-config-google": "^0.14.0",
+    "klaw": "^4.1.0",
     "klaw-sync": "^6.0.0",
-    "memory-streams": "^0.1.2",
-    "minimist": "^1.1.1",
-    "mocha": "^5.2.0",
-    "mz": "^2.7.0",
-    "proxyquire": "^2.1.0",
+    "minimist": "^1.2.8",
+    "mocha": "^10.2.0",
+    "proxyquire": "^2.1.3",
     "read-dir-files": "^0.1.1",
-    "rimraf": "^2.6.2",
-    "secure-random": "^1.1.1",
-    "semver": "^5.3.0",
-    "typedoc": "^0.13.0",
-    "typedoc-plugin-external-module-name": "^1.1.3"
+    "rimraf": "^5.0.1",
+    "rollup": "^3.28.1",
+    "rollup-plugin-bundle-size": "^1.0.3",
+    "rollup-plugin-swc3": "^0.10.1",
+    "typedoc": "^0.25.0",
+    "typedoc-plugin-missing-exports": "^2.1.0",
+    "typescript": "5.0.4"
   },
   "engines": {
     "node": ">=12.8.0"
   },
-  "main": "./index.js",
-  "types": "./typings.d.ts",
+  "main": "./out/index.cjs",
+  "types": "./out/index.d.ts",
+  "exports": {
+    "require": {
+      "types": "./out/index.d.ts",
+      "default": "./out/index.cjs"
+    },
+    "import": {
+      "types": "./out/index.d.ts",
+      "default": "./out/index.mjs"
+    }
+  },
   "scripts": {
     "lint": "eslint . || exit 0",
     "test": "node build/test.js",
-    "test-no-fse": "node build/test-no-fse.js"
+    "test-no-fse": "node build/test-no-fse.js",
+    "build": "rollup -c",
+    "build-docs": "typedoc"
+  },
+  "resolutions": {
+    "acorn-walk": "8.2.0"
   }
 }

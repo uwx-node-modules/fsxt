@@ -1,2 +1,0 @@
-call node_modules\.bin\typedoc typings.d.ts fs-extra.d.ts --entryPoint fsxt --out docs/typedoc --includeDeclarations --excludeExternals --exclude node_modules/** --externalPattern node_modules/**
-call node_modules\.bin\typedoc typings.d.ts --entryPoint fsxt --out docs/typedoc-fsxt-only --includeDeclarations --excludeExternals --exclude node_modules/** --externalPattern node_modules/**

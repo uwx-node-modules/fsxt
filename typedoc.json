@@ -1,0 +1,23 @@
+{
+    "$schema": "https://typedoc.org/schema.json",
+    "entryPoints": [
+        "src/index.ts"
+    ],
+    "plugin": [
+        "typedoc-plugin-missing-exports"
+    ],
+    "excludeExternals": false,
+    "externalPattern": [
+        "**/node_modules/**"
+    ],
+    "out": "./docs/typedoc",
+    "sourceLinkTemplate": "https://github.com/uwx-node-modules/fsxt/blob/{gitRevision}/{path}#L{line}",
+    "disableSources": false,
+    "includeVersion": true,
+    "visibilityFilters": {
+        "protected": false,
+        "private": false,
+        "inherited": true,
+        "external": true
+    }
+}

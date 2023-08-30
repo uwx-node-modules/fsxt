@@ -1,5 +1,6 @@
 test/node
 /build
 /external
-lib
-docs
+/lib
+/docs
+/out
