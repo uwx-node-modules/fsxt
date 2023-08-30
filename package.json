@@ -49,7 +49,7 @@
     "@types/klaw-sync": "^6.0.1",
     "@types/node": "^20.5.7",
     "@types/universalify": "^1.0.0",
-    "@uwx/fsxt-rollup-plugin-dts": "^6.0.0",
+    "@uwx/fsxt-rollup-plugin-dts": "^6.0.1",
     "eslint": "^8.48.0",
     "eslint-config-google": "^0.14.0",
     "klaw": "^4.1.0",

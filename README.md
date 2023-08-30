@@ -77,6 +77,8 @@ Example use:
 
 ```js
 const fs = require('fsxt');
+// or
+// import * as fs from 'fsxt';
 
 // Async with promises:
 fs.copy('/tmp/myfile', '/tmp/mynewfile')
@@ -98,7 +100,7 @@ try {
 }
 
 // Async/Await:
-async function copyFiles () {
+async function copyFiles() {
   try {
     await fs.copy('/tmp/myfile', '/tmp/mynewfile');
     console.log('success!');
@@ -112,28 +114,7 @@ copyFiles();
 
 Methods
 -------
-The documentation is available at https://uwx-node-modules.github.io/fsxt/typedoc/globals.html.
-
-You can also find the documentation for just the methods added in fsxt that aren't in fs-extra at
-https://uwx-node-modules.github.io/fsxt/typedoc-fsxt-only/globals.html.
-
-The docs don't include descriptions for methods inherited from fs-extra, but you can find them here:
-
-- [copy](docs/copy.md)                   | [copySync](docs/copy-sync.md)
-- [emptyDir](docs/emptyDir.md)           | [emptyDirSync](docs/emptyDir-sync.md)
-- [ensureFile](docs/ensureFile.md)       | [ensureFileSync](docs/ensureFile-sync.md)
-- [ensureDir](docs/ensureDir.md)         | [ensureDirSync](docs/ensureDir-sync.md)
-- [ensureLink](docs/ensureLink.md)       | [ensureLinkSync](docs/ensureLink-sync.md)
-- [ensureSymlink](docs/ensureSymlink.md) | [ensureSymlinkSync](docs/ensureSymlink-sync.md)
-- [mkdirp](docs/ensureDir.md)            | [mkdirpSync](docs/ensureDir-sync.md)
-- [mkdirs](docs/ensureDir.md)            | [mkdirsSync](docs/ensureDir-sync.md)
-- [move](docs/move.md)                   | [moveSync](docs/move-sync.md)
-- [outputFile](docs/outputFile.md)       | [outputFileSync](docs/outputFile-sync.md)
-- [outputJson](docs/outputJson.md)       | [outputJsonSync](docs/outputJson-sync.md)
-- [pathExists](docs/pathExists.md)       | [pathExistsSync](docs/pathExists-sync.md)
-- [readJson](docs/readJson.md)           | [readJsonSync](docs/readJson-sync.md)
-- [remove](docs/remove.md)               | [removeSync](docs/remove-sync.md)
-- [writeJson](docs/writeJson.md)         | [writeJsonSync](docs/writeJson-sync.md)
+The documentation is available at https://uwx-node-modules.github.io/fsxt/.
 
 The core node.js [`fs`](http://nodejs.org/docs/latest/api/fs.html) module methods are also
 available; although the node.js documentation doesn't show Promise overloads of the async methods,
@@ -242,24 +223,22 @@ Hacking on fsxt
 
 Do you want to hack on fsxt? Well, you probably shouldn't. Still, you can go ahead and send a PR.
 
-Please, no changes to anything in the `lib` folder; the contents of that folder are almost entirely
+Please, no changes to anything in the `lib` folder; the contents of that folder are taken entirely
 verbatim from fs-extra, so they should be submitted upstream.
-
-fsxt uses the [Google Style](https://google.github.io/styleguide/jsguide.html). It's pretty.
 
 ### Running the Test Suite
 
 fsxt contains like at least 4 tests that pass.
 
 - `npm run lint`: runs eslint
-- `npm run unit`: runs the unit tests
-- `npm test`: runs both the linter and the tests
+- `npm run test`: runs the tests
+- `npm run test-no-fse`: runs the tests, except for fs-extra tests
 
 #### Windows
 
 If you run the tests on the Windows and receive a lot of symbolic link `EPERM` permission errors,
 it's because on Windows you need elevated privilege to create symbolic links. You can either run the
-tests as Administrator or run `node testlite` to test only fsxt-exclusive methods, which doesn't
+tests as Administrator or run `npm run test-no-fse` to test only fsxt-exclusive methods, which doesn't
 include symbolic links
 
 Legal
@@ -277,13 +256,10 @@ Relevant licenses are included at the following locations:
 - [LICENSE.DefinitelyTyped-generator.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.DefinitelyTyped-generator.txt)
 - [LICENSE.fs-extra.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.fs-extra.txt)
 - [LICENSE.fs-vacuum.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.fs-vacuum.txt)
+- [LICENSE.jsonfile.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.jsonfile.txt)
 - [LICENSE.nodejs.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.nodejs.txt)
-- [external/LICENSE.fs-vacuum.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.fs-vacuum.txt)
-- [external/LICENSE.path-is-inside.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.path-is-inside.txt)
-- [external/LICENSE.rimraf.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.rimraf.txt)
-- [external/LICENSE.append.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.append.txt)
-- [external/LICENSE.dive.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.dive.txt)
-- [external/LICENSE.dive-sync.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.dive-sync.txt)
+- [LICENSE.fs-vacuum.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.fs-vacuum.txt)
+- [LICENSE.path-is-inside.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.path-is-inside.txt)
 
 `fs-extra` and `fsxt` are not endorsed by or affiliated with Joyent or the Node.js Foundation.
 `fsxt` is not endorsed by or affiliated with JP Richardson.

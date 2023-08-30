@@ -53,8 +53,8 @@ devDependencies:
     specifier: ^1.0.0
     version: 1.0.0
   '@uwx/fsxt-rollup-plugin-dts':
-    specifier: ^6.0.0
-    version: 6.0.0(rollup@3.28.1)(typescript@5.2.2)
+    specifier: ^6.0.1
+    version: 6.0.1(rollup@3.28.1)(typescript@5.2.2)
   eslint:
     specifier: ^8.48.0
     version: 8.48.0
@@ -674,8 +674,8 @@ packages:
     resolution: {integrity: sha512-Cqm/s2DU7YxTcTtQZkfG7kyOULQKsl0Mpd3dKAm0CbSStcRsQdy1nctCBGCmyNvxWUEYReqWkBIUvNHBN/Ja6w==}
     dev: true
 
-  /@uwx/fsxt-rollup-plugin-dts@6.0.0(rollup@3.28.1)(typescript@5.2.2):
-    resolution: {integrity: sha512-w4nMkVWwOeL3yjtkOg/Pay+UI4kA/s0DUFSIoCOvEXHdqn5D+SV1sgMQue29FROD/bHEMakxYTzWI7mHVPSLWw==}
+  /@uwx/fsxt-rollup-plugin-dts@6.0.1(rollup@3.28.1)(typescript@5.2.2):
+    resolution: {integrity: sha512-iIZE+9KfPGngqqBN7Jdm88XuQxCuUpyUvAWPCqmmBT3ulrwXDzE0WTBD2kVmr+e43eygZWcNwF9o+ph1B2SYDA==}
     engines: {node: '>=v16.20.2'}
     peerDependencies:
       rollup: ^3.28.1
