@@ -83,6 +83,8 @@ function universalify<A extends unknown[], X extends (...args: any[]) => any, R>
     (...args: Parameters<X>): void;
     (...args: A): Promise<R>;
 } {
+    if (!fn) return fn;
+
     if (universalifiedSymbol in fn) {
         return fn[universalifiedSymbol] as any;
     }
