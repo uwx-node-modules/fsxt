@@ -65,7 +65,9 @@ import {
     opendir as _opendir,
     cp as _cp,
 
-    readdirSync, readFileSync, statSync, writeFileSync
+    readdirSync, readFileSync, statSync, writeFileSync,
+
+    type promises as fsPromises,
 } from 'graceful-fs';
 import { ReadCallback, WriteCallback } from 'jsonfile';
 
@@ -128,7 +130,7 @@ function universalify<A extends unknown[], X extends (...args: any[]) => any, R>
  * ```
  * @since v0.0.2
  * @see {@link fs.rename}
- * @see {@link fs.promises.rename}
+ * @see {@link fsPromises.rename}
  */
 export const rename: typeof fs.rename & typeof fs.rename.__promisify__ = universalify(_rename);
 /**
@@ -152,7 +154,7 @@ export const rename: typeof fs.rename & typeof fs.rename.__promisify__ = univers
  * @since v0.8.6
  * @param [len=0]
  * @see {@link fs.truncate}
- * @see {@link fs.promises.truncate}
+ * @see {@link fsPromises.truncate}
  */
 export const truncate: typeof fs.truncate & typeof fs.truncate.__promisify__ = universalify(_truncate);
 /**
@@ -198,7 +200,7 @@ export const truncate: typeof fs.truncate & typeof fs.truncate.__promisify__ = u
  * @since v0.8.6
  * @param [len=0]
  * @see {@link fs.ftruncate}
- * @see {@link fs.promises.ftruncate}
+ * @see {@link fsPromises.ftruncate}
  */
 export const ftruncate: typeof fs.ftruncate & typeof fs.ftruncate.__promisify__ = universalify(_ftruncate);
 /**
@@ -208,7 +210,7 @@ export const ftruncate: typeof fs.ftruncate & typeof fs.ftruncate.__promisify__ 
  * See the POSIX [`chown(2)`](http://man7.org/linux/man-pages/man2/chown.2.html) documentation for more detail.
  * @since v0.1.97
  * @see {@link fs.chown}
- * @see {@link fs.promises.chown}
+ * @see {@link fsPromises.chown}
  */
 export const chown: typeof fs.chown & typeof fs.chown.__promisify__ = universalify(_chown);
 /**
@@ -218,7 +220,7 @@ export const chown: typeof fs.chown & typeof fs.chown.__promisify__ = universali
  * See the POSIX [`fchown(2)`](http://man7.org/linux/man-pages/man2/fchown.2.html) documentation for more detail.
  * @since v0.4.7
  * @see {@link fs.fchown}
- * @see {@link fs.promises.fchown}
+ * @see {@link fsPromises.fchown}
  */
 export const fchown: typeof fs.fchown & typeof fs.fchown.__promisify__ = universalify(_fchown);
 /**
@@ -227,7 +229,7 @@ export const fchown: typeof fs.fchown & typeof fs.fchown.__promisify__ = univers
  *
  * See the POSIX [`lchown(2)`](http://man7.org/linux/man-pages/man2/lchown.2.html) documentation for more detail.
  * @see {@link fs.lchown}
- * @see {@link fs.promises.lchown}
+ * @see {@link fsPromises.lchown}
  */
 export const lchown: typeof fs.lchown & typeof fs.lchown.__promisify__ = universalify(_lchown);
 /**
@@ -239,7 +241,7 @@ export const lchown: typeof fs.lchown & typeof fs.lchown.__promisify__ = univers
  * callback.
  * @since v14.5.0, v12.19.0
  * @see {@link fs.lutimes}
- * @see {@link fs.promises.lutimes}
+ * @see {@link fsPromises.lutimes}
  */
 export const lutimes: typeof fs.lutimes & typeof fs.lutimes.__promisify__ = universalify(_lutimes);
 /**
@@ -258,7 +260,7 @@ export const lutimes: typeof fs.lutimes & typeof fs.lutimes.__promisify__ = univ
  * ```
  * @since v0.1.30
  * @see {@link fs.chmod}
- * @see {@link fs.promises.chmod}
+ * @see {@link fsPromises.chmod}
  */
 export const chmod: typeof fs.chmod & typeof fs.chmod.__promisify__ = universalify(_chmod);
 /**
@@ -268,7 +270,7 @@ export const chmod: typeof fs.chmod & typeof fs.chmod.__promisify__ = universali
  * See the POSIX [`fchmod(2)`](http://man7.org/linux/man-pages/man2/fchmod.2.html) documentation for more detail.
  * @since v0.4.7
  * @see {@link fs.fchmod}
- * @see {@link fs.promises.fchmod}
+ * @see {@link fsPromises.fchmod}
  */
 export const fchmod: typeof fs.fchmod & typeof fs.fchmod.__promisify__ = universalify(_fchmod);
 /**
@@ -280,7 +282,7 @@ export const fchmod: typeof fs.fchmod & typeof fs.fchmod.__promisify__ = univers
  * See the POSIX [`lchmod(2)`](https://www.freebsd.org/cgi/man.cgi?query=lchmod&sektion=2) documentation for more detail.
  * @deprecated Since v0.4.7
  * @see {@link fs.lchmod}
- * @see {@link fs.promises.lchmod}
+ * @see {@link fsPromises.lchmod}
  */
 export const lchmod: typeof fs.lchmod & typeof fs.lchmod.__promisify__ = universalify(_lchmod);
 /**
@@ -368,7 +370,7 @@ export const lchmod: typeof fs.lchmod & typeof fs.lchmod.__promisify__ = univers
  * ```
  * @since v0.0.2
  * @see {@link fs.stat}
- * @see {@link fs.promises.stat}
+ * @see {@link fsPromises.stat}
  */
 export const stat: typeof fs.stat & typeof fs.stat.__promisify__ = universalify(_stat);
 /**
@@ -377,7 +379,7 @@ export const stat: typeof fs.stat & typeof fs.stat.__promisify__ = universalify(
  * See the POSIX [`fstat(2)`](http://man7.org/linux/man-pages/man2/fstat.2.html) documentation for more detail.
  * @since v0.1.95
  * @see {@link fs.fstat}
- * @see {@link fs.promises.fstat}
+ * @see {@link fsPromises.fstat}
  */
 export const fstat: typeof fs.fstat & typeof fs.fstat.__promisify__ = universalify(_fstat);
 /**
@@ -388,7 +390,7 @@ export const fstat: typeof fs.fstat & typeof fs.fstat.__promisify__ = universali
  * See the POSIX [`lstat(2)`](http://man7.org/linux/man-pages/man2/lstat.2.html) documentation for more details.
  * @since v0.1.30
  * @see {@link fs.lstat}
- * @see {@link fs.promises.lstat}
+ * @see {@link fsPromises.lstat}
  */
 export const lstat: typeof fs.lstat & typeof fs.lstat.__promisify__ = universalify(_lstat);
 /**
@@ -399,7 +401,7 @@ export const lstat: typeof fs.lstat & typeof fs.lstat.__promisify__ = universali
  * @since v19.6.0, v18.15.0
  * @param path A path to an existing file or directory on the file system to be queried.
  * @see {@link fs.statfs}
- * @see {@link fs.promises.statfs}
+ * @see {@link fsPromises.statfs}
  */
 export const statfs: typeof fs.statfs & typeof fs.statfs.__promisify__ = universalify(_statfs);
 /**
@@ -408,7 +410,7 @@ export const statfs: typeof fs.statfs & typeof fs.statfs.__promisify__ = univers
  * exception are given to the completion callback.
  * @since v0.1.31
  * @see {@link fs.link}
- * @see {@link fs.promises.link}
+ * @see {@link fsPromises.link}
  */
 export const link: typeof fs.link & typeof fs.link.__promisify__ = universalify(_link);
 /**
@@ -444,7 +446,7 @@ export const link: typeof fs.link & typeof fs.link.__promisify__ = universalify(
  * @since v0.1.31
  * @param [type='null']
  * @see {@link fs.symlink}
- * @see {@link fs.promises.symlink}
+ * @see {@link fsPromises.symlink}
  */
 export const symlink: typeof fs.symlink & typeof fs.symlink.__promisify__ = universalify(_symlink);
 /**
@@ -459,7 +461,7 @@ export const symlink: typeof fs.symlink & typeof fs.symlink.__promisify__ = univ
  * the link path returned will be passed as a `Buffer` object.
  * @since v0.1.31
  * @see {@link fs.readlink}
- * @see {@link fs.promises.readlink}
+ * @see {@link fsPromises.readlink}
  */
 export const readlink: typeof fs.readlink & typeof fs.readlink.__promisify__ = universalify(_readlink);
 /**
@@ -488,7 +490,7 @@ export const readlink: typeof fs.readlink & typeof fs.readlink.__promisify__ = u
  * dependent name for that object.
  * @since v0.1.31
  * @see {@link fs.realpath}
- * @see {@link fs.promises.realpath}
+ * @see {@link fsPromises.realpath}
  */
 export const realpath: typeof fs.realpath & typeof fs.realpath.__promisify__ = universalify(_realpath);
 /**
@@ -510,7 +512,7 @@ export const realpath: typeof fs.realpath & typeof fs.realpath.__promisify__ = u
  * See the POSIX [`unlink(2)`](http://man7.org/linux/man-pages/man2/unlink.2.html) documentation for more details.
  * @since v0.0.2
  * @see {@link fs.unlink}
- * @see {@link fs.promises.unlink}
+ * @see {@link fsPromises.unlink}
  */
 export const unlink: typeof fs.unlink & typeof fs.unlink.__promisify__ = universalify(_unlink);
 /**
@@ -523,7 +525,7 @@ export const unlink: typeof fs.unlink & typeof fs.unlink.__promisify__ = univers
  * To get a behavior similar to the `rm -rf` Unix command, use {@link rm} with options `{ recursive: true, force: true }`.
  * @since v0.0.2
  * @see {@link fs.rmdir}
- * @see {@link fs.promises.rmdir}
+ * @see {@link fsPromises.rmdir}
  */
 export const rmdir: typeof fs.rmdir & typeof fs.rmdir.__promisify__ = universalify(_rmdir);
 /**
@@ -531,7 +533,7 @@ export const rmdir: typeof fs.rmdir & typeof fs.rmdir.__promisify__ = universali
  * completion callback.
  * @since v14.14.0
  * @see {@link fs.rm}
- * @see {@link fs.promises.rm}
+ * @see {@link fsPromises.rm}
  */
 export const rm: typeof fs.rm & typeof fs.rm.__promisify__ = universalify(_rm);
 /**
@@ -570,7 +572,7 @@ export const rm: typeof fs.rm & typeof fs.rm.__promisify__ = universalify(_rm);
  * See the POSIX [`mkdir(2)`](http://man7.org/linux/man-pages/man2/mkdir.2.html) documentation for more details.
  * @since v0.1.8
  * @see {@link fs.mkdir}
- * @see {@link fs.promises.mkdir}
+ * @see {@link fsPromises.mkdir}
  */
 export const mkdir: typeof fs.mkdir & typeof fs.mkdir.__promisify__ = universalify(_mkdir);
 /**
@@ -632,7 +634,7 @@ export const mkdir: typeof fs.mkdir & typeof fs.mkdir.__promisify__ = universali
  * ```
  * @since v5.10.0
  * @see {@link fs.mkdtemp}
- * @see {@link fs.promises.mkdtemp}
+ * @see {@link fsPromises.mkdtemp}
  */
 export const mkdtemp: typeof fs.mkdtemp & typeof fs.mkdtemp.__promisify__ = universalify(_mkdtemp);
 /**
@@ -648,7 +650,7 @@ export const mkdtemp: typeof fs.mkdtemp & typeof fs.mkdtemp.__promisify__ = univ
  * If `options.withFileTypes` is set to `true`, the `files` array will contain `fs.Dirent` objects.
  * @since v0.1.8
  * @see {@link fs.readdir}
- * @see {@link fs.promises.readdir}
+ * @see {@link fsPromises.readdir}
  */
 export const readdir: typeof fs.readdir & typeof fs.readdir.__promisify__ = universalify(_readdir);
 /**
@@ -661,7 +663,7 @@ export const readdir: typeof fs.readdir & typeof fs.readdir.__promisify__ = univ
  * See the POSIX [`close(2)`](http://man7.org/linux/man-pages/man2/close.2.html) documentation for more detail.
  * @since v0.0.2
  * @see {@link fs.close}
- * @see {@link fs.promises.close}
+ * @see {@link fsPromises.close}
  */
 export const close: typeof fs.close & typeof fs.close.__promisify__ = universalify(_close);
 /**
@@ -681,7 +683,7 @@ export const close: typeof fs.close & typeof fs.close.__promisify__ = universali
  * @param [flags='r'] See `support of file system `flags``.
  * @param [mode=0o666]
  * @see {@link fs.open}
- * @see {@link fs.promises.open}
+ * @see {@link fsPromises.open}
  */
 export const open: typeof fs.open & typeof fs.open.__promisify__ = universalify(_open);
 /**
@@ -693,7 +695,7 @@ export const open: typeof fs.open & typeof fs.open.__promisify__ = universalify(
  * * If the value can not be converted to a number, or is `NaN`, `Infinity`, or`-Infinity`, an `Error` will be thrown.
  * @since v0.4.2
  * @see {@link fs.utimes}
- * @see {@link fs.promises.utimes}
+ * @see {@link fsPromises.utimes}
  */
 export const utimes: typeof fs.utimes & typeof fs.utimes.__promisify__ = universalify(_utimes);
 /**
@@ -701,7 +703,7 @@ export const utimes: typeof fs.utimes & typeof fs.utimes.__promisify__ = univers
  * descriptor. See {@link utimes}.
  * @since v0.4.2
  * @see {@link fs.futimes}
- * @see {@link fs.promises.futimes}
+ * @see {@link fsPromises.futimes}
  */
 export const futimes: typeof fs.futimes & typeof fs.futimes.__promisify__ = universalify(_futimes);
 /**
@@ -731,7 +733,7 @@ export const futimes: typeof fs.futimes & typeof fs.futimes.__promisify__ = univ
  * @param [length=buffer.byteLength - offset]
  * @param [position='null']
  * @see {@link fs.write}
- * @see {@link fs.promises.write}
+ * @see {@link fsPromises.write}
  */
 export const write: typeof fs.write & typeof fs.write.__promisify__ = universalify(_write);
 /**
@@ -751,7 +753,7 @@ export const write: typeof fs.write & typeof fs.write.__promisify__ = universali
  * @param position Specifies where to begin reading from in the file. If `position` is `null` or `-1 `, data will be read from the current file position, and the file position will be updated. If
  * `position` is an integer, the file position will be unchanged.
  * @see {@link fs.read}
- * @see {@link fs.promises.read}
+ * @see {@link fsPromises.read}
  */
 export const read: typeof fs.read & typeof fs.read.__promisify__ = universalify(_read);
 /**
@@ -820,7 +822,7 @@ export const read: typeof fs.read & typeof fs.read.__promisify__ = universalify(
  * @since v0.1.29
  * @param path filename or file descriptor
  * @see {@link fs.readFile}
- * @see {@link fs.promises.readFile}
+ * @see {@link fsPromises.readFile}
  */
 export const readFile: typeof fs.readFile & typeof fs.readFile.__promisify__ = universalify(_readFile);
 /**
@@ -884,7 +886,7 @@ export const readFile: typeof fs.readFile & typeof fs.readFile.__promisify__ = u
  * @since v0.1.29
  * @param file filename or file descriptor
  * @see {@link fs.writeFile}
- * @see {@link fs.promises.writeFile}
+ * @see {@link fsPromises.writeFile}
  */
 export const writeFile: typeof fs.writeFile & typeof fs.writeFile.__promisify__ = universalify(_writeFile);
 /**
@@ -940,7 +942,7 @@ export const writeFile: typeof fs.writeFile & typeof fs.writeFile.__promisify__ 
  * @since v0.6.7
  * @param path filename or file descriptor
  * @see {@link fs.appendFile}
- * @see {@link fs.promises.appendFile}
+ * @see {@link fsPromises.appendFile}
  */
 export const appendFile: typeof fs.appendFile & typeof fs.appendFile.__promisify__ = universalify(_appendFile);
 /**
@@ -1103,7 +1105,7 @@ export const appendFile: typeof fs.appendFile & typeof fs.appendFile.__promisify
  * @since v0.11.15
  * @param [mode=fs.constants.F_OK]
  * @see {@link fs.access}
- * @see {@link fs.promises.access}
+ * @see {@link fsPromises.access}
  */
 export const access: typeof fs.access & typeof fs.access.__promisify__ = universalify(_access);
 /**
@@ -1145,7 +1147,7 @@ export const access: typeof fs.access & typeof fs.access.__promisify__ = univers
  * @param dest destination filename of the copy operation
  * @param [mode=0] modifiers for copy operation.
  * @see {@link fs.copyFile}
- * @see {@link fs.promises.copyFile}
+ * @see {@link fsPromises.copyFile}
  */
 export const copyFile: typeof fs.copyFile & typeof fs.copyFile.__promisify__ = universalify(_copyFile);
 /**
@@ -1168,7 +1170,7 @@ export const copyFile: typeof fs.copyFile & typeof fs.copyFile.__promisify__ = u
  * @since v12.9.0
  * @param [position='null']
  * @see {@link fs.writev}
- * @see {@link fs.promises.writev}
+ * @see {@link fsPromises.writev}
  */
 export const writev: typeof fs.writev & typeof fs.writev.__promisify__ = universalify(_writev);
 /**
@@ -1186,7 +1188,7 @@ export const writev: typeof fs.writev & typeof fs.writev.__promisify__ = univers
  * @since v13.13.0, v12.17.0
  * @param [position='null']
  * @see {@link fs.readv}
- * @see {@link fs.promises.readv}
+ * @see {@link fsPromises.readv}
  */
 export const readv: typeof fs.readv & typeof fs.readv.__promisify__ = universalify(_readv);
 /**
@@ -1200,7 +1202,7 @@ export const readv: typeof fs.readv & typeof fs.readv.__promisify__ = universali
  * directory and subsequent read operations.
  * @since v12.12.0
  * @see {@link fs.opendir}
- * @see {@link fs.promises.opendir}
+ * @see {@link fsPromises.opendir}
  */
 export const opendir: typeof fs.opendir & typeof fs.opendir.__promisify__ = universalify(_opendir);
 
