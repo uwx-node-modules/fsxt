@@ -10,8 +10,6 @@ Improved fork of `fs-extra` with extra [sic] features (and semicolons!)
 [![GitHub contributors](https://img.shields.io/github/contributors/uwx-node-modules/fsxt.svg)](https://github.com/uwx-node-modules/fsxt/graphs/contributors)
 [![Licensed under MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE)
 [![Maintenance](https://img.shields.io/maintenance/yes/2023.svg)](https://github.com/uwx-node-modules/fsxt)
-[![David](https://img.shields.io/david/uwx-node-modules/fsxt.svg)](https://david-dm.org/uwx-node-modules/fsxt)
-[![David](https://img.shields.io/david/dev/uwx-node-modules/fsxt.svg)](https://david-dm.org/uwx-node-modules/fsx#info=devDependenciest)
 
 Installation
 ------------
