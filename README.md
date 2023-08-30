@@ -1,33 +1,33 @@
 # fsxt
 
-Improved fork of `fs-extra` with extra [sic] features (and semicolons!)  
+Improved fork of `fs-extra` with extra [sic] features (and semicolons!)
 `fsxt` provides support for node.js 10 and above.
 
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-google-brightgreen.svg)](https://google.github.io/styleguide/jsguide.html)
-[![Used by practically no-one](https://img.shields.io/badge/downloads-basically_none-brightgreen.svg)](https://github.com/uwx-node-modules/fsxt)
-[![Travis Build Status](https://img.shields.io/travis/uwx-node-modules/fsxt.svg)](https://travis-ci.org/uwx-node-modules/fsxt)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/q0oojcejiyualshb/branch/master?svg=true)](https://ci.appveyor.com/project/uwx/fsxt)
 [![GitHub issues](https://img.shields.io/github/issues/uwx-node-modules/fsxt.svg)](https://github.com/uwx-node-modules/fsxt/issues)
 [![GitHub closed issues](https://img.shields.io/github/issues-closed/uwx-node-modules/fsxt.svg)](https://github.com/uwx-node-modules/fsxt/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/uwx-node-modules/fsxt.svg)](https://github.com/uwx-node-modules/fsxt/pulls)
 [![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/uwx-node-modules/fsxt.svg)](https://github.com/uwx-node-modules/fsxt/pulls)
 [![GitHub contributors](https://img.shields.io/github/contributors/uwx-node-modules/fsxt.svg)](https://github.com/uwx-node-modules/fsxt/graphs/contributors)
 [![Licensed under MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE)
-[![Maintenance](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/uwx-node-modules/fsxt)
+[![Maintenance](https://img.shields.io/maintenance/yes/2023.svg)](https://github.com/uwx-node-modules/fsxt)
 [![David](https://img.shields.io/david/uwx-node-modules/fsxt.svg)](https://david-dm.org/uwx-node-modules/fsxt)
 [![David](https://img.shields.io/david/dev/uwx-node-modules/fsxt.svg)](https://david-dm.org/uwx-node-modules/fsx#info=devDependenciest)
 
 Installation
 ------------
 
-    npm install --save fsxt
+    npm install fsxt
+
+    pnpm install fsxt
+
+    yarn add fsxt
 
 Or install with your preferred package manager (yarn, pnpm, ...)
 
 Usage
 -----
 
-`fsxt` is a drop-in replacement for the node.js core [`fs`](http://nodejs.org/docs/latest/api/fs.html)
+`fsxt` is a mostly drop-in replacement for the node.js core [`fs`](http://nodejs.org/docs/latest/api/fs.html)
 module. All methods in `fs` can be used in their standard forms in fsxt, with some
 [improvements](#improvements).
 
@@ -141,7 +141,7 @@ The core node.js [`fs`](http://nodejs.org/docs/latest/api/fs.html) module method
 available; although the node.js documentation doesn't show Promise overloads of the async methods,
 you can find them at:
 
-<!-- 
+<!--
 generator snippet for nodejs core methods (run in http://nodejs.org/docs/latest/api/fs.html)
 copy($$('h2').map(e => ({
 	text: e.firstChild.textContent,
@@ -275,17 +275,17 @@ Licensed under MIT. Full license text available at [LICENSE.txt](https://github.
 
 Parts of the documentation were taken from other modules and the Node.js `fs` module.
 Relevant licenses are included at the following locations:
-- [LICENSE.DefinitelyTyped.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.DefinitelyTyped.txt) 
-- [LICENSE.DefinitelyTyped-generator.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.DefinitelyTyped-generator.txt) 
-- [LICENSE.fs-extra.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.fs-extra.txt) 
-- [LICENSE.fs-vacuum.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.fs-vacuum.txt) 
-- [LICENSE.nodejs.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.nodejs.txt) 
-- [external/LICENSE.fs-vacuum.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.fs-vacuum.txt) 
-- [external/LICENSE.path-is-inside.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.path-is-inside.txt) 
-- [external/LICENSE.rimraf.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.rimraf.txt) 
-- [external/LICENSE.append.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.append.txt) 
-- [external/LICENSE.dive.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.dive.txt) 
-- [external/LICENSE.dive-sync.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.dive-sync.txt) 
+- [LICENSE.DefinitelyTyped.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.DefinitelyTyped.txt)
+- [LICENSE.DefinitelyTyped-generator.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.DefinitelyTyped-generator.txt)
+- [LICENSE.fs-extra.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.fs-extra.txt)
+- [LICENSE.fs-vacuum.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.fs-vacuum.txt)
+- [LICENSE.nodejs.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.nodejs.txt)
+- [external/LICENSE.fs-vacuum.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.fs-vacuum.txt)
+- [external/LICENSE.path-is-inside.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.path-is-inside.txt)
+- [external/LICENSE.rimraf.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.rimraf.txt)
+- [external/LICENSE.append.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.append.txt)
+- [external/LICENSE.dive.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.dive.txt)
+- [external/LICENSE.dive-sync.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.dive-sync.txt)
 
 `fs-extra` and `fsxt` are not endorsed by or affiliated with Joyent or the Node.js Foundation.
 `fsxt` is not endorsed by or affiliated with JP Richardson.

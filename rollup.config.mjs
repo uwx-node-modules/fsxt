@@ -8,7 +8,7 @@ import { swc } from 'rollup-plugin-swc3';
 
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import { dts } from '../rollup-plugin-dts/.build/src/index.js';
+import { dts } from '@uwx/fsxt-rollup-plugin-dts';
 import terser from '@rollup/plugin-terser';
 
 import pkg from './package.json' assert { type: 'json' };
