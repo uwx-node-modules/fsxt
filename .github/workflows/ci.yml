@@ -25,25 +25,19 @@ jobs:
       # You may pin to the exact commit or the version.
       # uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598
       uses: pnpm/action-setup@v2.4.0
-      if: ${{ matrix.node }} != '14.x'
+      if: matrix.node != '14.x'
       with:
-        # Version of pnpm to install
-        version: '8.6.12' # optional
-        # Where to store pnpm files
-        # dest: # optional, default is ~/setup-pnpm
-        # If specified, run `pnpm install`
-        run_install: true # optional, default is null
-        # File path to the package.json to read "packageManager" configuration
-        # package_json_file: # optional, default is package.json
-        # When set to true, @pnpm/exe, which is a Node.js bundled package, will be installed, enabling using pnpm without Node.js.
-        # standalone: # optional, default is false
+        version: '8.6.12'
+
+    - run: pnpm install --no-frozen-lockfile
+      if: matrix.node != '14.x'
 
     - run: npm install
-      if: ${{ matrix.node }} == '14.x'
-    
+      if: matrix.node == '14.x'
+
     - run: npm run build
     - run: npm run build-docs
     - run: npm run test
-      if: ${{ matrix.os }} != 'windows-latest'
+      if: matrix.os != 'windows-latest'
     - run: npm run test-no-fse
-      if: ${{ matrix.os }} == 'windows-latest'
+      if: matrix.os == 'windows-latest'
