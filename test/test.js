@@ -2,6 +2,8 @@
 
 'use strict';
 
+require('@cspotcode/source-map-support').install();
+
 const os = require('os');
 const path = require('path');
 const klaw = require('klaw');
