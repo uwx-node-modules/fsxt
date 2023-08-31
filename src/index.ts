@@ -665,7 +665,7 @@ export const readdir: typeof fs.readdir & typeof fs.readdir.__promisify__ = univ
  * @see {@link fs.close}
  * @see {@link fsPromises.close}
  */
-export const close: typeof fs.close & typeof fs.close.__promisify__ = universalify(_close);
+export const close: typeof fs.close.__promisify__ & typeof fs.close = universalify(_close); // NB: the order of __promisify__ is reversed here because the callback to fs.close() is marked optional.
 /**
  * Asynchronous file open. See the POSIX [`open(2)`](http://man7.org/linux/man-pages/man2/open.2.html) documentation for more details.
  *
