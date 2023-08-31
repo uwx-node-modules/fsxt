@@ -15,6 +15,44 @@ import pkg from './package.json' assert { type: 'json' };
 import { builtinModules } from 'module';
 import path from 'path';
 import bundleSize from 'rollup-plugin-bundle-size';
+import alias from '@rollup/plugin-alias';
+import { existsSync } from 'fs';
+
+/**
+ *
+ * @template {Function} T
+ * @param {T | { handler?: T }} hook
+ * @returns {T | null}
+ */
+function getHookFunction(hook) {
+  if (typeof hook === 'function') {
+    return hook;
+  }
+  if (hook && 'handler' in hook && typeof hook.handler === 'function') {
+    return hook.handler;
+  }
+  return null;
+}
+
+/**
+ * @template T
+ * @typedef {T extends Function ? T : never} MapToFunction
+ */
+
+/**
+ *
+ * @param {MapToFunction<import('rollup').PluginHooks['resolveId']> | { resolveId?: import('rollup').PluginHooks['resolveId'] } | null | undefined} customResolver
+ * @returns {MapToFunction<import('rollup').PluginHooks['resolveId']> | null}
+ */
+function resolveCustomResolver(customResolver) {
+  if (typeof customResolver === 'function') {
+    return customResolver;
+  }
+  if (customResolver?.resolveId) {
+    return getHookFunction(customResolver.resolveId);
+  }
+  return null;
+}
 
 /** @type {import('rollup').RollupOptions[]} */
 const config = [
@@ -39,6 +77,26 @@ const config = [
     ],
     // output: [{ file: 'out/my-library.d.ts', format: 'es' }],
     plugins: [
+      {
+        name: 'foo',
+        async resolveId(importee, importer, resolveOptions) {
+          /** @type {import('rollup').ResolveIdResult} */
+          let result = await resolveCustomResolver(nodeResolve())?.call(this, importee, importer, resolveOptions);
+          console.log(importee, importer, result);
+
+          result = typeof result === 'string' ? result : result ? result.id : undefined;
+
+          if (!result) return null;
+
+          result = path.normalize(result);
+
+          const rollupver = path.resolve(path.dirname(result), path.basename(result, '.js') + '_rollup.js');
+          if (existsSync(rollupver)) {
+            return this.resolve(rollupver, importer, Object.assign({ skipSelf: true }, resolveOptions)).then((resolved) => resolved || { id: rollupver });
+          }
+          return null;
+        }
+      },
       nodeResolve(),
       commonjs(),
       swc({
@@ -58,7 +116,7 @@ const config = [
               passes: 4,
               join_vars: false,
               keep_classnames: true,
-              keep_fnames: true,
+              keep_fnames: false,
               keep_infinity: true,
               module: true,
               unsafe: true,
