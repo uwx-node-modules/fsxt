@@ -3,6 +3,8 @@
 Improved fork of `fs-extra` with extra [sic] features (and semicolons!)
 `fsxt` provides support for node.js 10 and above.
 
+![npm](https://img.shields.io/npm/v/fsxt)
+[![Node.js CI](https://github.com/uwx-node-modules/fsxt/actions/workflows/ci.yml/badge.svg)](https://github.com/uwx-node-modules/fsxt/actions/workflows/ci.yml)
 [![GitHub issues](https://img.shields.io/github/issues/uwx-node-modules/fsxt.svg)](https://github.com/uwx-node-modules/fsxt/issues)
 [![GitHub closed issues](https://img.shields.io/github/issues-closed/uwx-node-modules/fsxt.svg)](https://github.com/uwx-node-modules/fsxt/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/uwx-node-modules/fsxt.svg)](https://github.com/uwx-node-modules/fsxt/pulls)

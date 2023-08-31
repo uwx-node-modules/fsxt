@@ -1642,6 +1642,10 @@ function* _diveSyncWorker(directory: string, options: DiveOptions = {}): Generat
             continue;
         }
 
+        if (item.path === undefined || item.name === undefined) {
+            throw new Error(`Undefined: ${item.path} / ${item.name} / ${item}`);
+        }
+
         const path = pathResolve(item.path, item.name);
         if (item.isDirectory()) {
             if (options.recursive) {

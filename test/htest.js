@@ -648,20 +648,26 @@ describe('fs', () => {
       });
       it('normal functionality, callback', done => {
         const visited = [];
+        let errored = false;
         fs.dive(t, (err, e) => {
+          if (errored) return;
           if (err) {
+            errored = true;
             done(err);
             return;
           }
           if (visited.indexOf(/** @type {string} */ (e)) > -1) {
+            errored = true;
             done(new Error('Visited contains ' + e + ' twice'));
           }
           if (paths.indexOf(/** @type {string} */ (e)) > -1) {
             visited.push(e);
           } else {
+            errored = true;
             done(new Error('No ' + e + ' in paths.'));
           }
         }, () => {
+          if (errored) return;
           done();
         });
       });
