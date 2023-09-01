@@ -1,13 +1,11 @@
 'use strict';
 
-import { basename, resolve as pathResolve } from 'path';
-import { type TransformOptions } from 'stream';
-import { type CustomPromisify, promisify } from 'util';
-import type { ReadFileOptions, MapStructureResult, ErrorCallback, DiveActionCallback, DiveActionPromise, DiveOptions, MapChildrenFunction, MapStructureFunction } from './types';
+import { resolve as pathResolve } from 'path';
+import type { ReadFileOptions, MapStructureResult, ErrorCallback, DiveActionCallback, DiveActionPromise, DiveOptions, MapChildrenFunction, MapStructureFunction, JsonReadOptions, JsonWriteOptions } from './types';
 
 // export types
 export type * from './types';
-export type { CopyOptions, CopyOptionsSync, EnsureDirOptions, SymlinkType, MoveOptions } from 'fs-extra';
+export type { CopyOptions, CopyOptionsSync, EnsureDirOptions, SymlinkType, MoveOptions, JsonOutputOptions } from 'fs-extra';
 export * from './fs';
 
 // export other stuff
@@ -20,6 +18,8 @@ export { move, moveSync } from '../lib/move';
 export { outputFile, outputFileSync } from '../lib/output-file';
 export { remove, removeSync } from '../lib/remove';
 export { exists } from './fs/exists';
+
+import { outputFile, outputFileSync } from '../lib/output-file';
 
 import * as fs from './fs';
 
@@ -66,10 +66,9 @@ import {
     cp as _cp,
 
     readdirSync, readFileSync, statSync, writeFileSync,
-
-    type promises as fsPromises,
 } from 'graceful-fs';
-import { ReadCallback, WriteCallback } from 'jsonfile';
+import type { ReadCallback, WriteCallback } from 'jsonfile';
+import type { JsonOutputOptions } from 'fs-extra';
 import { universalify } from './fs/universalify';
 
 const Array_fromAsync = Array.fromAsync ?? async function fromAsync<T, U>(iterableOrArrayLike: AsyncIterable<T> | Iterable<T> | ArrayLike<T>, mapperFn: (value: Awaited<T>) => U): Promise<Awaited<U | T>[]> {
@@ -682,33 +681,6 @@ function combine<T extends unknown[]>(fn1?: (...args: T) => boolean, fn2?: (...a
     }
 }
 
-export type JsonReadOptions =
-    | {
-        encoding?: BufferEncoding | null;
-        flag?: string;
-        throws?: boolean;
-        fs?: typeof import('fs');
-        reviver?: (key: any, value: any) => any;
-    }
-    | BufferEncoding
-    | null
-    | undefined;
-
-export type JsonWriteOptions =
-    | {
-        encoding?: BufferEncoding | null;
-        mode?: string | number;
-        flag?: string;
-        fs?: typeof import('fs');
-        EOL?: string;
-        finalEOL?: boolean;
-        spaces?: string | number;
-        replacer?: ((key: string, value: any) => any);
-    }
-    | BufferEncoding
-    | null
-    | undefined;
-
 async function _readJson<T>(file: fs.PathOrFileDescriptor, options: JsonReadOptions): Promise<T | null> {
     if (typeof options === 'string') {
         options = { encoding: options };
@@ -740,6 +712,66 @@ async function _readJson<T>(file: fs.PathOrFileDescriptor, options: JsonReadOpti
 }
 
 /**
+ * Reads a JSON file and then parses it into an object.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * // With a callback:
+ * fs.readJson('./package.json', (err, packageObj) => {
+ *   if (err) console.error(err)
+ *   console.log(packageObj.version) // => 0.1.3
+ * })
+ *
+ * // With Promises:
+ * fs.readJson('./package.json')
+ *   .then(packageObj => {
+ *     console.log(packageObj.version) // => 0.1.3
+ *   })
+ *   .catch(err => {
+ *     console.error(err)
+ *   })
+ *
+ * // With async/await:
+ * async function asyncAwait () {
+ *   try {
+ *     const packageObj = await fs.readJson('./package.json')
+ *     console.log(packageObj.version) // => 0.1.3
+ *   } catch (err) {
+ *     console.error(err)
+ *   }
+ * }
+ *
+ * asyncAwait()
+ *
+ * // `readJsonSync()` can take a `throws` option set to `false` and it won't throw if the JSON is invalid. Example:
+ * const file = '/tmp/some-invalid.json'
+ * const data = '{not valid JSON'
+ * fs.writeFileSync(file, data)
+ *
+ * // With a callback:
+ * fs.readJson(file, { throws: false }, (err, obj) => {
+ *   if (err) console.error(err)
+ *   console.log(obj) // => null
+ * })
+ *
+ * // With Promises:
+ * fs.readJson(file, { throws: false })
+ *   .then(obj => {
+ *     console.log(obj) // => null
+ *   })
+ *   .catch(err => {
+ *     console.error(err) // Not called
+ *   })
+ *
+ * // With async/await:
+ * async function asyncAwaitThrows () {
+ *   const obj = await fs.readJson(file, { throws: false })
+ *   console.log(obj) // => null
+ * }
+ *
+ * asyncAwaitThrows()
+ *
  * @see {@link https://github.com/jprichardson/node-jsonfile#readfilefilename-options-callback}
  */
 export function readJson(file: fs.PathOrFileDescriptor, options: JsonReadOptions, callback: ReadCallback): void;
@@ -771,6 +803,22 @@ function stripBom(content: string | Buffer): string {
 }
 
 /**
+ * Reads a JSON file and then parses it into an object.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const packageObj = fs.readJsonSync('./package.json')
+ * console.log(packageObj.version) // => 2.0.0
+ *
+ * // `readJsonSync()` can take a `throws` option set to `false` and it won't throw if the JSON is invalid. Example:
+ * const file = '/tmp/some-invalid.json'
+ * const data = '{not valid JSON'
+ * fs.writeFileSync(file, data)
+ *
+ * const obj = fs.readJsonSync(file, { throws: false })
+ * console.log(obj) // => null
+ *
  * @see {@link https://github.com/jprichardson/node-jsonfile#readfilesyncfilename-options}
  */
 export function readJsonSync(file: fs.PathOrFileDescriptor, options?: JsonReadOptions): any {
@@ -812,6 +860,38 @@ async function _writeJson(file: fs.PathOrFileDescriptor, obj: any, options: Json
 }
 
 /**
+ * Writes an object to a JSON file.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * // With a callback:
+ * fs.writeJson('./package.json', {name: 'fs-extra'}, err => {
+ *   if (err) return console.error(err)
+ *   console.log('success!')
+ * })
+ *
+ * // With Promises:
+ * fs.writeJson('./package.json', {name: 'fs-extra'})
+ *   .then(() => {
+ *     console.log('success!')
+ *   })
+ *   .catch(err => {
+ *     console.error(err)
+ *   })
+ *
+ * // With async/await:
+ * async function asyncAwait () {
+ *   try {
+ *     await fs.writeJson('./package.json', {name: 'fs-extra'})
+ *     console.log('success!')
+ *   } catch (err) {
+ *     console.error(err)
+ *   }
+ * }
+ *
+ * asyncAwait()
+ *
  * @see {@link https://github.com/jprichardson/node-jsonfile#writefilefilename-obj-options-callback}
  */
 export function writeJson(file: fs.PathOrFileDescriptor, obj: any, options: JsonWriteOptions, callback: WriteCallback): void;
@@ -830,6 +910,13 @@ export function writeJson(file: fs.PathOrFileDescriptor, obj: any, o1?: WriteCal
 }
 
 /**
+ * Writes an object to a JSON file.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * fs.writeJsonSync('./package.json', {name: 'fs-extra'})
+ *
  * @see {@link https://github.com/jprichardson/node-jsonfile#writefilesyncfilename-obj-options}
  */
 export function writeJsonSync(file: fs.PathOrFileDescriptor, obj: any, options?: JsonWriteOptions): void {
@@ -841,4 +928,81 @@ export function writeJsonSync(file: fs.PathOrFileDescriptor, obj: any, options?:
 
     const str = stringify(obj, options ?? {});
     _writeFileSync(file, str, options);
+}
+
+/**
+ * Almost the same as `writeJson`, except that if the directory does not exist, it's created.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const file = '/tmp/this/path/does/not/exist/file.json'
+ *
+ * // With a callback:
+ * fs.outputJson(file, {name: 'JP'}, err => {
+ *   console.log(err) // => null
+ *
+ *   fs.readJson(file, (err, data) => {
+ *     if (err) return console.error(err)
+ *     console.log(data.name) // => JP
+ *   })
+ * })
+ *
+ * // With Promises:
+ * fs.outputJson(file, {name: 'JP'})
+ *   .then(() => fs.readJson(file))
+ *   .then(data => {
+ *     console.log(data.name) // => JP
+ *   })
+ *   .catch(err => {
+ *     console.error(err)
+ *   })
+ *
+ * // With async/await:
+ * async function asyncAwait () {
+ *   try {
+ *     await fs.outputJson(file, {name: 'JP'})
+ *
+ *     const data = await fs.readJson(file)
+ *
+ *     console.log(data.name) // => JP
+ *   } catch (err) {
+ *     console.error(err)
+ *   }
+ * }
+ *
+ * asyncAwait()
+ */
+export function outputJson(file: string, data: any, options?: JsonOutputOptions): Promise<void>;
+export function outputJson(file: string, data: any, options: JsonOutputOptions, callback: fs.NoParamCallback): void;
+export function outputJson(file: string, data: any, callback: fs.NoParamCallback): void;
+export function outputJson(file: string, data: any, optionsOrCallback?: JsonOutputOptions | fs.NoParamCallback, callback?: fs.NoParamCallback): void | Promise<void> {
+    callback = callback ?? (typeof optionsOrCallback === 'function' ? optionsOrCallback : undefined);
+    const options = typeof optionsOrCallback === 'object' ? optionsOrCallback : {};
+
+    if (!callback) {
+        return new Promise((resolve, reject) => {
+            outputJson(file, str, options, err => err ? reject(err) : resolve());
+        });
+    }
+
+    const str = stringify(data, options);
+    outputFile(file, str, options, callback);
+}
+
+/**
+ * Almost the same as `writeJsonSync`, except that if the directory does not exist, it's created.
+ *
+ * @example
+ * import * as fs from 'fs-extra'
+ *
+ * const file = '/tmp/this/path/does/not/exist/file.json'
+ * fs.outputJsonSync(file, {name: 'JP'})
+ *
+ * const data = fs.readJsonSync(file)
+ * console.log(data.name) // => JP
+ */
+export function outputJsonSync(file: string, data: any, options: JsonOutputOptions = {}): void {
+    const str = stringify(data, options);
+    outputFileSync(file, str, options);
 }
