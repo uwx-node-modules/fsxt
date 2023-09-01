@@ -1,7 +1,7 @@
 # fsxt
 
-Improved fork of `fs-extra` with extra [sic] features (and semicolons!)
-`fsxt` provides support for node.js 10 and above.
+Improved fork of `fs-extra` with extra [sic] features!
+`fsxt` provides support for node.js 16 and above.
 
 ![npm](https://img.shields.io/npm/v/fsxt)
 [![Node.js CI](https://github.com/uwx-node-modules/fsxt/actions/workflows/ci.yml/badge.svg)](https://github.com/uwx-node-modules/fsxt/actions/workflows/ci.yml)
@@ -57,7 +57,12 @@ const fs = require('fs');
 const fsxt = require('fsxt');
 ```
 
-Improvements on fs
+Breaking changes from `node:fs`
+------------------
+
+The callback-based implementation of `fs.exists` now uses a propper error-first callback system like `mz/fs`.
+
+Improvements on `node:fs`
 ------------------
 All the improvements from [`mz/fs`](https://github.com/normalize/mz/blob/master/fs.js) are included,
 which also includes improvements from [`graceful-fs`](https://github.com/isaacs/node-graceful-fs#improvements-over-fs-module).
@@ -118,104 +123,10 @@ Methods
 -------
 The documentation is available at https://uwx-node-modules.github.io/fsxt/.
 
-The core node.js [`fs`](http://nodejs.org/docs/latest/api/fs.html) module methods are also
-available; although the node.js documentation doesn't show Promise overloads of the async methods,
-you can find them at:
-
-<!--
-generator snippet for nodejs core methods (run in http://nodejs.org/docs/latest/api/fs.html)
-copy($$('h2').map(e => ({
-	text: e.firstChild.textContent,
-	mark: e.querySelector('.mark') && e.querySelector('.mark').href || null
-})).filter(e => e.mark).map(e => `[${e.text.replace(/[\(\[\]\)]/g, '\\$&')}](${e.mark})`))
--->
-- [Class: fs.Stats](https://nodejs.org/api/fs.html#fs_class_fs_stats)
-- [fs.access\(path\[, mode\], callback\)](https://nodejs.org/api/fs.html#fs_fs_access_path_mode_callback)
-- [fs.accessSync\(path\[, mode\]\)](https://nodejs.org/api/fs.html#fs_fs_accesssync_path_mode)
-- [fs.appendFile\(path, data\[, options\], callback\)](https://nodejs.org/api/fs.html#fs_fs_appendfile_path_data_options_callback)
-- [fs.appendFileSync\(path, data\[, options\]\)](https://nodejs.org/api/fs.html#fs_fs_appendfilesync_path_data_options)
-- [fs.chmod\(path, mode, callback\)](https://nodejs.org/api/fs.html#fs_fs_chmod_path_mode_callback)
-- [fs.chmodSync\(path, mode\)](https://nodejs.org/api/fs.html#fs_fs_chmodsync_path_mode)
-- [fs.chown\(path, uid, gid, callback\)](https://nodejs.org/api/fs.html#fs_fs_chown_path_uid_gid_callback)
-- [fs.chownSync\(path, uid, gid\)](https://nodejs.org/api/fs.html#fs_fs_chownsync_path_uid_gid)
-- [fs.close\(fd, callback\)](https://nodejs.org/api/fs.html#fs_fs_close_fd_callback)
-- [fs.closeSync\(fd\)](https://nodejs.org/api/fs.html#fs_fs_closesync_fd)
-- [fs.constants](https://nodejs.org/api/fs.html#fs_fs_constants)
-- [fs.copyFile\(src, dest\[, flags\], callback\)](https://nodejs.org/api/fs.html#fs_fs_copyfile_src_dest_flags_callback)
-- [fs.copyFileSync\(src, dest\[, flags\]\)](https://nodejs.org/api/fs.html#fs_fs_copyfilesync_src_dest_flags)
-- [fs.createReadStream\(path\[, options\]\)](https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options)
-- [fs.createWriteStream\(path\[, options\]\)](https://nodejs.org/api/fs.html#fs_fs_createwritestream_path_options)
-- [fs.exists\(path, callback\)](https://nodejs.org/api/fs.html#fs_fs_exists_path_callback)
-- [fs.existsSync\(path\)](https://nodejs.org/api/fs.html#fs_fs_existssync_path)
-- [fs.fchmod\(fd, mode, callback\)](https://nodejs.org/api/fs.html#fs_fs_fchmod_fd_mode_callback)
-- [fs.fchmodSync\(fd, mode\)](https://nodejs.org/api/fs.html#fs_fs_fchmodsync_fd_mode)
-- [fs.fchown\(fd, uid, gid, callback\)](https://nodejs.org/api/fs.html#fs_fs_fchown_fd_uid_gid_callback)
-- [fs.fchownSync\(fd, uid, gid\)](https://nodejs.org/api/fs.html#fs_fs_fchownsync_fd_uid_gid)
-- [fs.fdatasync\(fd, callback\)](https://nodejs.org/api/fs.html#fs_fs_fdatasync_fd_callback)
-- [fs.fdatasyncSync\(fd\)](https://nodejs.org/api/fs.html#fs_fs_fdatasyncsync_fd)
-- [fs.fstat\(fd\[, options\], callback\)](https://nodejs.org/api/fs.html#fs_fs_fstat_fd_options_callback)
-- [fs.fstatSync\(fd\[, options\]\)](https://nodejs.org/api/fs.html#fs_fs_fstatsync_fd_options)
-- [fs.fsync\(fd, callback\)](https://nodejs.org/api/fs.html#fs_fs_fsync_fd_callback)
-- [fs.fsyncSync\(fd\)](https://nodejs.org/api/fs.html#fs_fs_fsyncsync_fd)
-- [fs.ftruncate\(fd\[, len\], callback\)](https://nodejs.org/api/fs.html#fs_fs_ftruncate_fd_len_callback)
-- [fs.ftruncateSync\(fd\[, len\]\)](https://nodejs.org/api/fs.html#fs_fs_ftruncatesync_fd_len)
-- [fs.futimes\(fd, atime, mtime, callback\)](https://nodejs.org/api/fs.html#fs_fs_futimes_fd_atime_mtime_callback)
-- [fs.futimesSync\(fd, atime, mtime\)](https://nodejs.org/api/fs.html#fs_fs_futimessync_fd_atime_mtime)
-- [fs.lchmod\(path, mode, callback\)](https://nodejs.org/api/fs.html#fs_fs_lchmod_path_mode_callback)
-- [fs.lchmodSync\(path, mode\)](https://nodejs.org/api/fs.html#fs_fs_lchmodsync_path_mode)
-- [fs.lchown\(path, uid, gid, callback\)](https://nodejs.org/api/fs.html#fs_fs_lchown_path_uid_gid_callback)
-- [fs.lchownSync\(path, uid, gid\)](https://nodejs.org/api/fs.html#fs_fs_lchownsync_path_uid_gid)
-- [fs.link\(existingPath, newPath, callback\)](https://nodejs.org/api/fs.html#fs_fs_link_existingpath_newpath_callback)
-- [fs.linkSync\(existingPath, newPath\)](https://nodejs.org/api/fs.html#fs_fs_linksync_existingpath_newpath)
-- [fs.lstat\(path\[, options\], callback\)](https://nodejs.org/api/fs.html#fs_fs_lstat_path_options_callback)
-- [fs.lstatSync\(path\[, options\]\)](https://nodejs.org/api/fs.html#fs_fs_lstatsync_path_options)
-- [fs.mkdir\(path\[, options\], callback\)](https://nodejs.org/api/fs.html#fs_fs_mkdir_path_options_callback)
-- [fs.mkdirSync\(path\[, options\]\)](https://nodejs.org/api/fs.html#fs_fs_mkdirsync_path_options)
-- [fs.mkdtemp\(prefix\[, options\], callback\)](https://nodejs.org/api/fs.html#fs_fs_mkdtemp_prefix_options_callback)
-- [fs.mkdtempSync\(prefix\[, options\]\)](https://nodejs.org/api/fs.html#fs_fs_mkdtempsync_prefix_options)
-- [fs.open\(path\[, flags\[, mode\]\], callback\)](https://nodejs.org/api/fs.html#fs_fs_open_path_flags_mode_callback)
-- [fs.openSync\(path\[, flags, mode\]\)](https://nodejs.org/api/fs.html#fs_fs_opensync_path_flags_mode)
-- [fs.read\(fd, buffer, offset, length, position, callback\)](https://nodejs.org/api/fs.html#fs_fs_read_fd_buffer_offset_length_position_callback)
-- [fs.readdir\(path\[, options\], callback\)](https://nodejs.org/api/fs.html#fs_fs_readdir_path_options_callback)
-- [fs.readdirSync\(path\[, options\]\)](https://nodejs.org/api/fs.html#fs_fs_readdirsync_path_options)
-- [fs.readFile\(path\[, options\], callback\)](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback)
-- [fs.readFileSync\(path\[, options\]\)](https://nodejs.org/api/fs.html#fs_fs_readfilesync_path_options)
-- [fs.readlink\(path\[, options\], callback\)](https://nodejs.org/api/fs.html#fs_fs_readlink_path_options_callback)
-- [fs.readlinkSync\(path\[, options\]\)](https://nodejs.org/api/fs.html#fs_fs_readlinksync_path_options)
-- [fs.readSync\(fd, buffer, offset, length, position\)](https://nodejs.org/api/fs.html#fs_fs_readsync_fd_buffer_offset_length_position)
-- [fs.realpath\(path\[, options\], callback\)](https://nodejs.org/api/fs.html#fs_fs_realpath_path_options_callback)
-- [fs.realpath.native\(path\[, options\], callback\)](https://nodejs.org/api/fs.html#fs_fs_realpath_native_path_options_callback)
-- [fs.realpathSync\(path\[, options\]\)](https://nodejs.org/api/fs.html#fs_fs_realpathsync_path_options)
-- [fs.realpathSync.native\(path\[, options\]\)](https://nodejs.org/api/fs.html#fs_fs_realpathsync_native_path_options)
-- [fs.rename\(oldPath, newPath, callback\)](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback)
-- [fs.renameSync\(oldPath, newPath\)](https://nodejs.org/api/fs.html#fs_fs_renamesync_oldpath_newpath)
-- [fs.rmdir\(path, callback\)](https://nodejs.org/api/fs.html#fs_fs_rmdir_path_callback)
-- [fs.rmdirSync\(path\)](https://nodejs.org/api/fs.html#fs_fs_rmdirsync_path)
-- [fs.stat\(path\[, options\], callback\)](https://nodejs.org/api/fs.html#fs_fs_stat_path_options_callback)
-- [fs.statSync\(path\[, options\]\)](https://nodejs.org/api/fs.html#fs_fs_statsync_path_options)
-- [fs.symlink\(target, path\[, type\], callback\)](https://nodejs.org/api/fs.html#fs_fs_symlink_target_path_type_callback)
-- [fs.symlinkSync\(target, path\[, type\]\)](https://nodejs.org/api/fs.html#fs_fs_symlinksync_target_path_type)
-- [fs.truncate\(path\[, len\], callback\)](https://nodejs.org/api/fs.html#fs_fs_truncate_path_len_callback)
-- [fs.truncateSync\(path\[, len\]\)](https://nodejs.org/api/fs.html#fs_fs_truncatesync_path_len)
-- [fs.unlink\(path, callback\)](https://nodejs.org/api/fs.html#fs_fs_unlink_path_callback)
-- [fs.unlinkSync\(path\)](https://nodejs.org/api/fs.html#fs_fs_unlinksync_path)
-- [fs.unwatchFile\(filename\[, listener\]\)](https://nodejs.org/api/fs.html#fs_fs_unwatchfile_filename_listener)
-- [fs.utimes\(path, atime, mtime, callback\)](https://nodejs.org/api/fs.html#fs_fs_utimes_path_atime_mtime_callback)
-- [fs.utimesSync\(path, atime, mtime\)](https://nodejs.org/api/fs.html#fs_fs_utimessync_path_atime_mtime)
-- [fs.watch\(filename\[, options\]\[, listener\]\)](https://nodejs.org/api/fs.html#fs_fs_watch_filename_options_listener)
-- [fs.watchFile\(filename\[, options\], listener\)](https://nodejs.org/api/fs.html#fs_fs_watchfile_filename_options_listener)
-- [fs.write\(fd, buffer\[, offset\[, length\[, position\]\]\], callback\)](https://nodejs.org/api/fs.html#fs_fs_write_fd_buffer_offset_length_position_callback)
-- [fs.write\(fd, string\[, position\[, encoding\]\], callback\)](https://nodejs.org/api/fs.html#fs_fs_write_fd_string_position_encoding_callback)
-- [fs.writeFile\(file, data\[, options\], callback\)](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback)
-- [fs.writeFileSync\(file, data\[, options\]\)](https://nodejs.org/api/fs.html#fs_fs_writefilesync_file_data_options)
-- [fs.writeSync\(fd, buffer\[, offset\[, length\[, position\]\]\]\)](https://nodejs.org/api/fs.html#fs_fs_writesync_fd_buffer_offset_length_position)
-- [fs.writeSync\(fd, string\[, position\[, encoding\]\]\)](https://nodejs.org/api/fs.html#fs_fs_writesync_fd_string_position_encoding)
-
 Third Party
 -----------
 ### File / Directory Watching
 If you want to watch for changes to files or directories, then you should use [chokidar](https://github.com/paulmillr/chokidar).
-
 
 ### Misc.
 - [mfs](https://github.com/cadorn/mfs) - Monitor your fsxt calls.
