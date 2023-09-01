@@ -3,4 +3,5 @@
 if (process.cwd().endsWith('build')) {
   process.chdir('..');
 }
-require('../test/test.js');
+
+import '../test/test.js';
