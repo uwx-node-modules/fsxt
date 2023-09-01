@@ -2,6 +2,8 @@
 
 import assert, { ok, equal, deepEqual } from 'assert';
 import { inspect } from 'util';
+import VError from 'verror';
+
 const t = './test/fsxt_temp';
 const timeout = (/** @type {number | undefined} */ ms) => new Promise(res => setTimeout(res, ms));
 
@@ -630,6 +632,7 @@ describe('fs', () => {
                 });
             });
             it('normal functionality, Promise', async () => {
+                /** @type {string[]} */
                 const visited = [];
                 await fs.dive(t, e => {
                     if (visited.indexOf(e) > -1) {
@@ -645,31 +648,35 @@ describe('fs', () => {
                     throw new Error('' + visited);
                 }
             });
-            it('normal functionality, callback', done => {
+            it('normal functionality, callback', () => new Promise((resolve, reject) => {
+                /** @type {string[]} */
                 const visited = [];
-                let errored = false;
+
+                /** @type {Error[]} */
+                const errors = [];
                 fs.dive(t, (err, e) => {
-                    if (errored) return;
                     if (err) {
-                        errored = true;
-                        done(err);
+                        errors.push(err);
                         return;
                     }
                     if (visited.indexOf(/** @type {string} */ (e)) > -1) {
-                        errored = true;
-                        done(new Error('Visited contains ' + e + ' twice'));
+                        errors.push(new VError('Visited contains ' + e + ' twice'));
+                        return;
                     }
                     if (paths.indexOf(/** @type {string} */ (e)) > -1) {
-                        visited.push(e);
+                        visited.push(/** @type {string} */ (e));
                     } else {
-                        errored = true;
-                        done(new Error('No ' + e + ' in paths.'));
+                        errors.push(new VError('No ' + e + ' in paths.'));
+                        return;
                     }
                 }, () => {
-                    if (errored) return;
-                    done();
+                    if (errors.length > 0) {
+                        reject(new Error(inspect(errors)));
+                    } else {
+                        resolve(undefined);
+                    }
                 });
-            });
+            }));
         });
         describe('.readLines', () => {
             it('normal functionality, Promise', async () => {
