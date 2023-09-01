@@ -61,6 +61,12 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/no-unsafe-return': 'off',
+        '@typescript-eslint/no-unsafe-argument': 'off',
+        '@typescript-eslint/restrict-template-expressions': 'off',
+        '@typescript-eslint/await-thenable': 'off',
+        'new-cap': 'off',
+        '@typescript-eslint/no-unsafe-call': 'off',
+        'operator-linebreak': ['error', 'before'],
         'strict': [
             'error',
             'never'
