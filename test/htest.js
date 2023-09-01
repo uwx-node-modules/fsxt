@@ -3,11 +3,12 @@
 import assert, { ok, equal, deepEqual } from 'assert';
 import { inspect } from 'util';
 import VError from 'verror';
+import path from 'path';
 
 const t = './test/fsxt_temp';
 const timeout = (/** @type {number | undefined} */ ms) => new Promise(res => setTimeout(res, ms));
 
-import * as fs from '..';
+import * as fs from '@fsxt/index';
 
 describe('fs', () => {
     fs.removeSync(t);
@@ -567,8 +568,6 @@ describe('fs', () => {
             });
         });
         describe('.dive', () => {
-            // require('path').resolve('.')
-            const path = require('path');
             const paths = [
                 path.resolve(t + '/brap6/8/9'),
                 path.resolve(t + '/brap6/1/2/3'),
@@ -671,7 +670,7 @@ describe('fs', () => {
                     }
                 }, () => {
                     if (errors.length > 0) {
-                        reject(new Error(inspect(errors)));
+                        reject(new VError.MultiError(errors));
                     } else {
                         resolve(undefined);
                     }
