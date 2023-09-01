@@ -1,4 +1,4 @@
-import { access } from "./index";
+import { access } from './index';
 
 /**
  * Test whether or not the given path exists by checking with the file system. Like
