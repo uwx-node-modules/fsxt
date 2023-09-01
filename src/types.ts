@@ -88,3 +88,30 @@ export interface DiveOptions {
     /** If set to a string or RegExp, all files and directories that match will be ignored. */
     ignore?: false | string | RegExp;
 }
+
+export type JsonReadOptions =
+    | {
+        encoding?: BufferEncoding | null;
+        flag?: string;
+        throws?: boolean;
+        fs?: typeof import('fs');
+        reviver?: (key: any, value: any) => any;
+    }
+    | BufferEncoding
+    | null
+    | undefined;
+
+export type JsonWriteOptions =
+    | {
+        encoding?: BufferEncoding | null;
+        mode?: string | number;
+        flag?: string;
+        fs?: typeof import('fs');
+        EOL?: string;
+        finalEOL?: boolean;
+        spaces?: string | number;
+        replacer?: ((key: string, value: any) => any);
+    }
+    | BufferEncoding
+    | null
+    | undefined;
