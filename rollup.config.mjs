@@ -82,7 +82,7 @@ const config = [
         async resolveId(importee, importer, resolveOptions) {
           /** @type {import('rollup').ResolveIdResult} */
           let result = await resolveCustomResolver(nodeResolve())?.call(this, importee, importer, resolveOptions);
-          console.log(importee, importer, result);
+          // console.log(importee, importer, result);
 
           result = typeof result === 'string' ? result : result ? result.id : undefined;
 
