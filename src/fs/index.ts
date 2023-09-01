@@ -680,7 +680,7 @@ export const futimes: typeof fs.futimes & typeof fs.futimes.__promisify__ = univ
  * @see {@link fs.write}
  * @see {@link fsPromises.write}
  */
-export const write: typeof fs.write & typeof fs.write.__promisify__ = universalify(_write);
+export const write: typeof fs.write & typeof fs.write.__promisify__ = universalify(_write, (bytesWritten, buffer) => ({bytesWritten, buffer}));
 /**
  * Read data from the file specified by `fd`.
  *
@@ -700,7 +700,7 @@ export const write: typeof fs.write & typeof fs.write.__promisify__ = universali
  * @see {@link fs.read}
  * @see {@link fsPromises.read}
  */
-export const read: typeof fs.read & typeof fs.read.__promisify__ = universalify(_read);
+export const read: typeof fs.read & typeof fs.read.__promisify__ = universalify(_read, (bytesRead, buffer) => ({bytesRead, buffer}));
 /**
  * Asynchronously reads the entire contents of a file.
  *
@@ -1117,7 +1117,7 @@ export const copyFile: typeof fs.copyFile & typeof fs.copyFile.__promisify__ = u
  * @see {@link fs.writev}
  * @see {@link fsPromises.writev}
  */
-export const writev: typeof fs.writev & typeof fs.writev.__promisify__ = universalify(_writev);
+export const writev: typeof fs.writev & typeof fs.writev.__promisify__ = universalify(_writev, (bytesWritten, buffers) => ({bytesWritten, buffers}));
 /**
  * Read from a file specified by `fd` and write to an array of `ArrayBufferView`s
  * using `readv()`.
@@ -1135,7 +1135,7 @@ export const writev: typeof fs.writev & typeof fs.writev.__promisify__ = univers
  * @see {@link fs.readv}
  * @see {@link fsPromises.readv}
  */
-export const readv: typeof fs.readv & typeof fs.readv.__promisify__ = universalify(_readv);
+export const readv: typeof fs.readv & typeof fs.readv.__promisify__ = universalify(_readv, (bytesRead, buffers) => ({bytesRead, buffers}));
 /**
  * Asynchronously open a directory. See the POSIX [`opendir(3)`](http://man7.org/linux/man-pages/man3/opendir.3.html) documentation for
  * more details.
