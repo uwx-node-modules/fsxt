@@ -430,7 +430,14 @@ export const readlink: typeof fs.readlink & typeof fs.readlink.__promisify__ = u
  * @see {@link fs.realpath}
  * @see {@link fsPromises.realpath}
  */
-export const realpath: typeof fs.realpath & typeof fs.realpath.__promisify__ = universalify(_realpath);
+export const realpath: typeof fs.realpath & typeof fs.realpath.__promisify__ & {
+    native: {
+        (path: fs.PathLike, options: fs.EncodingOption): Promise<string>;
+        (path: fs.PathLike, options: fs.BufferEncodingOption): Promise<Buffer>;
+        (path: fs.PathLike, options: fs.EncodingOption): Promise<string | Buffer>;
+        (path: fs.PathLike): Promise<string>;
+    }
+} = universalify(_realpath) as any;
 /**
  * Asynchronously removes a file or symbolic link. No arguments other than a
  * possible exception are given to the completion callback.
@@ -1159,3 +1166,12 @@ export const cp: typeof fs.cp & {
     cp(source: string | URL, destination: string | URL): Promise<void>;
     cp(source: string | URL, destination: string | URL, opts: fs.CopyOptions): Promise<void>;
 } = universalify(_cp) as any;
+
+if (typeof _realpath.native === 'function') {
+    realpath.native = universalify(_realpath.native) as any;
+} else {
+    process.emitWarning(
+        'fs.realpath.native is not a function. Is fs being monkey-patched?',
+        'Warning', 'fs-extra-WARN0003'
+    );
+}
