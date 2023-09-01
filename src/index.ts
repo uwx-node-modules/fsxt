@@ -1,5 +1,3 @@
-'use strict';
-
 import { resolve as pathResolve } from 'path';
 import type { ReadFileOptions, MapStructureResult, ErrorCallback, DiveActionCallback, DiveActionPromise, DiveOptions, MapChildrenFunction, MapStructureFunction, JsonReadOptions, JsonWriteOptions } from './types';
 
@@ -18,6 +16,8 @@ export { move, moveSync } from '../lib/move';
 export { outputFile, outputFileSync } from '../lib/output-file';
 export { remove, removeSync } from '../lib/remove';
 export { exists } from './fs/exists';
+
+export { mkdirs as ensureDir, mkdirsSync as ensureDirSync } from '../lib/mkdirs';
 
 import { outputFile, outputFileSync } from '../lib/output-file';
 
@@ -71,15 +71,16 @@ import type { ReadCallback, WriteCallback } from 'jsonfile';
 import type { JsonOutputOptions } from 'fs-extra';
 import { universalify } from './fs/universalify';
 
-const Array_fromAsync = Array.fromAsync ?? async function fromAsync<T, U>(iterableOrArrayLike: AsyncIterable<T> | Iterable<T> | ArrayLike<T>, mapperFn: (value: Awaited<T>) => U): Promise<Awaited<U | T>[]> {
+// eslint-disable-next-line @typescript-eslint/unbound-method, camelcase
+const Array_fromAsync = Array.fromAsync ?? async function fromAsync<T, U>(iterableOrArrayLike: AsyncIterable<T> | Iterable<T | PromiseLike<T>> | ArrayLike<T | PromiseLike<T>>, mapperFn: (value: Awaited<T>) => U | PromiseLike<U>): Promise<Awaited<U | T>[]> {
     const items: Awaited<U | T>[] = [];
     if (mapperFn) {
-        if (Symbol.asyncIterator in iterableOrArrayLike || Symbol.iterator in iterableOrArrayLike) {
+        if (Symbol.asyncIterator in iterableOrArrayLike) {
             for await (const item of iterableOrArrayLike) {
                 items.push(await mapperFn(item));
             }
         } else if (Symbol.iterator in iterableOrArrayLike) {
-            for (const item of iterableOrArrayLike as Iterable<T>) {
+            for (const item of iterableOrArrayLike) {
                 items.push(await mapperFn(await item));
             }
         } else {
@@ -121,28 +122,19 @@ export function resolve(path: string, child: string): string {
         return path + child;
     }
     if (path.indexOf('/') > -1) {
-        return path + '/' + child;
+        return `${path}/${child}`;
     }
     if (path.indexOf('\\') > -1) {
-        return path + '\\' + child;
+        return `${path}\\${child}`;
     }
-    return path + '/' + child;
+    return `${path}/${child}`;
 }
 
 async function* _asyncFilter<T>(iterable: Iterable<T> | (ArrayLike<T> & Iterable<T>), condition: (value: T, index: number, iterable: Iterable<T> | (ArrayLike<T> & Iterable<T>)) => boolean | Promise<boolean>) {
-    if ('length' in iterable) {
-        for (let i = 0; i < iterable.length; i++) {
-            let e = iterable[i];
-            if (await condition(e, i, iterable)) {
-                yield e;
-            }
-        }
-    } else {
-        let i = 0;
-        for (const value of iterable) {
-            if (await condition(value, i++, iterable)) {
-                yield value;
-            }
+    let i = 0;
+    for (const value of iterable) {
+        if (await condition(value, i++, iterable)) {
+            yield value;
         }
     }
 }
@@ -333,7 +325,7 @@ export function forEachChild(
             callback(err);
         } else {
             for (const child of children) {
-                func(child);
+                (func as (filename: string | Buffer) => void)(child);
             }
             callback();
         }
@@ -400,13 +392,51 @@ async function _diveHelper(directory: string, action: DiveActionPromise, options
     }
 }
 
-async function _diveHelperCallback(directory: string, action: DiveActionCallback, options: DiveOptions = {}) {
+async function _diveWorkerCallback(directory: string, action: DiveActionCallback, options: DiveOptions = {}) {
+    console.log(directory);
+
+    let children: fs.Dirent[] | undefined;
+    let err: Error | undefined;
     try {
-        for await (const [file, stat] of _diveWorker(directory, options)) {
-            action(null, file, stat);
+        children = await fs.readdir(directory, { withFileTypes: true });
+    } catch (err1) {
+        err = err1 as Error;
+    }
+
+    if (!children || children.length === 0) {
+        if (options.directories) {
+            action(null, directory, await fs.stat(directory));
         }
-    } catch (err) {
-        action(err as Error);
+    }
+
+    if (err) {
+        action(err);
+        return;
+    }
+
+    for (const item of children!) {
+        if (!options.all && item.name.startsWith('.')) {
+            continue;
+        }
+
+        try {
+            const path = pathResolve(item.path, item.name);
+            if (item.isDirectory()) {
+                if (options.recursive) {
+                    await _diveWorkerCallback(path, action, options);
+                } else if (options.directories) {
+                    if (!options.ignore || !matches(path, options.ignore)) {
+                        action(null, path, await fs.stat(path));
+                    }
+                }
+            } else if (options.files) {
+                if (!options.ignore || !matches(path, options.ignore)) {
+                    action(null, path, await fs.stat(path));
+                }
+            }
+        } catch (err) {
+            action(err as Error);
+        }
     }
 }
 
@@ -463,6 +493,8 @@ export function dive(directory: string, o1: DiveOptions | DiveActionCallback | D
     const action = (!options ? o1 : o2) as DiveActionCallback | DiveActionPromise;
     const complete = (!options ? o2 : o3) as (() => void) | undefined;
 
+    console.log(options, action, complete, action === complete);
+
     options = Object.assign({
         recursive: true,
         all: true,
@@ -473,7 +505,7 @@ export function dive(directory: string, o1: DiveOptions | DiveActionCallback | D
         return _diveHelper(directory, action as DiveActionPromise, options);
     }
 
-    return _diveHelperCallback(directory, action as DiveActionCallback, options)
+    void _diveWorkerCallback(directory, action as DiveActionCallback, options)
         .finally(complete);
 }
 
@@ -688,17 +720,17 @@ async function _readJson<T>(file: fs.PathOrFileDescriptor, options: JsonReadOpti
 
     const _readFile = options?.fs?.readFile ? universalify(options.fs.readFile) : fs.readFile;
 
-    const shouldThrow = options?.throws ?? true;
-
-    let data = stripBom(await _readFile(file, options));
+    const data = stripBom(await _readFile(file, options));
 
     let obj: T;
     try {
         obj = JSON.parse(data, options?.reviver);
     } catch (err) {
+        const shouldThrow = options?.throws ?? true;
+
         if (shouldThrow) {
             if (err instanceof Error) {
-                (err as any).message = `${file}: ${err.message}`;
+                (err as { message: string }).message = `${file}: ${err.message}`;
                 throw err;
             } else {
                 throw new Error(`${file}: ${err}`);
@@ -778,7 +810,7 @@ export function readJson(file: fs.PathOrFileDescriptor, options: JsonReadOptions
 export function readJson(file: fs.PathOrFileDescriptor, callback: ReadCallback): void;
 export function readJson(file: fs.PathOrFileDescriptor, options?: JsonReadOptions): Promise<any>;
 export function readJson(file: fs.PathOrFileDescriptor, o1?: JsonReadOptions | ReadCallback, o2?: ReadCallback): void | Promise<any> {
-    let options = (o2 ?? (typeof o1 !== 'function' ? o1 : undefined)) as JsonReadOptions;
+    const options = (o2 ?? (typeof o1 !== 'function' ? o1 : undefined)) as JsonReadOptions;
     const callback = (o2 ?? (options === undefined ? o1 : undefined)) as ReadCallback | undefined;
 
     if (!callback) {
@@ -798,8 +830,8 @@ function stringify(obj: unknown, { EOL = '\n', finalEOL = true, replacer = undef
 
 function stripBom(content: string | Buffer): string {
     // we do this because JSON.parse would convert it to a utf8 string if encoding wasn't specified
-    if (Buffer.isBuffer(content)) content = content.toString('utf8')
-    return content.replace(/^\uFEFF/, '')
+    if (Buffer.isBuffer(content)) content = content.toString('utf8');
+    return content.replace(/^\uFEFF/, '');
 }
 
 /**
@@ -828,15 +860,15 @@ export function readJsonSync(file: fs.PathOrFileDescriptor, options?: JsonReadOp
 
     const _readFileSync = options?.fs?.readFileSync ?? readFileSync;
 
-    const shouldThrow = options?.throws ?? true;
-
     try {
         const content = stripBom(_readFileSync(file, options));
         return JSON.parse(content, options?.reviver);
     } catch (err) {
+        const shouldThrow = options?.throws ?? true;
+
         if (shouldThrow) {
             if (err instanceof Error) {
-                (err as any).message = `${file}: ${err.message}`;
+                (err as { message: string }).message = `${file}: ${err.message}`;
                 throw err;
             } else {
                 throw new Error(`${file}: ${err}`);
@@ -847,14 +879,14 @@ export function readJsonSync(file: fs.PathOrFileDescriptor, options?: JsonReadOp
     }
 }
 
-async function _writeJson(file: fs.PathOrFileDescriptor, obj: any, options: JsonWriteOptions) {
+async function _writeJson(file: fs.PathOrFileDescriptor, obj: any, options?: JsonWriteOptions) {
     if (typeof options === 'string') {
         options = { encoding: options };
     }
 
     const _writeFile = options?.fs?.writeFile ? universalify(options.fs.writeFile) : fs.writeFile;
 
-    const str = stringify(obj, options!);
+    const str = stringify(obj, options ?? {});
 
     await _writeFile(file, str, options);
 }
@@ -898,7 +930,7 @@ export function writeJson(file: fs.PathOrFileDescriptor, obj: any, options: Json
 export function writeJson(file: fs.PathOrFileDescriptor, obj: any, callback: WriteCallback): void;
 export function writeJson(file: fs.PathOrFileDescriptor, obj: any, options?: JsonWriteOptions): Promise<void>;
 export function writeJson(file: fs.PathOrFileDescriptor, obj: any, o1?: WriteCallback | JsonWriteOptions, o2?: WriteCallback): Promise<void> {
-    let options = (o2 ?? (typeof o1 !== 'function' ? o1 : undefined)) as JsonWriteOptions;
+    const options = (o2 ?? (typeof o1 !== 'function' ? o1 : undefined)) as JsonWriteOptions;
     const callback = (o2 ?? (options === undefined ? o1 : undefined)) as WriteCallback | undefined;
 
     if (!callback) {
@@ -982,7 +1014,7 @@ export function outputJson(file: string, data: any, optionsOrCallback?: JsonOutp
 
     if (!callback) {
         return new Promise((resolve, reject) => {
-            outputJson(file, str, options, err => err ? reject(err) : resolve());
+            outputJson(file, data, options, err => err ? reject(err) : resolve());
         });
     }
 
