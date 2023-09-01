@@ -63,6 +63,7 @@ import {
 
     readdirSync, readFileSync, statSync,
 } from 'graceful-fs';
+import { inspect } from 'util';
 
 export * from './json';
 
@@ -519,7 +520,7 @@ function* _diveSyncWorker(directory: string, options: DiveOptions = {}): Generat
         }
 
         if (item.path === undefined || item.name === undefined) {
-            throw new Error(`Undefined: ${item.path} / ${item.name} / ${item}`);
+            throw new Error(`Undefined: ${item.path} / ${item.name} / ${inspect(item)}`);
         }
 
         const path = pathResolve(item.path, item.name);
