@@ -112,7 +112,7 @@
     }
   },
   "include": [
-    "src/**/*.ts", "lib/**/*.js", "node_modules", "test/**/*.js", "build/**/*.js", ".eslintrc.cjs"
+    "src/**/*.ts", "lib/**/*.js", "node_modules", "test/**/*.js", "build/**/*.js", ".eslintrc.cjs", "universalify-fix.d.ts"
   ],
   "exclude": ["node_modules"],
   "ts-node": {
