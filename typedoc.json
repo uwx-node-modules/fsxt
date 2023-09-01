@@ -19,5 +19,6 @@
         "private": false,
         "inherited": true,
         "external": true
-    }
+    },
+    "skipErrorChecking": true
 }
