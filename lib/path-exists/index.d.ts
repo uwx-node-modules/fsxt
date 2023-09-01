@@ -1,1 +1,0 @@
-export { pathExists, pathExistsSync } from 'fs-extra';
