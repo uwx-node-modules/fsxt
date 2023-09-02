@@ -100,6 +100,8 @@
     "lint": "eslint . || exit 0",
     "test": "ts-node build/test.js",
     "test-no-fse": "ts-node build/test-no-fse.js",
+    "cover:test": "nyc ts-node build/test.js",
+    "cover:test-no-fse": "nyc ts-node build/test-no-fse.js",
     "build": "rollup -c",
     "build-docs": "typedoc"
   },

@@ -38,7 +38,7 @@ jobs:
 
     - run: npm run build
     - run: npm run build-docs
-    - run: npm run test
+    - run: npm run cover:test
       if: matrix.os != 'windows-latest'
-    - run: npm run test-no-fse
+    - run: npm run cover:test-no-fse
       if: matrix.os == 'windows-latest'
