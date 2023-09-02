@@ -31,3 +31,4 @@ fs-extra.template.d.ts
 /tsconfig.json
 /*.ts
 /typedoc.json
+/.eslintrc.cjs
