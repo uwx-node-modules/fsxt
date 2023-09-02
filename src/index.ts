@@ -491,11 +491,12 @@ export function dive(directory: string, o1: DiveOptions | DiveActionCallback | D
 
     console.log(options, action, complete, action === complete);
 
-    options = Object.assign({
+    options = {
         recursive: true,
         all: true,
-        files: true
-    }, options ?? {});
+        files: true,
+        ...options
+    };
 
     if (!complete) {
         return _diveHelper(directory, action as DiveActionPromise, options);
@@ -567,11 +568,14 @@ function* _diveSyncWorker(directory: string, options: DiveOptions = {}): Generat
  * ```
  */
 export function diveSync(directory: string, options: DiveOptions = {}): string[] {
-    options = Object.assign({
+    options = {
         recursive: true,
         all: true,
-        files: true
-    }, options);
+        files: true,
+
+        ...options
+    };
+
     return [..._diveSyncWorker(directory, options)];
 }
 
