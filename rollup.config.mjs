@@ -15,8 +15,8 @@ import pkg from './package.json' assert { type: 'json' };
 import { builtinModules } from 'module';
 import path from 'path';
 import bundleSize from 'rollup-plugin-bundle-size';
-import alias from '@rollup/plugin-alias';
 import { existsSync } from 'fs';
+import { babel, getBabelOutputPlugin } from '@rollup/plugin-babel';
 
 /**
  *
@@ -54,6 +54,19 @@ function resolveCustomResolver(customResolver) {
   return null;
 }
 
+/** @type {Omit<babel.TransformOptions, 'include' | 'exclude'>} */
+// var in v8 is marginally faster than let/const so transpile all let/const to var
+const babelOptions = {
+  plugins: [
+    [
+      '@babel/plugin-transform-block-scoping',
+      {
+        throwIfClosureRequired: true
+      }
+    ]
+  ]
+};
+
 /** @type {import('rollup').RollupOptions[]} */
 const config = [
   {
@@ -68,17 +81,19 @@ const config = [
         file: 'out/index.cjs',
         format: 'commonjs',
         sourcemap: true,
+        plugins: [getBabelOutputPlugin(babelOptions)]
       },
       {
         file: 'out/index.mjs',
         format: 'es',
         sourcemap: true,
+        plugins: [getBabelOutputPlugin(babelOptions)]
       }
     ],
     // output: [{ file: 'out/my-library.d.ts', format: 'es' }],
     plugins: [
       {
-        name: 'foo',
+        name: 'rollup-import-hack',
         async resolveId(importee, importer, resolveOptions) {
           /** @type {import('rollup').ResolveIdResult} */
           let result = await resolveCustomResolver(nodeResolve())?.call(this, importee, importer, resolveOptions);
@@ -99,8 +114,17 @@ const config = [
       },
       nodeResolve(),
       commonjs(),
+      babel({
+        babelHelpers: 'bundled',
+        ...babelOptions
+      }),
       swc({
         jsc: {
+          transform: {
+            optimizer: {
+              simplify: true
+            }
+          },
           parser: {
             syntax: 'typescript',
           },
@@ -113,8 +137,8 @@ const config = [
               // booleans: true,
               ecma: 2022,
               hoist_funs: true,
-              passes: 4,
-              join_vars: false,
+              passes: 0,
+              join_vars: true,
               keep_classnames: true,
               keep_fnames: false,
               keep_infinity: true,
@@ -124,6 +148,7 @@ const config = [
               unsafe_methods: true,
               unsafe_proto: true,
               unsafe_regexp: true,
+              reduce_funcs: false,
 
               // unsafe_passes: true,
               unsafe_arrows: true,
@@ -141,7 +166,11 @@ const config = [
         sourceMaps: true,
       }),
       terser({
-        compress: false,
+        compress: {
+          passes: 4,
+          reduce_funcs: false,
+          keep_infinity: true,
+        },
         mangle: false,
         format: {
           ecma: 2020,
@@ -164,18 +193,6 @@ const config = [
       file: 'out/index.d.ts',
     },
     plugins: [
-      {
-        name: 'lib-hack',
-        transform(code, id) {
-          // console.log(code, id);
-          if (path.normalize(id) === path.normalize(path.resolve('./src/index.ts'))) {
-            return {
-              code: code.replace(/(['"])(\.\.\/)?lib\/.*?\1/g, '"fs-extra"')
-            };
-          }
-          return null;
-        },
-      },
       nodeResolve(),
       commonjs(),
       dts({

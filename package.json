@@ -36,8 +36,10 @@
     "graceful-fs": "^4.2.11"
   },
   "devDependencies": {
+    "@babel/plugin-transform-block-scoping": "^7.22.10",
     "@cspotcode/source-map-support": "^0.8.1",
     "@rollup/plugin-alias": "^5.0.0",
+    "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^25.0.4",
     "@rollup/plugin-node-resolve": "^15.2.1",
     "@rollup/plugin-replace": "^5.0.2",

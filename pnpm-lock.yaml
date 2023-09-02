@@ -13,12 +13,18 @@ dependencies:
     version: 4.2.11
 
 devDependencies:
+  '@babel/plugin-transform-block-scoping':
+    specifier: ^7.22.10
+    version: 7.22.10(@babel/core@7.22.11)
   '@cspotcode/source-map-support':
     specifier: ^0.8.1
     version: 0.8.1
   '@rollup/plugin-alias':
     specifier: ^5.0.0
     version: 5.0.0(rollup@3.28.1)
+  '@rollup/plugin-babel':
+    specifier: ^6.0.3
+    version: 6.0.3(@babel/core@7.22.11)(rollup@3.28.1)
   '@rollup/plugin-commonjs':
     specifier: ^25.0.4
     version: 25.0.4(rollup@3.28.1)
@@ -258,6 +264,11 @@ packages:
       '@babel/helper-validator-identifier': 7.22.5
     dev: true
 
+  /@babel/helper-plugin-utils@7.22.5:
+    resolution: {integrity: sha512-uLls06UVKgFG9QD4OeFYLEGteMIAa5kpTPcFL28yuCIIzsf6ZyKZMllKVOCZFhiZ5ptnwX4mtKdWCBE/uT4amg==}
+    engines: {node: '>=6.9.0'}
+    dev: true
+
   /@babel/helper-simple-access@7.22.5:
     resolution: {integrity: sha512-n0H99E/K+Bika3++WNL17POvo4rKWZ7lZEp1Q+fStVbUi8nxPQEBOlTmCOxW/0JsS56SKKQ+ojAe2pHKJHN35w==}
     engines: {node: '>=6.9.0'}
@@ -315,6 +326,16 @@ packages:
     hasBin: true
     dependencies:
       '@babel/types': 7.22.11
+    dev: true
+
+  /@babel/plugin-transform-block-scoping@7.22.10(@babel/core@7.22.11):
+    resolution: {integrity: sha512-1+kVpGAOOI1Albt6Vse7c8pHzcZQdQKW+wJH+g8mCaszOdDVwRXa/slHPqIw+oJAJANTKDMuM2cBdV0Dg618Vg==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.22.11
+      '@babel/helper-plugin-utils': 7.22.5
     dev: true
 
   /@babel/template@7.22.5:
@@ -672,6 +693,25 @@ packages:
     dependencies:
       rollup: 3.28.1
       slash: 4.0.0
+    dev: true
+
+  /@rollup/plugin-babel@6.0.3(@babel/core@7.22.11)(rollup@3.28.1):
+    resolution: {integrity: sha512-fKImZKppa1A/gX73eg4JGo+8kQr/q1HBQaCGKECZ0v4YBBv3lFqi14+7xyApECzvkLTHCifx+7ntcrvtBIRcpg==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0
+      '@types/babel__core': ^7.1.9
+      rollup: ^1.20.0||^2.0.0||^3.0.0
+    peerDependenciesMeta:
+      '@types/babel__core':
+        optional: true
+      rollup:
+        optional: true
+    dependencies:
+      '@babel/core': 7.22.11
+      '@babel/helper-module-imports': 7.22.5
+      '@rollup/pluginutils': 5.0.4(rollup@3.28.1)
+      rollup: 3.28.1
     dev: true
 
   /@rollup/plugin-commonjs@25.0.4(rollup@3.28.1):
