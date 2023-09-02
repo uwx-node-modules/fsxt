@@ -365,7 +365,7 @@ async function* _diveWorker(directory: string, options: DiveOptions = {}): Async
             continue;
         }
 
-        const path = pathResolve(item.path, item.name);
+        const path = pathResolve(item.path ?? directory, item.name);
         if (item.isDirectory()) {
             if (options.recursive) {
                 yield* _diveWorker(path, options);
@@ -389,8 +389,6 @@ async function _diveHelper(directory: string, action: DiveActionPromise, options
 }
 
 async function _diveWorkerCallback(directory: string, action: DiveActionCallback, options: DiveOptions = {}) {
-    console.log(directory);
-
     let children: fs.Dirent[] | undefined;
     let err: Error | undefined;
     try {
@@ -416,7 +414,7 @@ async function _diveWorkerCallback(directory: string, action: DiveActionCallback
         }
 
         try {
-            const path = pathResolve(item.path, item.name);
+            const path = pathResolve(item.path ?? directory, item.name);
             if (item.isDirectory()) {
                 if (options.recursive) {
                     await _diveWorkerCallback(path, action, options);
@@ -489,8 +487,6 @@ export function dive(directory: string, o1: DiveOptions | DiveActionCallback | D
     const action = (!options ? o1 : o2) as DiveActionCallback | DiveActionPromise;
     const complete = (!options ? o2 : o3) as (() => void) | undefined;
 
-    console.log(options, action, complete, action === complete);
-
     options = {
         recursive: true,
         all: true,
@@ -520,11 +516,7 @@ function* _diveSyncWorker(directory: string, options: DiveOptions = {}): Generat
             continue;
         }
 
-        if (item.path === undefined || item.name === undefined) {
-            throw new Error(`Undefined: ${item.path} / ${item.name} / ${inspect(item)}`);
-        }
-
-        const path = pathResolve(item.path, item.name);
+        const path = pathResolve(item.path ?? directory, item.name);
         if (item.isDirectory()) {
             if (options.recursive) {
                 yield* _diveSyncWorker(path, options);
