@@ -1,1 +1,1 @@
-export { mkdirs, mkdirsSync } from 'fs-extra';
+export { ensureDir as mkdirs, ensureDirSync as mkdirsSync } from 'fs-extra';
