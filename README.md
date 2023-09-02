@@ -74,11 +74,7 @@ Sync methods on the other hand will throw if an error occurs, and directly retur
 value to the caller if the operation succeeds.
 
 You can also use the methods in the legacy node.js form, passing a callback as the last parameter,
-as a function that takes `(Error, <result>)` parameters, but it's not recommended, and those
-variants may be removed in a later (major) version.
-
-Additionally, see [notes on `fs.read()` & `fs.write()`](docs/fs-read-write.md) if you're using
-either method.
+as a function that takes `(error, result)` parameters.
 
 Example use:
 
@@ -121,7 +117,7 @@ copyFiles();
 
 Methods
 -------
-The documentation is available at https://uwx-node-modules.github.io/fsxt/.
+The documentation is available at https://uwx-node-modules.github.io/fsxt/. Also, the package is fully typed with TypeScript.
 
 Third Party
 -----------
@@ -165,14 +161,17 @@ Licensed under MIT. Full license text available at [LICENSE.txt](https://github.
 
 Parts of the documentation were taken from other modules and the Node.js `fs` module.
 Relevant licenses are included at the following locations:
-- [LICENSE.DefinitelyTyped.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.DefinitelyTyped.txt)
 - [LICENSE.DefinitelyTyped-generator.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.DefinitelyTyped-generator.txt)
+- [LICENSE.DefinitelyTyped.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.DefinitelyTyped.txt)
+- [LICENSE.dive.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.dive.txt)
+- [LICENSE.diveSync.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.diveSync.txt)
 - [LICENSE.fs-extra.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.fs-extra.txt)
 - [LICENSE.fs-vacuum.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.fs-vacuum.txt)
 - [LICENSE.jsonfile.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.jsonfile.txt)
+- [LICENSE.make-dir.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.make-dir.txt)
 - [LICENSE.nodejs.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.nodejs.txt)
-- [LICENSE.fs-vacuum.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.fs-vacuum.txt)
-- [LICENSE.path-is-inside.txt](https://github.com/uwx-node-modules/fsxt/blob/master/external/LICENSE.path-is-inside.txt)
+- [LICENSE.path-is-inside.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.path-is-inside.txt)
+- [LICENSE.universalify.txt](https://github.com/uwx-node-modules/fsxt/blob/master/LICENSE.universalify.txt)
 
 `fs-extra` and `fsxt` are not endorsed by or affiliated with Joyent or the Node.js Foundation.
 `fsxt` is not endorsed by or affiliated with JP Richardson.
