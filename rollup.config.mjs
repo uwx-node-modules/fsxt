@@ -1,8 +1,6 @@
 // @ts-check
 
-import { install } from '@cspotcode/source-map-support';
-
-install();
+import '@cspotcode/source-map-support/register.js';
 
 import { swc } from 'rollup-plugin-swc3';
 
@@ -144,7 +142,7 @@ const config = [
               keep_infinity: true,
               module: true,
               unsafe: true,
-              toplevel: true,
+              toplevel: false,
               unsafe_methods: true,
               unsafe_proto: true,
               unsafe_regexp: true,

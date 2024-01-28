@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../rollup-plugin-dts"
+		},
+		{
+			"path": "../rollup-plugin-ts"
+		}
+	],
+	"settings": {}
+}

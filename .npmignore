@@ -1,21 +1,15 @@
 \!! How to fix semicolons.txt
-.nyc_output/
-coverage/
-test/
+/.nyc_output/
+/coverage/
+/test/
 .travis.yml
 .appveyor.yml
-lib/**/__tests__/
-test/readme.md
 test.mjs
-testlite.js
 *.bat
 *.sh
 .eslintignore
-.eslintrc.json
-.travis.yml
 .jshintrc
 appveyor.yml
-lib/copy/__tests__/ncp/README.md
 CHANGELOG.md
 docs
 build
@@ -31,4 +25,5 @@ fs-extra.template.d.ts
 /tsconfig.json
 /*.ts
 /typedoc.json
-/.eslintrc.cjs
+.eslintrc
+.eslintrc.*
