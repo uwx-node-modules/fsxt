@@ -27,3 +27,4 @@ fs-extra.template.d.ts
 /typedoc.json
 .eslintrc
 .eslintrc.*
+/fsxt.code-workspace
