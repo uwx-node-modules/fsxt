@@ -2,7 +2,7 @@
 
 import '@cspotcode/source-map-support/register.js';
 
-import { swc } from 'rollup-plugin-swc3';
+import swc from 'unplugin-swc';
 
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
@@ -15,6 +15,8 @@ import path from 'path';
 import bundleSize from 'rollup-plugin-bundle-size';
 import { existsSync } from 'fs';
 import { babel, getBabelOutputPlugin } from '@rollup/plugin-babel';
+
+import { typescriptPaths } from 'rollup-plugin-typescript-paths';
 
 /**
  *
@@ -112,17 +114,21 @@ const config = [
           return null;
         }
       },
+      typescriptPaths({
+        absolute: false,
+        preserveExtensions: true
+      }),
       nodeResolve(),
       commonjs(),
       babel({
         babelHelpers: 'bundled',
         ...babelOptions
       }),
-      swc({
+      swc.rollup({
         jsc: {
           transform: {
             optimizer: {
-              simplify: true
+              simplify: true,
             }
           },
           parser: {
