@@ -70,7 +70,9 @@ const config = [
   {
     external: [
       ...builtinModules,
+      // @ts-ignore
       ...(pkg.dependencies == null ? [] : Object.keys(pkg.dependencies)),
+      // @ts-ignore
       ...(pkg.peerDependencies == null ? [] : Object.keys(pkg.peerDependencies))
     ],
     input: 'src/index.ts',
@@ -183,7 +185,9 @@ const config = [
   {
     external: [
       ...builtinModules,
+      // @ts-ignore
       ...(pkg.dependencies == null ? [] : Object.keys(pkg.dependencies)),
+      // @ts-ignore
       ...(pkg.peerDependencies == null ? [] : Object.keys(pkg.peerDependencies))
     ],
     input: 'src/index.ts',
