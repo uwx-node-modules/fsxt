@@ -70,12 +70,22 @@ module.exports = {
         'strict': [
             'error',
             'never'
-        ]
+        ],
+        '@typescript-eslint/ban-ts-comment': 'off',
     },
     overrides: [
         {
-            files: ['*.js'],
+            files: ['*.js', '*.mjs', '*.cjs', '*.jsx', '*.mjsx', '*.cjsx'],
             extends: ['plugin:@typescript-eslint/disable-type-checked'],
+            rules: {
+                'indent': [
+                    'warn',
+                    2,
+                    {
+                        'SwitchCase': 1
+                    }
+                ],
+            }
         },
     ],
 };
