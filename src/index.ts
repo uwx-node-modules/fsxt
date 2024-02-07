@@ -384,7 +384,7 @@ async function* _diveWorker(directory: string, options: DiveOptions = {}): Async
 
 async function _diveHelper(directory: string, action: DiveActionPromise, options: DiveOptions = {}) {
     for await (const [file, stat] of _diveWorker(directory, options)) {
-        action(file, stat);
+        await action(file, stat);
     }
 }
 

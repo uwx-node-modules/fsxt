@@ -36,7 +36,7 @@ export type DiveActionCallback = (err: Error | null, file?: string, stat?: fs.St
  * @param file the **full relative** pathname of a file (relative to `process.cwd`, not relative to `directory`)
  * @param stat a [[Stats]] object.
  */
-export type DiveActionPromise = (file: string, stat: fs.Stats) => void;
+export type DiveActionPromise = (file: string, stat: fs.Stats) => void | Promise<void>;
 
 /**
  * Options for [[readFile]] calls in [[mapChildren]]. Not to be confused with the [[ReadOptions]] interface which is
