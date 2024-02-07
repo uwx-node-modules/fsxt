@@ -115,7 +115,7 @@ const config = [
         }
       },
       typescriptPaths({
-        absolute: false,
+        absolute: true,
         preserveExtensions: true
       }),
       nodeResolve(),
