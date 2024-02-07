@@ -5,7 +5,7 @@
   "homepage": "https://github.com/uwx-node-modules/fsxt",
   "repository": {
     "type": "git",
-    "url": "https://github.com/uwx-node-modules/fsxt"
+    "url": "git+https://github.com/uwx-node-modules/fsxt.git"
   },
   "keywords": [
     "fs",
