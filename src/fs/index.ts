@@ -7,7 +7,7 @@ export * from 'graceful-fs';
 
 import { universalify } from './universalify';
 
-import realFs from 'fs';
+import rfs from 'fs';
 
 /**
  * Asynchronously rename file at `oldPath` to the pathname provided
@@ -1127,8 +1127,8 @@ export const cp: typeof fs.cp & {
     cp(source: string | URL, destination: string | URL, opts: fs.CopyOptions): Promise<void>;
 } = universalify(gfs.cp) as any;
 
-if (typeof realFs.realpath.native === 'function') {
-    realpath.native = universalify(realFs.realpath.native) as any;
+if (typeof rfs.realpath.native === 'function') {
+    realpath.native = universalify(rfs.realpath.native) as any;
 } else {
     process.emitWarning(
         'fs.realpath.native is not a function. Is fs being monkey-patched?',
