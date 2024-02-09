@@ -42,12 +42,14 @@ describe('fs', () => {
             });
         });
         describe('.mapChildren', () => {
-            beforeEach(async () => {
-                await fs.mkdir(t);
-                for (let i = 0; i < 50; i++) await fs.writeFile(t + '/file' + i + '.txt', 'Before: ' + i);
+            beforeEach(done => {
+                fs.mkdirSync(t);
+                for (let i = 0; i < 50; i++) fs.writeFileSync(t + '/file' + i + '.txt', 'Before: ' + i);
+                done();
             });
-            afterEach(async () => {
-                await fs.remove(t);
+            afterEach(done => {
+                fs.removeSync(t);
+                done();
             });
 
             it('no changes', async () => {
@@ -70,24 +72,26 @@ describe('fs', () => {
             });
         });
         describe('.mapStructure', () => {
-            beforeEach(async () => {
-                await fs.mkdir(t);
-                await fs.ensureFile(t + '/brap/brap.txt');
-                await fs.ensureFile(t + '/brap/b/brap1.txt');
-                await fs.ensureFile(t + '/brap/b/brap.avi');
-                await fs.ensureFile(t + '/brap/c/brap.avi');
-                await fs.ensureFile(t + '/brap/d/brap.avi');
-                await fs.mkdirs(t + '/brap/e.avi');
-                await fs.mkdirs(t + '/brap/e');
-                await fs.writeFile(t + '/brap/brap.txt', 'Brapp!');
-                await fs.writeFile(t + '/brap/b/brap1.txt', 'Brap2!');
-                await fs.writeFile(t + '/brap/b/brap.avi', 'Brap3!');
-                await fs.writeFile(t + '/brap/c/brap.avi', 'Brap4!');
-                await fs.writeFile(t + '/brap/d/brap.avi', 'Brap5!');
-                for (let i = 0; i < 50; i++) await fs.writeFile(t + '/file' + i + '.txt', 'Before: ' + i);
+            beforeEach(done => {
+                fs.mkdirSync(t);
+                fs.ensureFileSync(t + '/brap/brap.txt');
+                fs.ensureFileSync(t + '/brap/b/brap1.txt');
+                fs.ensureFileSync(t + '/brap/b/brap.avi');
+                fs.ensureFileSync(t + '/brap/c/brap.avi');
+                fs.ensureFileSync(t + '/brap/d/brap.avi');
+                fs.mkdirsSync(t + '/brap/e.avi');
+                fs.mkdirsSync(t + '/brap/e');
+                fs.writeFileSync(t + '/brap/brap.txt', 'Brapp!');
+                fs.writeFileSync(t + '/brap/b/brap1.txt', 'Brap2!');
+                fs.writeFileSync(t + '/brap/b/brap.avi', 'Brap3!');
+                fs.writeFileSync(t + '/brap/c/brap.avi', 'Brap4!');
+                fs.writeFileSync(t + '/brap/d/brap.avi', 'Brap5!');
+                for (let i = 0; i < 50; i++) fs.writeFileSync(t + '/file' + i + '.txt', 'Before: ' + i);
+                done();
             });
-            afterEach(async () => {
-                await fs.remove(t);
+            afterEach(done => {
+                fs.removeSync(t);
+                done();
             });
 
             it('no changes', async () => {

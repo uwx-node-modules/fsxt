@@ -2,6 +2,7 @@ export { move, moveSync } from 'fs-extra';
 import type { NoParamCallbackWithUndefined, MoveOptions } from 'fs-extra';
 
 interface MoveOptions {
+    overwrite?: boolean;
     clobber?: boolean;
 }
 

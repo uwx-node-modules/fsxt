@@ -88,7 +88,7 @@ module.exports = {
       }
     },
     {
-      files: ['lib/**/*.js'],
+      files: ['lib/**/*.js', 'test/**.js'],
       extends: ['plugin:@typescript-eslint/disable-type-checked'],
       rules: {
         'indent': [
