@@ -62,6 +62,9 @@ devDependencies:
   '@types/node':
     specifier: ^20.11.10
     version: 20.11.10
+  '@types/proxyquire':
+    specifier: ^1.3.31
+    version: 1.3.31
   '@types/universalify':
     specifier: ^1.0.3
     version: 1.0.3
@@ -975,6 +978,10 @@ packages:
 
   /@types/object-path@0.11.1:
     resolution: {integrity: sha512-219LSCO9HPcoXcRTC6DbCs0FRhZgBnEMzf16RRqkT40WbkKx3mOeQuz3e2XqbfhOz/AHfbru0kzB1n1RCAsIIg==}
+    dev: true
+
+  /@types/proxyquire@1.3.31:
+    resolution: {integrity: sha512-uALowNG2TSM1HNPMMOR0AJwv4aPYPhqB0xlEhkeRTMuto5hjoSPZkvgu1nbPUkz3gEPAHv4sy4DmKsurZiEfRQ==}
     dev: true
 
   /@types/resolve@1.20.2:
