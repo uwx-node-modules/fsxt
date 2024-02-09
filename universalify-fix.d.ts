@@ -3,6 +3,6 @@ declare module 'universalify' {
 
     export function fromPromise<T extends any[], R>(fn: (...args: T) => Promise<R>): {
         (...args: T): Promise<R>;
-        (...args: [...args: T, cb: (err: any, result?: R) => void]): void;
+        (...args: [...args: T, cb: R extends void ? ((err: any) => void) : ((err: any, result?: R) => void)]): void;
     };
 }

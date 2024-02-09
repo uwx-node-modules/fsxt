@@ -1,7 +1,7 @@
 import { type CustomPromisify, promisify } from 'util';
 
 // https://www.reddit.com/r/typescript/comments/10ibwi4/get_last_item_type_of_a_tuple/j5dogh8/
-type LastElement<Arr extends any[]> = Arr extends [...any[], infer B] ? B: never
+type LastElement<Arr extends any[]> = Arr extends [...any[], infer B] ? B : never
 
 type CallbackArgs<T extends (...args: any) => any> = LastElement<Parameters<T>> extends (err: any, ...cbArgs: infer CbArgs) => void
     ? CbArgs

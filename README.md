@@ -1,7 +1,7 @@
 # fsxt
 
 Improved fork of `fs-extra` with extra [sic] features!
-`fsxt` provides support for node.js 16 and above.
+`fsxt` provides support for Node 16 and above. Node 17 is required for better feature support.
 
 ![npm](https://img.shields.io/npm/v/fsxt)
 [![Node.js CI](https://github.com/uwx-node-modules/fsxt/actions/workflows/ci.yml/badge.svg)](https://github.com/uwx-node-modules/fsxt/actions/workflows/ci.yml)
