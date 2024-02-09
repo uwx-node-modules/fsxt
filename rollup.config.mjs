@@ -54,7 +54,7 @@ function resolveCustomResolver(customResolver) {
   return null;
 }
 
-/** @type {Omit<babel.TransformOptions, 'include' | 'exclude'>} */
+/** @type {Omit<import('babel').TransformOptions, 'include' | 'exclude'>} */
 // var in v8 is marginally faster than let/const so transpile all let/const to var
 const babelOptions = {
   plugins: [

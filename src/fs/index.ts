@@ -1,53 +1,13 @@
 // use fully qualified imports to aid tree-shaking in bundlers
-import {
-    rename as _rename,
-    truncate as _truncate,
-    ftruncate as _ftruncate,
-    chown as _chown,
-    fchown as _fchown,
-    lchown as _lchown,
-    lutimes as _lutimes,
-    chmod as _chmod,
-    fchmod as _fchmod,
-    lchmod as _lchmod,
-    stat as _stat,
-    fstat as _fstat,
-    lstat as _lstat,
-    statfs as _statfs,
-    link as _link,
-    symlink as _symlink,
-    readlink as _readlink,
-    realpath as _realpath,
-    unlink as _unlink,
-    rmdir as _rmdir,
-    rm as _rm,
-    mkdir as _mkdir,
-    mkdtemp as _mkdtemp,
-    readdir as _readdir,
-    close as _close,
-    open as _open,
-    utimes as _utimes,
-    futimes as _futimes,
-    write as _write,
-    read as _read,
-    readFile as _readFile,
-    writeFile as _writeFile,
-    appendFile as _appendFile,
-    access as _access,
-    copyFile as _copyFile,
-    writev as _writev,
-    readv as _readv,
-    opendir as _opendir,
-    cp as _cp,
-
-    type promises as fsPromises,
-} from 'graceful-fs';
+import * as gfs from 'graceful-fs';
 
 import type * as fs from 'fs';
 
 export * from 'graceful-fs';
 
 import { universalify } from './universalify';
+
+import realFs from 'fs';
 
 /**
  * Asynchronously rename file at `oldPath` to the pathname provided
@@ -68,9 +28,9 @@ import { universalify } from './universalify';
  * ```
  * @since v0.0.2
  * @see {@link fs.rename}
- * @see {@link fsPromises.rename}
+ * @see {@link fs.promises.rename}
  */
-export const rename: typeof fs.rename & typeof fs.rename.__promisify__ = universalify(_rename);
+export const rename: typeof fs.rename & typeof fs.rename.__promisify__ = universalify(gfs.rename);
 /**
  * Truncates the file. No arguments other than a possible exception are
  * given to the completion callback. A file descriptor can also be passed as the
@@ -92,9 +52,9 @@ export const rename: typeof fs.rename & typeof fs.rename.__promisify__ = univers
  * @since v0.8.6
  * @param [len=0]
  * @see {@link fs.truncate}
- * @see {@link fsPromises.truncate}
+ * @see {@link fs.promises.truncate}
  */
-export const truncate: typeof fs.truncate & typeof fs.truncate.__promisify__ = universalify(_truncate);
+export const truncate: typeof fs.truncate & typeof fs.truncate.__promisify__ = universalify(gfs.truncate);
 /**
  * Truncates the file descriptor. No arguments other than a possible exception are
  * given to the completion callback.
@@ -138,9 +98,9 @@ export const truncate: typeof fs.truncate & typeof fs.truncate.__promisify__ = u
  * @since v0.8.6
  * @param [len=0]
  * @see {@link fs.ftruncate}
- * @see {@link fsPromises.ftruncate}
+ * @see {@link fs.promises.ftruncate}
  */
-export const ftruncate: typeof fs.ftruncate & typeof fs.ftruncate.__promisify__ = universalify(_ftruncate);
+export const ftruncate: typeof fs.ftruncate & typeof fs.ftruncate.__promisify__ = universalify(gfs.ftruncate);
 /**
  * Asynchronously changes owner and group of a file. No arguments other than a
  * possible exception are given to the completion callback.
@@ -148,9 +108,9 @@ export const ftruncate: typeof fs.ftruncate & typeof fs.ftruncate.__promisify__ 
  * See the POSIX [`chown(2)`](http://man7.org/linux/man-pages/man2/chown.2.html) documentation for more detail.
  * @since v0.1.97
  * @see {@link fs.chown}
- * @see {@link fsPromises.chown}
+ * @see {@link fs.promises.chown}
  */
-export const chown: typeof fs.chown & typeof fs.chown.__promisify__ = universalify(_chown);
+export const chown: typeof fs.chown & typeof fs.chown.__promisify__ = universalify(gfs.chown);
 /**
  * Sets the owner of the file. No arguments other than a possible exception are
  * given to the completion callback.
@@ -158,18 +118,18 @@ export const chown: typeof fs.chown & typeof fs.chown.__promisify__ = universali
  * See the POSIX [`fchown(2)`](http://man7.org/linux/man-pages/man2/fchown.2.html) documentation for more detail.
  * @since v0.4.7
  * @see {@link fs.fchown}
- * @see {@link fsPromises.fchown}
+ * @see {@link fs.promises.fchown}
  */
-export const fchown: typeof fs.fchown & typeof fs.fchown.__promisify__ = universalify(_fchown);
+export const fchown: typeof fs.fchown & typeof fs.fchown.__promisify__ = universalify(gfs.fchown);
 /**
  * Set the owner of the symbolic link. No arguments other than a possible
  * exception are given to the completion callback.
  *
  * See the POSIX [`lchown(2)`](http://man7.org/linux/man-pages/man2/lchown.2.html) documentation for more detail.
  * @see {@link fs.lchown}
- * @see {@link fsPromises.lchown}
+ * @see {@link fs.promises.lchown}
  */
-export const lchown: typeof fs.lchown & typeof fs.lchown.__promisify__ = universalify(_lchown);
+export const lchown: typeof fs.lchown & typeof fs.lchown.__promisify__ = universalify(gfs.lchown);
 /**
  * Changes the access and modification times of a file in the same way as {@link utimes}, with the difference that if the path refers to a symbolic
  * link, then the link is not dereferenced: instead, the timestamps of the
@@ -179,9 +139,9 @@ export const lchown: typeof fs.lchown & typeof fs.lchown.__promisify__ = univers
  * callback.
  * @since v14.5.0, v12.19.0
  * @see {@link fs.lutimes}
- * @see {@link fsPromises.lutimes}
+ * @see {@link fs.promises.lutimes}
  */
-export const lutimes: typeof fs.lutimes & typeof fs.lutimes.__promisify__ = universalify(_lutimes);
+export const lutimes: typeof fs.lutimes & typeof fs.lutimes.__promisify__ = universalify(gfs.lutimes);
 /**
  * Asynchronously changes the permissions of a file. No arguments other than a
  * possible exception are given to the completion callback.
@@ -198,9 +158,9 @@ export const lutimes: typeof fs.lutimes & typeof fs.lutimes.__promisify__ = univ
  * ```
  * @since v0.1.30
  * @see {@link fs.chmod}
- * @see {@link fsPromises.chmod}
+ * @see {@link fs.promises.chmod}
  */
-export const chmod: typeof fs.chmod & typeof fs.chmod.__promisify__ = universalify(_chmod);
+export const chmod: typeof fs.chmod & typeof fs.chmod.__promisify__ = universalify(gfs.chmod);
 /**
  * Sets the permissions on the file. No arguments other than a possible exception
  * are given to the completion callback.
@@ -208,9 +168,9 @@ export const chmod: typeof fs.chmod & typeof fs.chmod.__promisify__ = universali
  * See the POSIX [`fchmod(2)`](http://man7.org/linux/man-pages/man2/fchmod.2.html) documentation for more detail.
  * @since v0.4.7
  * @see {@link fs.fchmod}
- * @see {@link fsPromises.fchmod}
+ * @see {@link fs.promises.fchmod}
  */
-export const fchmod: typeof fs.fchmod & typeof fs.fchmod.__promisify__ = universalify(_fchmod);
+export const fchmod: typeof fs.fchmod & typeof fs.fchmod.__promisify__ = universalify(gfs.fchmod);
 /**
  * Changes the permissions on a symbolic link. No arguments other than a possible
  * exception are given to the completion callback.
@@ -220,9 +180,9 @@ export const fchmod: typeof fs.fchmod & typeof fs.fchmod.__promisify__ = univers
  * See the POSIX [`lchmod(2)`](https://www.freebsd.org/cgi/man.cgi?query=lchmod&sektion=2) documentation for more detail.
  * @deprecated Since v0.4.7
  * @see {@link fs.lchmod}
- * @see {@link fsPromises.lchmod}
+ * @see {@link fs.promises.lchmod}
  */
-export const lchmod: typeof fs.lchmod & typeof fs.lchmod.__promisify__ = universalify(_lchmod);
+export const lchmod: typeof fs.lchmod & typeof fs.lchmod.__promisify__ = universalify(gfs.lchmod);
 /**
  * Asynchronous [`stat(2)`](http://man7.org/linux/man-pages/man2/stat.2.html). The callback gets two arguments `(err, stats)` where`stats` is an `fs.Stats` object.
  *
@@ -308,18 +268,18 @@ export const lchmod: typeof fs.lchmod & typeof fs.lchmod.__promisify__ = univers
  * ```
  * @since v0.0.2
  * @see {@link fs.stat}
- * @see {@link fsPromises.stat}
+ * @see {@link fs.promises.stat}
  */
-export const stat: typeof fs.stat & typeof fs.stat.__promisify__ = universalify(_stat);
+export const stat: typeof fs.stat & typeof fs.stat.__promisify__ = universalify(gfs.stat);
 /**
  * Invokes the callback with the `fs.Stats` for the file descriptor.
  *
  * See the POSIX [`fstat(2)`](http://man7.org/linux/man-pages/man2/fstat.2.html) documentation for more detail.
  * @since v0.1.95
  * @see {@link fs.fstat}
- * @see {@link fsPromises.fstat}
+ * @see {@link fs.promises.fstat}
  */
-export const fstat: typeof fs.fstat & typeof fs.fstat.__promisify__ = universalify(_fstat);
+export const fstat: typeof fs.fstat & typeof fs.fstat.__promisify__ = universalify(gfs.fstat);
 /**
  * Retrieves the `fs.Stats` for the symbolic link referred to by the path.
  * The callback gets two arguments `(err, stats)` where `stats` is a `fs.Stats` object. `lstat()` is identical to `stat()`, except that if `path` is a symbolic
@@ -328,9 +288,9 @@ export const fstat: typeof fs.fstat & typeof fs.fstat.__promisify__ = universali
  * See the POSIX [`lstat(2)`](http://man7.org/linux/man-pages/man2/lstat.2.html) documentation for more details.
  * @since v0.1.30
  * @see {@link fs.lstat}
- * @see {@link fsPromises.lstat}
+ * @see {@link fs.promises.lstat}
  */
-export const lstat: typeof fs.lstat & typeof fs.lstat.__promisify__ = universalify(_lstat);
+export const lstat: typeof fs.lstat & typeof fs.lstat.__promisify__ = universalify(gfs.lstat);
 /**
  * Asynchronous [`statfs(2)`](http://man7.org/linux/man-pages/man2/statfs.2.html). Returns information about the mounted file system which
  * contains `path`. The callback gets two arguments `(err, stats)` where `stats`is an `fs.StatFs` object.
@@ -339,18 +299,18 @@ export const lstat: typeof fs.lstat & typeof fs.lstat.__promisify__ = universali
  * @since v19.6.0, v18.15.0
  * @param path A path to an existing file or directory on the file system to be queried.
  * @see {@link fs.statfs}
- * @see {@link fsPromises.statfs}
+ * @see {@link fs.promises.statfs}
  */
-export const statfs: typeof fs.statfs & typeof fs.statfs.__promisify__ = universalify(_statfs);
+export const statfs: typeof fs.statfs & typeof fs.statfs.__promisify__ = universalify(gfs.statfs);
 /**
  * Creates a new link from the `existingPath` to the `newPath`. See the POSIX [`link(2)`](http://man7.org/linux/man-pages/man2/link.2.html) documentation for more detail. No arguments other than
  * a possible
  * exception are given to the completion callback.
  * @since v0.1.31
  * @see {@link fs.link}
- * @see {@link fsPromises.link}
+ * @see {@link fs.promises.link}
  */
-export const link: typeof fs.link & typeof fs.link.__promisify__ = universalify(_link);
+export const link: typeof fs.link & typeof fs.link.__promisify__ = universalify(gfs.link);
 /**
  * Creates the link called `path` pointing to `target`. No arguments other than a
  * possible exception are given to the completion callback.
@@ -384,9 +344,9 @@ export const link: typeof fs.link & typeof fs.link.__promisify__ = universalify(
  * @since v0.1.31
  * @param [type='null']
  * @see {@link fs.symlink}
- * @see {@link fsPromises.symlink}
+ * @see {@link fs.promises.symlink}
  */
-export const symlink: typeof fs.symlink & typeof fs.symlink.__promisify__ = universalify(_symlink);
+export const symlink: typeof fs.symlink & typeof fs.symlink.__promisify__ = universalify(gfs.symlink);
 /**
  * Reads the contents of the symbolic link referred to by `path`. The callback gets
  * two arguments `(err, linkString)`.
@@ -399,9 +359,9 @@ export const symlink: typeof fs.symlink & typeof fs.symlink.__promisify__ = univ
  * the link path returned will be passed as a `Buffer` object.
  * @since v0.1.31
  * @see {@link fs.readlink}
- * @see {@link fsPromises.readlink}
+ * @see {@link fs.promises.readlink}
  */
-export const readlink: typeof fs.readlink & typeof fs.readlink.__promisify__ = universalify(_readlink);
+export const readlink: typeof fs.readlink & typeof fs.readlink.__promisify__ = universalify(gfs.readlink);
 /**
  * Asynchronously computes the canonical pathname by resolving `.`, `..`, and
  * symbolic links.
@@ -428,7 +388,7 @@ export const readlink: typeof fs.readlink & typeof fs.readlink.__promisify__ = u
  * dependent name for that object.
  * @since v0.1.31
  * @see {@link fs.realpath}
- * @see {@link fsPromises.realpath}
+ * @see {@link fs.promises.realpath}
  */
 export const realpath: typeof fs.realpath & typeof fs.realpath.__promisify__ & {
     native: {
@@ -437,7 +397,7 @@ export const realpath: typeof fs.realpath & typeof fs.realpath.__promisify__ & {
         (path: fs.PathLike, options: fs.EncodingOption): Promise<string | Buffer>;
         (path: fs.PathLike): Promise<string>;
     }
-} = universalify(_realpath) as any;
+} = universalify(gfs.realpath) as any;
 /**
  * Asynchronously removes a file or symbolic link. No arguments other than a
  * possible exception are given to the completion callback.
@@ -457,9 +417,9 @@ export const realpath: typeof fs.realpath & typeof fs.realpath.__promisify__ & {
  * See the POSIX [`unlink(2)`](http://man7.org/linux/man-pages/man2/unlink.2.html) documentation for more details.
  * @since v0.0.2
  * @see {@link fs.unlink}
- * @see {@link fsPromises.unlink}
+ * @see {@link fs.promises.unlink}
  */
-export const unlink: typeof fs.unlink & typeof fs.unlink.__promisify__ = universalify(_unlink);
+export const unlink: typeof fs.unlink & typeof fs.unlink.__promisify__ = universalify(gfs.unlink);
 /**
  * Asynchronous [`rmdir(2)`](http://man7.org/linux/man-pages/man2/rmdir.2.html). No arguments other than a possible exception are given
  * to the completion callback.
@@ -470,17 +430,17 @@ export const unlink: typeof fs.unlink & typeof fs.unlink.__promisify__ = univers
  * To get a behavior similar to the `rm -rf` Unix command, use {@link rm} with options `{ recursive: true, force: true }`.
  * @since v0.0.2
  * @see {@link fs.rmdir}
- * @see {@link fsPromises.rmdir}
+ * @see {@link fs.promises.rmdir}
  */
-export const rmdir: typeof fs.rmdir & typeof fs.rmdir.__promisify__ = universalify(_rmdir);
+export const rmdir: typeof fs.rmdir & typeof fs.rmdir.__promisify__ = universalify(gfs.rmdir);
 /**
  * Asynchronously removes files and directories (modeled on the standard POSIX `rm`utility). No arguments other than a possible exception are given to the
  * completion callback.
  * @since v14.14.0
  * @see {@link fs.rm}
- * @see {@link fsPromises.rm}
+ * @see {@link fs.promises.rm}
  */
-export const rm: typeof fs.rm & typeof fs.rm.__promisify__ = universalify(_rm);
+export const rm: typeof fs.rm & typeof fs.rm.__promisify__ = universalify(gfs.rm);
 /**
  * Asynchronously creates a directory.
  *
@@ -517,9 +477,9 @@ export const rm: typeof fs.rm & typeof fs.rm.__promisify__ = universalify(_rm);
  * See the POSIX [`mkdir(2)`](http://man7.org/linux/man-pages/man2/mkdir.2.html) documentation for more details.
  * @since v0.1.8
  * @see {@link fs.mkdir}
- * @see {@link fsPromises.mkdir}
+ * @see {@link fs.promises.mkdir}
  */
-export const mkdir: typeof fs.mkdir & typeof fs.mkdir.__promisify__ = universalify(_mkdir);
+export const mkdir: typeof fs.mkdir & typeof fs.mkdir.__promisify__ = universalify(gfs.mkdir);
 /**
  * Creates a unique temporary directory.
  *
@@ -579,9 +539,9 @@ export const mkdir: typeof fs.mkdir & typeof fs.mkdir.__promisify__ = universali
  * ```
  * @since v5.10.0
  * @see {@link fs.mkdtemp}
- * @see {@link fsPromises.mkdtemp}
+ * @see {@link fs.promises.mkdtemp}
  */
-export const mkdtemp: typeof fs.mkdtemp & typeof fs.mkdtemp.__promisify__ = universalify(_mkdtemp);
+export const mkdtemp: typeof fs.mkdtemp & typeof fs.mkdtemp.__promisify__ = universalify(gfs.mkdtemp);
 /**
  * Reads the contents of a directory. The callback gets two arguments `(err, files)`where `files` is an array of the names of the files in the directory excluding`'.'` and `'..'`.
  *
@@ -595,9 +555,9 @@ export const mkdtemp: typeof fs.mkdtemp & typeof fs.mkdtemp.__promisify__ = univ
  * If `options.withFileTypes` is set to `true`, the `files` array will contain `fs.Dirent` objects.
  * @since v0.1.8
  * @see {@link fs.readdir}
- * @see {@link fsPromises.readdir}
+ * @see {@link fs.promises.readdir}
  */
-export const readdir: typeof fs.readdir & typeof fs.readdir.__promisify__ = universalify(_readdir);
+export const readdir: typeof fs.readdir & typeof fs.readdir.__promisify__ = universalify(gfs.readdir);
 /**
  * Closes the file descriptor. No arguments other than a possible exception are
  * given to the completion callback.
@@ -608,9 +568,9 @@ export const readdir: typeof fs.readdir & typeof fs.readdir.__promisify__ = univ
  * See the POSIX [`close(2)`](http://man7.org/linux/man-pages/man2/close.2.html) documentation for more detail.
  * @since v0.0.2
  * @see {@link fs.close}
- * @see {@link fsPromises.close}
+ * @see {@link fs.promises.close}
  */
-export const close: typeof fs.close.__promisify__ & typeof fs.close = universalify(_close); // NB: the order of __promisify__ is reversed here because the callback to fs.close() is marked optional.
+export const close: typeof fs.close.__promisify__ & typeof fs.close = universalify(gfs.close); // NB: the order of __promisify__ is reversed here because the callback to fs.close() is marked optional.
 /**
  * Asynchronous file open. See the POSIX [`open(2)`](http://man7.org/linux/man-pages/man2/open.2.html) documentation for more details.
  *
@@ -628,9 +588,9 @@ export const close: typeof fs.close.__promisify__ & typeof fs.close = universali
  * @param [flags='r'] See `support of file system `flags``.
  * @param [mode=0o666]
  * @see {@link fs.open}
- * @see {@link fsPromises.open}
+ * @see {@link fs.promises.open}
  */
-export const open: typeof fs.open & typeof fs.open.__promisify__ = universalify(_open);
+export const open: typeof fs.open & typeof fs.open.__promisify__ = universalify(gfs.open);
 /**
  * Change the file system timestamps of the object referenced by `path`.
  *
@@ -640,17 +600,17 @@ export const open: typeof fs.open & typeof fs.open.__promisify__ = universalify(
  * * If the value can not be converted to a number, or is `NaN`, `Infinity`, or`-Infinity`, an `Error` will be thrown.
  * @since v0.4.2
  * @see {@link fs.utimes}
- * @see {@link fsPromises.utimes}
+ * @see {@link fs.promises.utimes}
  */
-export const utimes: typeof fs.utimes & typeof fs.utimes.__promisify__ = universalify(_utimes);
+export const utimes: typeof fs.utimes & typeof fs.utimes.__promisify__ = universalify(gfs.utimes);
 /**
  * Change the file system timestamps of the object referenced by the supplied file
  * descriptor. See {@link utimes}.
  * @since v0.4.2
  * @see {@link fs.futimes}
- * @see {@link fsPromises.futimes}
+ * @see {@link fs.promises.futimes}
  */
-export const futimes: typeof fs.futimes & typeof fs.futimes.__promisify__ = universalify(_futimes);
+export const futimes: typeof fs.futimes & typeof fs.futimes.__promisify__ = universalify(gfs.futimes);
 /**
  * Write `buffer` to the file specified by `fd`.
  *
@@ -678,9 +638,9 @@ export const futimes: typeof fs.futimes & typeof fs.futimes.__promisify__ = univ
  * @param [length=buffer.byteLength - offset]
  * @param [position='null']
  * @see {@link fs.write}
- * @see {@link fsPromises.write}
+ * @see {@link fs.promises.write}
  */
-export const write: typeof fs.write & typeof fs.write.__promisify__ = universalify(_write, (bytesWritten, buffer) => ({bytesWritten, buffer}));
+export const write: typeof fs.write & typeof fs.write.__promisify__ = universalify(gfs.write, (bytesWritten, buffer) => ({bytesWritten, buffer}));
 /**
  * Read data from the file specified by `fd`.
  *
@@ -698,9 +658,9 @@ export const write: typeof fs.write & typeof fs.write.__promisify__ = universali
  * @param position Specifies where to begin reading from in the file. If `position` is `null` or `-1 `, data will be read from the current file position, and the file position will be updated. If
  * `position` is an integer, the file position will be unchanged.
  * @see {@link fs.read}
- * @see {@link fsPromises.read}
+ * @see {@link fs.promises.read}
  */
-export const read: typeof fs.read & typeof fs.read.__promisify__ = universalify(_read, (bytesRead, buffer) => ({bytesRead, buffer}));
+export const read: typeof fs.read & typeof fs.read.__promisify__ = universalify(gfs.read, (bytesRead, buffer) => ({bytesRead, buffer}));
 /**
  * Asynchronously reads the entire contents of a file.
  *
@@ -767,12 +727,73 @@ export const read: typeof fs.read & typeof fs.read.__promisify__ = universalify(
  * @since v0.1.29
  * @param path filename or file descriptor
  * @see {@link fs.readFile}
- * @see {@link fsPromises.readFile}
+ * @see {@link fs.promises.readFile}
  */
-export const readFile: typeof fs.readFile & typeof fs.readFile.__promisify__ = universalify(_readFile);
-
-export { writeFile } from './write-file';
-
+export const readFile: typeof fs.readFile & typeof fs.readFile.__promisify__ = universalify(gfs.readFile);
+/**
+ * When `file` is a filename, asynchronously writes data to the file, replacing the
+ * file if it already exists. `data` can be a string or a buffer.
+ *
+ * When `file` is a file descriptor, the behavior is similar to calling`fs.write()` directly (which is recommended). See the notes below on using
+ * a file descriptor.
+ *
+ * The `encoding` option is ignored if `data` is a buffer.
+ *
+ * The `mode` option only affects the newly created file. See {@link open} for more details.
+ *
+ * ```js
+ * import { writeFile } from 'node:fs';
+ * import { Buffer } from 'node:buffer';
+ *
+ * const data = new Uint8Array(Buffer.from('Hello Node.js'));
+ * writeFile('message.txt', data, (err) => {
+ *   if (err) throw err;
+ *   console.log('The file has been saved!');
+ * });
+ * ```
+ *
+ * If `options` is a string, then it specifies the encoding:
+ *
+ * ```js
+ * import { writeFile } from 'node:fs';
+ *
+ * writeFile('message.txt', 'Hello Node.js', 'utf8', callback);
+ * ```
+ *
+ * It is unsafe to use `fs.writeFile()` multiple times on the same file without
+ * waiting for the callback. For this scenario, {@link createWriteStream} is
+ * recommended.
+ *
+ * Similarly to `fs.readFile` \- `fs.writeFile` is a convenience method that
+ * performs multiple `write` calls internally to write the buffer passed to it.
+ * For performance sensitive code consider using {@link createWriteStream}.
+ *
+ * It is possible to use an `AbortSignal` to cancel an `fs.writeFile()`.
+ * Cancelation is "best effort", and some amount of data is likely still
+ * to be written.
+ *
+ * ```js
+ * import { writeFile } from 'node:fs';
+ * import { Buffer } from 'node:buffer';
+ *
+ * const controller = new AbortController();
+ * const { signal } = controller;
+ * const data = new Uint8Array(Buffer.from('Hello Node.js'));
+ * writeFile('message.txt', data, { signal }, (err) => {
+ *   // When a request is aborted - the callback is called with an AbortError
+ * });
+ * // When the request should be aborted
+ * controller.abort();
+ * ```
+ *
+ * Aborting an ongoing request does not abort individual operating
+ * system requests but rather the internal buffering `fs.writeFile` performs.
+ * @since v0.1.29
+ * @param file filename or file descriptor
+ * @see {@link fs.writeFile}
+ * @see {@link fs.promises.writeFile}
+ */
+export const writeFile: typeof fs.writeFile & typeof fs.writeFile.__promisify__ = universalify(gfs.writeFile);
 /**
  * Asynchronously append data to a file, creating the file if it does not yet
  * exist. `data` can be a string or a `Buffer`.
@@ -826,9 +847,9 @@ export { writeFile } from './write-file';
  * @since v0.6.7
  * @param path filename or file descriptor
  * @see {@link fs.appendFile}
- * @see {@link fsPromises.appendFile}
+ * @see {@link fs.promises.appendFile}
  */
-export const appendFile: typeof fs.appendFile & typeof fs.appendFile.__promisify__ = universalify(_appendFile);
+export const appendFile: typeof fs.appendFile & typeof fs.appendFile.__promisify__ = universalify(gfs.appendFile);
 /**
  * Tests a user's permissions for the file or directory specified by `path`.
  * The `mode` argument is an optional integer that specifies the accessibility
@@ -989,9 +1010,9 @@ export const appendFile: typeof fs.appendFile & typeof fs.appendFile.__promisify
  * @since v0.11.15
  * @param [mode=fs.constants.F_OK]
  * @see {@link fs.access}
- * @see {@link fsPromises.access}
+ * @see {@link fs.promises.access}
  */
-export const access: typeof fs.access & typeof fs.access.__promisify__ = universalify(_access);
+export const access: typeof fs.access & typeof fs.access.__promisify__ = universalify(gfs.access);
 /**
  * Asynchronously copies `src` to `dest`. By default, `dest` is overwritten if it
  * already exists. No arguments other than a possible exception are given to the
@@ -1031,9 +1052,9 @@ export const access: typeof fs.access & typeof fs.access.__promisify__ = univers
  * @param dest destination filename of the copy operation
  * @param [mode=0] modifiers for copy operation.
  * @see {@link fs.copyFile}
- * @see {@link fsPromises.copyFile}
+ * @see {@link fs.promises.copyFile}
  */
-export const copyFile: typeof fs.copyFile & typeof fs.copyFile.__promisify__ = universalify(_copyFile);
+export const copyFile: typeof fs.copyFile & typeof fs.copyFile.__promisify__ = universalify(gfs.copyFile);
 /**
  * Write an array of `ArrayBufferView`s to the file specified by `fd` using`writev()`.
  *
@@ -1054,9 +1075,9 @@ export const copyFile: typeof fs.copyFile & typeof fs.copyFile.__promisify__ = u
  * @since v12.9.0
  * @param [position='null']
  * @see {@link fs.writev}
- * @see {@link fsPromises.writev}
+ * @see {@link fs.promises.writev}
  */
-export const writev: typeof fs.writev & typeof fs.writev.__promisify__ = universalify(_writev, (bytesWritten, buffers) => ({bytesWritten, buffers}));
+export const writev: typeof fs.writev & typeof fs.writev.__promisify__ = universalify(gfs.writev, (bytesWritten, buffers) => ({bytesWritten, buffers}));
 /**
  * Read from a file specified by `fd` and write to an array of `ArrayBufferView`s
  * using `readv()`.
@@ -1072,9 +1093,9 @@ export const writev: typeof fs.writev & typeof fs.writev.__promisify__ = univers
  * @since v13.13.0, v12.17.0
  * @param [position='null']
  * @see {@link fs.readv}
- * @see {@link fsPromises.readv}
+ * @see {@link fs.promises.readv}
  */
-export const readv: typeof fs.readv & typeof fs.readv.__promisify__ = universalify(_readv, (bytesRead, buffers) => ({bytesRead, buffers}));
+export const readv: typeof fs.readv & typeof fs.readv.__promisify__ = universalify(gfs.readv, (bytesRead, buffers) => ({bytesRead, buffers}));
 /**
  * Asynchronously open a directory. See the POSIX [`opendir(3)`](http://man7.org/linux/man-pages/man3/opendir.3.html) documentation for
  * more details.
@@ -1086,9 +1107,9 @@ export const readv: typeof fs.readv & typeof fs.readv.__promisify__ = universali
  * directory and subsequent read operations.
  * @since v12.12.0
  * @see {@link fs.opendir}
- * @see {@link fsPromises.opendir}
+ * @see {@link fs.promises.opendir}
  */
-export const opendir: typeof fs.opendir & typeof fs.opendir.__promisify__ = universalify(_opendir);
+export const opendir: typeof fs.opendir & typeof fs.opendir.__promisify__ = universalify(gfs.opendir);
 
 /**
  * Asynchronously copies the entire directory structure from `src` to `dest`,
@@ -1104,10 +1125,10 @@ export const opendir: typeof fs.opendir & typeof fs.opendir.__promisify__ = univ
 export const cp: typeof fs.cp & {
     cp(source: string | URL, destination: string | URL): Promise<void>;
     cp(source: string | URL, destination: string | URL, opts: fs.CopyOptions): Promise<void>;
-} = universalify(_cp) as any;
+} = universalify(gfs.cp) as any;
 
-if (typeof _realpath.native === 'function') {
-    realpath.native = universalify(_realpath.native) as any;
+if (typeof realFs.realpath.native === 'function') {
+    realpath.native = universalify(realFs.realpath.native) as any;
 } else {
     process.emitWarning(
         'fs.realpath.native is not a function. Is fs being monkey-patched?',
